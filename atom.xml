@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://www.cmsj.in</id>
+    <title>长陌似锦</title>
+    <updated>2020-11-03T14:28:40.210Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://www.cmsj.in"/>
+    <link rel="self" href="https://www.cmsj.in/atom.xml"/>
+    <subtitle>--讷于言  敏于行--&lt;br&gt;&lt;br&gt;
+奥利给，干啦兄弟们！</subtitle>
+    <logo>https://www.cmsj.in/images/avatar.png</logo>
+    <icon>https://www.cmsj.in/favicon.ico</icon>
+    <rights>All rights reserved 2020, 长陌似锦</rights>
+    <entry>
+        <title type="html"><![CDATA[沉默是金]]></title>
+        <id>https://www.cmsj.in/post/YlK24wF0v/</id>
+        <link href="https://www.cmsj.in/post/YlK24wF0v/">
+        </link>
+        <updated>2019-07-02T13:24:00.000Z</updated>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Domcomp 在线域名比价大全]]></title>
+        <id>https://www.cmsj.in/post/A1kr1RwAw/</id>
+        <link href="https://www.cmsj.in/post/A1kr1RwAw/">
+        </link>
+        <updated>2019-07-02T12:30:45.000Z</updated>
+        <summary type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a> 网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a> 网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券]]></title>
+        <id>https://www.cmsj.in/post/0Nmc_d0Z-/</id>
+        <link href="https://www.cmsj.in/post/0Nmc_d0Z-/">
+        </link>
+        <updated>2019-07-02T12:25:02.000Z</updated>
+        <summary type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
+]]></content>
+    </entry>
+</feed>
