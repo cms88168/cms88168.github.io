@@ -2,12 +2,11 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>长陌似锦</title>
-    <updated>2020-11-03T15:25:23.707Z</updated>
+    <updated>2020-11-05T13:49:57.367Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
-    <subtitle>--讷于言  敏于行--&lt;br&gt;&lt;br&gt;
-奥利给，干了兄弟们！</subtitle>
+    <subtitle>--讷于言  敏于行--</subtitle>
     <logo>https://www.cmsj.in/images/avatar.png</logo>
     <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2020, 长陌似锦</rights>
