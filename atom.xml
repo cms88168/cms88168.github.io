@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+    <id>https://cms88168.github.io</id>
+    <title>蒼茫世界</title>
+    <updated>2021-09-07T09:24:06.391Z</updated>
+    <generator>https://github.com/jpmonette/feed</generator>
+    <link rel="alternate" href="https://cms88168.github.io"/>
+    <link rel="self" href="https://cms88168.github.io/atom.xml"/>
+    <subtitle>蒼茫世界,誰主沉浮</subtitle>
+    <logo>https://cms88168.github.io/images/avatar.png</logo>
+    <icon>https://cms88168.github.io/favicon.ico</icon>
+    <rights>All rights reserved 2021, 蒼茫世界</rights>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方]]></title>
+        <id>https://cms88168.github.io/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/</id>
+        <link href="https://cms88168.github.io/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">
+        </link>
+        <updated>2020-08-06T17:21:52.000Z</updated>
+        <summary type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
+<img src="/post-images/1630948999715.png" alt="" loading="lazy"></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
+<img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
+<!-- more -->
+<p>相关的程序实现如下：</p>
+<pre><code class="language-java">package com.company;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
+
+public class Main {
+
+    static String s = &quot;&quot;;
+    static int high = 0;
+
+    public static void main(String[] args) {
+        System.out.println(&quot;请输入最大值：&quot;);
+        io();
+        long sum = 0;
+        //sumSaver数组存放从1到数组下标的立方和
+        long[] sumSaver = new long[high];
+        //i3Saver数组存放数组下表的立方值
+        long[] i3Saver = new long[high];
+        for (long i = 1; i &lt;= high; i++) {
+            i3Saver[(int) i - 1] = i * i * i;
+            sum = sum + i3Saver[(int) i - 1];
+            sumSaver[(int) i - 1] = sum;
+
+        }
+        //要求的最大项数组下标
+        for (int i = 3; i &lt;= high; i++) {
+            //左边从开始到第j项的和
+            for (int j = 1; j &lt; i; j++) {
+                //再减去左边第k项的和
+                for (int k = 1; k &lt; j; k++) {
+                    long temp = sumSaver[j - 1] - sumSaver[k - 1];
+                    if (i3Saver[i - 1] == temp) {
+                        System.out.printf(&quot;%d³=%d³+...+%d³\n&quot;, i, k + 1, j);
+                        break;
+                    }
+                    if (i3Saver[i - 1] &gt; temp) {
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    static void io() {
+        try {
+            BufferedReader io = new BufferedReader(new InputStreamReader(System.in));
+            s = io.readLine();
+            try {
+                high = Integer.parseInt(s);
+            } catch (NumberFormatException e) {
+                System.out.println(&quot;请输入数字！&quot;);
+                Main.io();
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+            Main.io();
+        }
+    }
+
+}
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券]]></title>
+        <id>https://cms88168.github.io/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/</id>
+        <link href="https://cms88168.github.io/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/">
+        </link>
+        <updated>2020-05-02T02:11:13.000Z</updated>
+        <summary type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
+<p>这里先送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
+]]></summary>
+        <content type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
+<p>这里先送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
+<!-- more -->
+<h2 id="namesilo优势">Namesilo优势</h2>
+<p>低价格：com域名为例，新注册域名为8.99美元，续费价格不变，仍为8.99美元。虽说godaddy有Domain Discount Club的8.49美元每年的续费价格（需交58美元一年获取此价格），但即使是达到182个以上域名，godaddy价格低于namesilo的续费价格时候，namesilo仍有一项巨大的优势，就是永久免费的域名隐私，而同样服务在godaddy每年的价格为9.99美金。</p>
+<p>高可用性：godaddy树大招风，name server 经常在国内被照顾造成域名解析不正常，其网站本身也有这样的困扰。每次找优惠码尝试的时候，都要挂代理，否则打开一个页面都要好几分钟。而namesilo就好的多，访问页面非常顺畅，而目前为止也没有任何name server被关照的先例。</p>
+<p>高安全性：namesilo本身就有类似qq密码保护的安全问题等加强型安全措施，相对于godaddy等单一密码凭证要强上许多，最近又加上了google的TSV（Two Step Verification，两部验证），更是让namesilo的安全系数达到消费级域名服务提供商的顶级水准。当然，还有免费的域名隐私保护更是锦上添花。</p>
+<p>免费域名隐私：域名隐私保护不仅可以让域名注册者的信息免于泄露，更是无形当中提高了域名安全性，同时也解决了垃圾邮件的困扰。</p>
+<p>支持支付宝：除了paypal和信用卡，支付宝直接支付对于大陆用户来说要方便得多。</p>
+<h2 id="1访问网站并注册用户账号">1.访问网站并注册用户账号</h2>
+<p>直接去官网：www.namesilo.com<br>
+<img src="https://cms88168.github.io/post-images/1630948452805.png" alt="" loading="lazy"></p>
+<p>邮箱可以填 QQ邮箱，国家选择 China，注册信息尽量真实。没有必要担心你的真实信息被暴露，Namesilo 会提供免费的 Domain Privacy Protection 服务。</p>
+<p>注册完之后，记得去邮箱激活验证邮件。如果没有收到 validation email，可以在用户平台 account 里面 resend validation email.</p>
+<h2 id="2选择域名准备注册">2.选择域名准备注册</h2>
+<p>在register页面，输入自己想要的域名，点击SEARCH：<br>
+<img src="https://cms88168.github.io/post-images/1630948468952.png" alt="" loading="lazy"></p>
+<h2 id="3选择域名后缀">3.选择域名后缀</h2>
+<p>在你想要注册的后缀前面打√，推荐com，之后点击REGISTER CHECKED DOMAINS：<br>
+<img src="https://cms88168.github.io/post-images/1630948481952.png" alt="" loading="lazy"></p>
+<h2 id="4选择域名参数并使用优惠码">4.选择域名参数并使用优惠码</h2>
+<p><img src="https://cms88168.github.io/post-images/1630948496575.png" alt="" loading="lazy"><br>
+如上图所示，可以设置域名的参数。在下方优惠码提交栏可以输入优惠码，之后点击Submit，可以减1刀。再次送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
+<h2 id="5选择支付方式">5.选择支付方式</h2>
+<p>目前NameSilo支持支付宝、信用卡、PayPal等多种支付方式，选择一个自己喜欢的支付方式即可</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Domcomp 在线域名比价大全]]></title>
+        <id>https://cms88168.github.io/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/</id>
+        <link href="https://cms88168.github.io/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">
+        </link>
+        <updated>2020-01-31T16:46:17.000Z</updated>
+        <summary type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a>  网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
+<p>这个站是真的强 一方面可以查寻域名注册情况 同时还可以比较多个域名注册商价格 我的域名就是在里面找的：）</p>
+]]></summary>
+        <content type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a>  网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
+<p>这个站是真的强 一方面可以查寻域名注册情况 同时还可以比较多个域名注册商价格 我的域名就是在里面找的：）</p>
+<!-- more -->
+]]></content>
+    </entry>
+</feed>
