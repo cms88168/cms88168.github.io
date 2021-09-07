@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://cms88168.github.io</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-07T09:24:06.391Z</updated>
+    <updated>2021-09-07T09:28:26.448Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://cms88168.github.io"/>
     <link rel="self" href="https://cms88168.github.io/atom.xml"/>
@@ -17,7 +17,7 @@
         </link>
         <updated>2020-08-06T17:21:52.000Z</updated>
         <summary type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
-<img src="/post-images/1630948999715.png" alt="" loading="lazy"></p>
+<img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
 ]]></summary>
         <content type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
 <img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
