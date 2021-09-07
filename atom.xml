@@ -1,26 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://cms88168.github.io</id>
+    <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-07T09:28:26.448Z</updated>
+    <updated>2021-09-07T09:55:36.205Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://cms88168.github.io"/>
-    <link rel="self" href="https://cms88168.github.io/atom.xml"/>
+    <link rel="alternate" href="https://www.cmsj.in"/>
+    <link rel="self" href="https://www.cmsj.in/atom.xml"/>
     <subtitle>蒼茫世界,誰主沉浮</subtitle>
-    <logo>https://cms88168.github.io/images/avatar.png</logo>
-    <icon>https://cms88168.github.io/favicon.ico</icon>
+    <logo>https://www.cmsj.in/images/avatar.png</logo>
+    <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2021, 蒼茫世界</rights>
     <entry>
         <title type="html"><![CDATA[Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方]]></title>
-        <id>https://cms88168.github.io/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/</id>
-        <link href="https://cms88168.github.io/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">
         </link>
         <updated>2020-08-06T17:21:52.000Z</updated>
         <summary type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
 <img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
 ]]></summary>
         <content type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
-<img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
+<img src="https://www.cmsj.in/post-images/1630948999715.png" alt="" loading="lazy"></p>
 <!-- more -->
 <p>相关的程序实现如下：</p>
 <pre><code class="language-java">package com.company;
@@ -90,8 +90,8 @@ public class Main {
     </entry>
     <entry>
         <title type="html"><![CDATA[在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券]]></title>
-        <id>https://cms88168.github.io/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/</id>
-        <link href="https://cms88168.github.io/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/">
+        <id>https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/</id>
+        <link href="https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/">
         </link>
         <updated>2020-05-02T02:11:13.000Z</updated>
         <summary type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
@@ -108,17 +108,17 @@ public class Main {
 <p>支持支付宝：除了paypal和信用卡，支付宝直接支付对于大陆用户来说要方便得多。</p>
 <h2 id="1访问网站并注册用户账号">1.访问网站并注册用户账号</h2>
 <p>直接去官网：www.namesilo.com<br>
-<img src="https://cms88168.github.io/post-images/1630948452805.png" alt="" loading="lazy"></p>
+<img src="https://www.cmsj.in/post-images/1630948452805.png" alt="" loading="lazy"></p>
 <p>邮箱可以填 QQ邮箱，国家选择 China，注册信息尽量真实。没有必要担心你的真实信息被暴露，Namesilo 会提供免费的 Domain Privacy Protection 服务。</p>
 <p>注册完之后，记得去邮箱激活验证邮件。如果没有收到 validation email，可以在用户平台 account 里面 resend validation email.</p>
 <h2 id="2选择域名准备注册">2.选择域名准备注册</h2>
 <p>在register页面，输入自己想要的域名，点击SEARCH：<br>
-<img src="https://cms88168.github.io/post-images/1630948468952.png" alt="" loading="lazy"></p>
+<img src="https://www.cmsj.in/post-images/1630948468952.png" alt="" loading="lazy"></p>
 <h2 id="3选择域名后缀">3.选择域名后缀</h2>
 <p>在你想要注册的后缀前面打√，推荐com，之后点击REGISTER CHECKED DOMAINS：<br>
-<img src="https://cms88168.github.io/post-images/1630948481952.png" alt="" loading="lazy"></p>
+<img src="https://www.cmsj.in/post-images/1630948481952.png" alt="" loading="lazy"></p>
 <h2 id="4选择域名参数并使用优惠码">4.选择域名参数并使用优惠码</h2>
-<p><img src="https://cms88168.github.io/post-images/1630948496575.png" alt="" loading="lazy"><br>
+<p><img src="https://www.cmsj.in/post-images/1630948496575.png" alt="" loading="lazy"><br>
 如上图所示，可以设置域名的参数。在下方优惠码提交栏可以输入优惠码，之后点击Submit，可以减1刀。再次送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
 <h2 id="5选择支付方式">5.选择支付方式</h2>
 <p>目前NameSilo支持支付宝、信用卡、PayPal等多种支付方式，选择一个自己喜欢的支付方式即可</p>
@@ -126,8 +126,8 @@ public class Main {
     </entry>
     <entry>
         <title type="html"><![CDATA[Domcomp 在线域名比价大全]]></title>
-        <id>https://cms88168.github.io/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/</id>
-        <link href="https://cms88168.github.io/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">
+        <id>https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/</id>
+        <link href="https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">
         </link>
         <updated>2020-01-31T16:46:17.000Z</updated>
         <summary type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a>  网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
