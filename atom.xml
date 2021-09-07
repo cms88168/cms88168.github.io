@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-07T14:32:58.544Z</updated>
+    <updated>2021-09-07T14:35:35.177Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -15,7 +15,7 @@
         <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-ben-shu-ju-lei-xing/</id>
         <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-ben-shu-ju-lei-xing/">
         </link>
-        <updated>2020-09-07T14:07:44.000Z</updated>
+        <updated>2020-08-10T14:07:44.000Z</updated>
         <summary type="html"><![CDATA[<p>变量就是申请内存来存储值。也就是说，当创建变量的时候，需要在内存中申请空间。</p>
 <p>内存管理系统根据变量的类型为变量分配存储空间，分配的空间只能用来储存该类型数据。</p>
 <p>因此，通过定义不同类型的变量，可以在内存中储存整数、小数或者字符。</p>
@@ -389,6 +389,8 @@ b = a;                   // 将a存储空间中的地址写到b的存储空间�
 <p>答：在java的世界里，如果比int类型小的类型做运算，java在编译的时候就会将它们统一强转成int类型。当是比int类型大的类型做运算，就会自动转换成它们中最大类型那个。</p>
 <p>4.char a = 'S'; char 后面赋值要用单引号，因为是字符型数据类型</p>
 <p>String a = &quot;I AM FINE&quot;; String 后面赋值要用双引号，因为是字符串数据类型</p>
+<p>5.Java中没有“无符号数”<br>
+可以使用long来处理无符号整数(uint)</p>
 ]]></content>
     </entry>
     <entry>
