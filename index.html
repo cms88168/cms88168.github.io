@@ -9,7 +9,7 @@
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
 <title>蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631118437227">
+<link rel="shortcut icon" href="/favicon.ico?v=1631118603851">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -334,7 +334,15 @@
       <div class="post-body">
         
         
-          
+          <p>Java自身UI界面太丑怎么办？通过在加载窗口时加入以下代码就可以将Java应用程序GUI设置成当前系统风格：</p>
+<pre><code class="language-java">try {
+    // 设置本机系统外观
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception e) {
+	e.printStackTrace();
+}
+</code></pre>
+
           
         
         
@@ -1560,6 +1568,7 @@ document.getElementsByTagName("body")[0].appendChild(e);
 	e.printStackTrace();
 }
 &lt;/code&gt;&lt;/pre&gt;
+&lt;!-- more --&gt;
 &lt;p&gt;根据UIManager源程序，&lt;/p&gt;
 &lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;private static LookAndFeelInfo[] installedLAFs;
 

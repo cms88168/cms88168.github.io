@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-08T16:28:18.100Z</updated>
+    <updated>2021-09-08T16:30:07.405Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -16,6 +16,15 @@
         <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">
         </link>
         <updated>2020-08-17T02:20:06.000Z</updated>
+        <summary type="html"><![CDATA[<p>Java自身UI界面太丑怎么办？通过在加载窗口时加入以下代码就可以将Java应用程序GUI设置成当前系统风格：</p>
+<pre><code class="language-java">try {
+    // 设置本机系统外观
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception e) {
+	e.printStackTrace();
+}
+</code></pre>
+]]></summary>
         <content type="html"><![CDATA[<p>Java自身UI界面太丑怎么办？通过在加载窗口时加入以下代码就可以将Java应用程序GUI设置成当前系统风格：</p>
 <pre><code class="language-java">try {
     // 设置本机系统外观
@@ -24,6 +33,7 @@
 	e.printStackTrace();
 }
 </code></pre>
+<!-- more -->
 <p>根据UIManager源程序，</p>
 <pre><code class="language-java">private static LookAndFeelInfo[] installedLAFs;
 
