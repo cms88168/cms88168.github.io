@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-08T16:17:52.015Z</updated>
+    <updated>2021-09-08T16:27:24.711Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -10,6 +10,59 @@
     <logo>https://www.cmsj.in/images/avatar.png</logo>
     <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2021, 蒼茫世界</rights>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：更改Swing的Look and Feel UI皮肤]]></title>
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">
+        </link>
+        <updated>2020-08-17T02:20:06.000Z</updated>
+        <content type="html"><![CDATA[<p>Java自身UI界面太丑怎么办？通过在加载窗口时加入以下代码就可以将Java应用程序GUI设置成当前系统风格：</p>
+<pre><code class="language-java">try {
+    // 设置本机系统外观
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception e) {
+	e.printStackTrace();
+}
+</code></pre>
+<p>根据UIManager源程序，</p>
+<pre><code class="language-java">private static LookAndFeelInfo[] installedLAFs;
+
+    static {
+        ArrayList&lt;LookAndFeelInfo&gt; iLAFs = new ArrayList&lt;LookAndFeelInfo&gt;(4);
+        iLAFs.add(new LookAndFeelInfo(
+                      &quot;Metal&quot;, &quot;javax.swing.plaf.metal.MetalLookAndFeel&quot;));
+        iLAFs.add(new LookAndFeelInfo(
+                      &quot;Nimbus&quot;, &quot;javax.swing.plaf.nimbus.NimbusLookAndFeel&quot;));
+        iLAFs.add(new LookAndFeelInfo(&quot;CDE/Motif&quot;,
+                  &quot;com.sun.java.swing.plaf.motif.MotifLookAndFeel&quot;));
+
+        // Only include windows on Windows boxs.
+        OSInfo.OSType osType = AccessController.doPrivileged(OSInfo.getOSTypeAction());
+        if (osType == OSInfo.OSType.WINDOWS) {
+            iLAFs.add(new LookAndFeelInfo(&quot;Windows&quot;,
+                        &quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;));
+            if (Toolkit.getDefaultToolkit().getDesktopProperty(
+                    &quot;win.xpstyle.themeActive&quot;) != null) {
+                iLAFs.add(new LookAndFeelInfo(&quot;Windows Classic&quot;,
+                 &quot;com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel&quot;));
+            }
+        }
+        else if (osType == OSInfo.OSType.MACOSX) {
+            iLAFs.add(new LookAndFeelInfo(&quot;Mac OS X&quot;, &quot;com.apple.laf.AquaLookAndFeel&quot;));
+        }
+        else {
+            // GTK is not shipped on Windows.
+            iLAFs.add(new LookAndFeelInfo(&quot;GTK+&quot;,
+                  &quot;com.sun.java.swing.plaf.gtk.GTKLookAndFeel&quot;));
+        }
+        installedLAFs = iLAFs.toArray(new LookAndFeelInfo[iLAFs.size()]);
+    }
+</code></pre>
+<p>想要更改为windows样式只需要<br>
+<code>UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;);</code><br>
+就可以了。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java程序设计：用“埃氏筛法”求2～n以内的素数]]></title>
         <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-yong-ai-shi-shai-fa-qiu-2~n-yi-nei-de-su-shu/</id>

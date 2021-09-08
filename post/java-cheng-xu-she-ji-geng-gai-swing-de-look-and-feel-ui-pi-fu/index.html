@@ -8,7 +8,7 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
-<title>在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券 | 蒼茫世界</title>
+<title>Java程序设计：更改Swing的Look and Feel UI皮肤 | 蒼茫世界</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631118437227">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -61,8 +61,8 @@
 
 
 
-  <meta name="description" content="在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券" />
-  <meta name="keywords" content="namesilo,域名" />
+  <meta name="description" content="Java程序设计：更改Swing的Look and Feel UI皮肤" />
+  <meta name="keywords" content="Java" />
 </head>
 
 <body>
@@ -221,8 +221,7 @@
       <div class="sidebar-body pisces" id="sidebar_body">
         
           
-            <div class="post-side-meta" id="post_side_meta">
-              
+            
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -289,200 +288,6 @@
   </div>
 
 </div>
-            </div>
-            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
-              <div class="toc-box right-motion">
-  <div class="toc-wrapper auto-number auto"
-    id="toc_wrapper">
-    <ul class="markdownIt-TOC">
-<li>
-<ul>
-<li><a href="#namesilo%E4%BC%98%E5%8A%BF">Namesilo优势</a></li>
-<li><a href="#1%E8%AE%BF%E9%97%AE%E7%BD%91%E7%AB%99%E5%B9%B6%E6%B3%A8%E5%86%8C%E7%94%A8%E6%88%B7%E8%B4%A6%E5%8F%B7">1.访问网站并注册用户账号</a></li>
-<li><a href="#2%E9%80%89%E6%8B%A9%E5%9F%9F%E5%90%8D%E5%87%86%E5%A4%87%E6%B3%A8%E5%86%8C">2.选择域名准备注册</a></li>
-<li><a href="#3%E9%80%89%E6%8B%A9%E5%9F%9F%E5%90%8D%E5%90%8E%E7%BC%80">3.选择域名后缀</a></li>
-<li><a href="#4%E9%80%89%E6%8B%A9%E5%9F%9F%E5%90%8D%E5%8F%82%E6%95%B0%E5%B9%B6%E4%BD%BF%E7%94%A8%E4%BC%98%E6%83%A0%E7%A0%81">4.选择域名参数并使用优惠码</a></li>
-<li><a href="#5%E9%80%89%E6%8B%A9%E6%94%AF%E4%BB%98%E6%96%B9%E5%BC%8F">5.选择支付方式</a></li>
-</ul>
-</li>
-</ul>
-
-  </div>
-</div>
-
-<script>
-
-  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
-  let active = 'active-show', activeClass = 'active-current';
-  let tocWrapper = document.querySelector('#toc_wrapper');
-  let tocContent = tocWrapper.children[0];
-  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
-
-  function addTocNumber(elem, deep) {
-    if (!elem) {
-      return;
-    }
-    let prop = elem.__proto__;
-
-    if (prop === HTMLUListElement.prototype) {
-      for (let i = 0; i < elem.children.length; i++) {
-        addTocNumber(elem.children[i], deep + (i + 1) + '.');
-      }
-    } else if (prop === HTMLLIElement.prototype) {
-      // 保存li元素
-      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
-        lList.push(elem);
-      }
-      for (let i = 0; i < elem.children.length; i++) {
-        let cur = elem.children[i];
-        if (cur.__proto__ === HTMLAnchorElement.prototype) {
-          if (autoNumber) {
-            cur.text = deep + ' ' + cur.text;
-          }
-        } else if (cur.__proto__ === HTMLUListElement.prototype) {
-          addTocNumber(cur, deep);
-        }
-      }
-    }
-  }
-
-  function removeParentActiveClass() {
-    let parents = tocContent.querySelectorAll('.' + active)
-    parents.forEach(function (elem) {
-      elem.classList.remove(active);
-    });
-  }
-
-  function addActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.add(activeClass);
-    }
-  }
-
-  function removeActiveClass(index) {
-    if (index >= 0 && index < hList.length) {
-      lList[index].classList.remove(activeClass);
-    }
-  }
-
-  function addActiveLiElemment(elem, parent) {
-    if (!elem || elem === parent) {
-      return;
-    } else {
-      if (elem.__proto__ === HTMLLIElement.prototype) {
-        elem.classList.add(active);
-      }
-      addActiveLiElemment(elem.parentElement, parent);
-    }
-  }
-
-  function showToc() {
-    if (tocWrapper) {
-      postBody = document.querySelector('#post_body');
-      for (let i = 0; i < postBody.children.length; i++) {
-        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
-          hList.push(postBody.children[i]);
-        }
-      }
-      if (tocWrapper.classList.contains('compress')) {
-        tocContent.classList.add('closed');
-      } else if (tocWrapper.classList.contains('no_compress')) {
-        tocContent.classList.add('expanded');
-      } else {
-        if (hList.length > 10) {
-          active = 'active-hidden'
-          tocContent.classList.add('closed');
-        } else {
-          tocContent.classList.add('expanded');
-        }
-      }
-    }
-  }
-
-  (function () {
-    // 处理不是从#一级标题开始目录
-    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
-      let con = tocContent.children[0].children[0];
-      tocContent.innerHTML = con.innerHTML;
-    }
-    let markdownItTOC = document.querySelector('.markdownIt-TOC');
-    let innerHeight = window.innerHeight;
-    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
-    addTocNumber(tocContent, '');
-  })();
-
-  document.addEventListener('scroll', function (e) {
-    if (lList.length <= 0) {
-      return;
-    }
-    let scrollTop = document.scrollingElement.scrollTop + 10;
-    let dir;
-
-    if (lastTop - scrollTop > 0) {
-      dir = 'up';
-    } else {
-      dir = 'down';
-    }
-
-    lastTop = scrollTop;
-    if (scrollTop <= 0) {
-      if (lastIndex >= 0 && lastIndex < hList.length) {
-        lList[lastIndex].classList.remove(activeClass);
-      }
-      return;
-    }
-
-    let current = 0, hasFind = false;
-    for (let i = 0; i < hList.length; i++) {
-      if (hList[i].offsetTop > scrollTop) {
-        current = i;
-        hasFind = true;
-        break;
-      }
-    }
-    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
-      current = hList.length - 1;
-    } else {
-      current--;
-    }
-    if (dir === 'down') {
-      if (current > lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex)
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    } else {
-      if (current < lastIndex) {
-        addActiveClass(current);
-        removeActiveClass(lastIndex);
-        lastIndex = current;
-        removeParentActiveClass();
-        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
-      }
-    }
-  });
-
-
-  window.addEventListener('load', function () {
-    showToc();
-    document.querySelector('#sidebar').style = 'display: block;';
-    tocWrapper.classList.add('toc-active');
-    setTimeout(function () {
-      if ("createEvent" in document) {
-        let evt = document.createEvent("HTMLEvents");
-        evt.initEvent("scroll", false, true);
-        document.dispatchEvent(evt);
-      }
-      else {
-        document.fireEvent("scroll");
-      }
-    }, 500)
-  })
-
-</script>
-            </div>
           
         
       </div>
@@ -570,8 +375,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/">
-      在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券
+    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">
+      Java程序设计：更改Swing的Look and Feel UI皮肤
     </a>
   </h1>
   <div class="post-meta">
@@ -579,7 +384,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-05-02 10:11:13">2020-05-02</span>
+      <span class="publish-time" data-t="2020-08-17 10:20:06">2020-08-17</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -588,14 +393,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://www.cmsj.in/tag/namesilo/">
-        <span>namesilo</span>
-      </a>、
-      
-      
-      
-      <a href="https://www.cmsj.in/tag/domain/">
-        <span>域名</span>
+      <a href="https://www.cmsj.in/tag/java/">
+        <span>Java</span>
       </a>
       
       
@@ -604,17 +403,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>3<span class="language" data-lan="minute">分钟</span></span>
+      <span>2<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>781<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>265<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/" data-flag-title="在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/" data-flag-title="Java程序设计：更改Swing的Look and Feel UI皮肤" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -623,31 +422,51 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
-<p>这里先送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
-<!-- more -->
-<h2 id="namesilo优势">Namesilo优势</h2>
-<p>低价格：com域名为例，新注册域名为8.99美元，续费价格不变，仍为8.99美元。虽说godaddy有Domain Discount Club的8.49美元每年的续费价格（需交58美元一年获取此价格），但即使是达到182个以上域名，godaddy价格低于namesilo的续费价格时候，namesilo仍有一项巨大的优势，就是永久免费的域名隐私，而同样服务在godaddy每年的价格为9.99美金。</p>
-<p>高可用性：godaddy树大招风，name server 经常在国内被照顾造成域名解析不正常，其网站本身也有这样的困扰。每次找优惠码尝试的时候，都要挂代理，否则打开一个页面都要好几分钟。而namesilo就好的多，访问页面非常顺畅，而目前为止也没有任何name server被关照的先例。</p>
-<p>高安全性：namesilo本身就有类似qq密码保护的安全问题等加强型安全措施，相对于godaddy等单一密码凭证要强上许多，最近又加上了google的TSV（Two Step Verification，两部验证），更是让namesilo的安全系数达到消费级域名服务提供商的顶级水准。当然，还有免费的域名隐私保护更是锦上添花。</p>
-<p>免费域名隐私：域名隐私保护不仅可以让域名注册者的信息免于泄露，更是无形当中提高了域名安全性，同时也解决了垃圾邮件的困扰。</p>
-<p>支持支付宝：除了paypal和信用卡，支付宝直接支付对于大陆用户来说要方便得多。</p>
-<h2 id="1访问网站并注册用户账号">1.访问网站并注册用户账号</h2>
-<p>直接去官网：www.namesilo.com<br>
-<img src="https://www.cmsj.in/post-images/1630948452805.png" alt="" loading="lazy"></p>
-<p>邮箱可以填 QQ邮箱，国家选择 China，注册信息尽量真实。没有必要担心你的真实信息被暴露，Namesilo 会提供免费的 Domain Privacy Protection 服务。</p>
-<p>注册完之后，记得去邮箱激活验证邮件。如果没有收到 validation email，可以在用户平台 account 里面 resend validation email.</p>
-<h2 id="2选择域名准备注册">2.选择域名准备注册</h2>
-<p>在register页面，输入自己想要的域名，点击SEARCH：<br>
-<img src="https://www.cmsj.in/post-images/1630948468952.png" alt="" loading="lazy"></p>
-<h2 id="3选择域名后缀">3.选择域名后缀</h2>
-<p>在你想要注册的后缀前面打√，推荐com，之后点击REGISTER CHECKED DOMAINS：<br>
-<img src="https://www.cmsj.in/post-images/1630948481952.png" alt="" loading="lazy"></p>
-<h2 id="4选择域名参数并使用优惠码">4.选择域名参数并使用优惠码</h2>
-<p><img src="https://www.cmsj.in/post-images/1630948496575.png" alt="" loading="lazy"><br>
-如上图所示，可以设置域名的参数。在下方优惠码提交栏可以输入优惠码，之后点击Submit，可以减1刀。再次送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
-<h2 id="5选择支付方式">5.选择支付方式</h2>
-<p>目前NameSilo支持支付宝、信用卡、PayPal等多种支付方式，选择一个自己喜欢的支付方式即可</p>
+              <p>Java自身UI界面太丑怎么办？通过在加载窗口时加入以下代码就可以将Java应用程序GUI设置成当前系统风格：</p>
+<pre><code class="language-java">try {
+    // 设置本机系统外观
+	UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+} catch (Exception e) {
+	e.printStackTrace();
+}
+</code></pre>
+<p>根据UIManager源程序，</p>
+<pre><code class="language-java">private static LookAndFeelInfo[] installedLAFs;
+
+    static {
+        ArrayList&lt;LookAndFeelInfo&gt; iLAFs = new ArrayList&lt;LookAndFeelInfo&gt;(4);
+        iLAFs.add(new LookAndFeelInfo(
+                      &quot;Metal&quot;, &quot;javax.swing.plaf.metal.MetalLookAndFeel&quot;));
+        iLAFs.add(new LookAndFeelInfo(
+                      &quot;Nimbus&quot;, &quot;javax.swing.plaf.nimbus.NimbusLookAndFeel&quot;));
+        iLAFs.add(new LookAndFeelInfo(&quot;CDE/Motif&quot;,
+                  &quot;com.sun.java.swing.plaf.motif.MotifLookAndFeel&quot;));
+
+        // Only include windows on Windows boxs.
+        OSInfo.OSType osType = AccessController.doPrivileged(OSInfo.getOSTypeAction());
+        if (osType == OSInfo.OSType.WINDOWS) {
+            iLAFs.add(new LookAndFeelInfo(&quot;Windows&quot;,
+                        &quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;));
+            if (Toolkit.getDefaultToolkit().getDesktopProperty(
+                    &quot;win.xpstyle.themeActive&quot;) != null) {
+                iLAFs.add(new LookAndFeelInfo(&quot;Windows Classic&quot;,
+                 &quot;com.sun.java.swing.plaf.windows.WindowsClassicLookAndFeel&quot;));
+            }
+        }
+        else if (osType == OSInfo.OSType.MACOSX) {
+            iLAFs.add(new LookAndFeelInfo(&quot;Mac OS X&quot;, &quot;com.apple.laf.AquaLookAndFeel&quot;));
+        }
+        else {
+            // GTK is not shipped on Windows.
+            iLAFs.add(new LookAndFeelInfo(&quot;GTK+&quot;,
+                  &quot;com.sun.java.swing.plaf.gtk.GTKLookAndFeel&quot;));
+        }
+        installedLAFs = iLAFs.toArray(new LookAndFeelInfo[iLAFs.size()]);
+    }
+</code></pre>
+<p>想要更改为windows样式只需要<br>
+<code>UIManager.setLookAndFeel(&quot;com.sun.java.swing.plaf.windows.WindowsLookAndFeel&quot;);</code><br>
+就可以了。</p>
 
             </div>
             
@@ -660,7 +479,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/" title="在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券">https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/</a>
+      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/" title="Java程序设计：更改Swing的Look and Feel UI皮肤">https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -669,23 +488,17 @@
   </ul>
   <div class="tags">
     
-      <a href="https://www.cmsj.in/tag/namesilo/"># namesilo</a>
-    
-      <a href="https://www.cmsj.in/tag/domain/"># 域名</a>
+      <a href="https://www.cmsj.in/tag/java/"># Java</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Domcomp 在线域名比价大全" href="https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">Domcomp 在线域名比价大全</a>
-        <a class="nav-mobile-next" title="Domcomp 在线域名比价大全" href="https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">下一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：用“埃氏筛法”求2～n以内的素数" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yong-ai-shi-shai-fa-qiu-2~n-yi-nei-de-su-shu/">Java程序设计：用“埃氏筛法”求2～n以内的素数</a>
+        <a class="nav-mobile-next" title="Java程序设计：用“埃氏筛法”求2～n以内的素数" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yong-ai-shi-shai-fa-qiu-2~n-yi-nei-de-su-shu/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
