@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-08T19:01:10.338Z</updated>
+    <updated>2021-09-10T14:03:28.259Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -10,6 +10,29 @@
     <logo>https://www.cmsj.in/images/avatar.png</logo>
     <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2021, 蒼茫世界</rights>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：使用NotePad++编译并运行单文件]]></title>
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">
+        </link>
+        <updated>2020-08-25T13:50:35.000Z</updated>
+        <summary type="html"><![CDATA[<p>练习时经常打开一些单个的.java文件，使用IDEA的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>练习时经常打开一些单个的.java文件，使用IDEA的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。</p>
+<!-- more -->
+<p>点击菜单栏-运行-运行按钮，如图所示：<img src="https://www.cmsj.in/post-images/1631282232824.png" alt="" loading="lazy"></p>
+<p>在运行框中分别输入如下的指令，点击保存，输入对应的名称，就可以在运行菜单看到它们了。</p>
+<p>Java编译-UTF-8<br>
+<code>cmd /k javac -encoding UTF-8 &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp; PAUSE &amp; EXIT</code></p>
+<p>Java编译-GBK<br>
+<code>cmd /k javac &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp; PAUSE &amp; EXIT</code></p>
+<p>Java运行-UTF-8<br>
+<code>cmd /k cd /d &quot;$(CURRENT_DIRECTORY)&quot; &amp; java -Dfile.encoding=UTF-8 &quot;$(NAME_PART)&quot; &amp; pause &amp; exit</code></p>
+<p>Java运行-GBK<br>
+<code>cmd /k cd /d &quot;$(CURRENT_DIRECTORY)&quot; &amp; java &quot;$(NAME_PART)&quot; &amp; pause &amp; exit</code></p>
+<p>当然系统中需要安装JDK并配置好环境变量哦:)</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java程序设计：统计代码的执行时间的3种方法]]></title>
         <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/</id>
