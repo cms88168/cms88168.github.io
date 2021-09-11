@@ -9,7 +9,7 @@
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
 <title>蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631282510178">
+<link rel="shortcut icon" href="/favicon.ico?v=1631362599637">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -227,13 +227,13 @@
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -297,6 +297,12 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
       
       
       
@@ -1191,20 +1197,36 @@ document.getElementsByTagName("body")[0].appendChild(e);
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/"" data-c="
-          &lt;p&gt;练习时经常打开一些单个的.java文件，使用IDEA的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。&lt;/p&gt;
+          &lt;p&gt;练习时经常打开一些单个的.java，.py，.c/.cpp文件，使用IDEA、PyCharm、Clion/Visual Studio的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。&lt;/p&gt;
 &lt;!-- more --&gt;
+&lt;h1 id=&#34;创建命令&#34;&gt;创建命令&lt;/h1&gt;
 &lt;p&gt;点击菜单栏-运行-运行按钮，如图所示：&lt;img src=&#34;https://www.cmsj.in/post-images/1631282232824.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在运行框中分别输入如下的指令，点击保存，输入对应的名称，就可以在运行菜单看到它们了。&lt;/p&gt;
-&lt;p&gt;Java编译-UTF-8&lt;br&gt;
-&lt;code&gt;cmd /k javac -encoding UTF-8 &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp; PAUSE &amp;amp; EXIT&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java编译-GBK&lt;br&gt;
-&lt;code&gt;cmd /k javac &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp; PAUSE &amp;amp; EXIT&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java运行-UTF-8&lt;br&gt;
-&lt;code&gt;cmd /k cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; java -Dfile.encoding=UTF-8 &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; pause &amp;amp; exit&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java运行-GBK&lt;br&gt;
-&lt;code&gt;cmd /k cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; java &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; pause &amp;amp; exit&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;当然系统中需要安装JDK并配置好环境变量哦:)&lt;/p&gt;
-">Java程序设计：使用NotePad++编译并运行单文件</a>
+&lt;p&gt;Java编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c javac -encoding UTF-8 -d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp;&amp;amp; java -cp &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; -Dfile.encoding=UTF-8 &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c javac -d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp;&amp;amp; java -cp &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java反编译-当前选中类&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;amp;&amp;amp; javap -c -v -p &amp;quot;$(CURRENT_WORD)&amp;quot;&amp;gt;&amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp;&amp;amp; type &amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp;&amp;amp; &amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp; pause&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java反编译-当前文件所有类&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;amp;&amp;amp; javap -c -v -p *.class&amp;gt;class.txt &amp;amp;&amp;amp; type class.txt &amp;amp;&amp;amp; class.txt &amp;amp; pause&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Python运行&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; python &amp;quot;$(FILE_NAME)&amp;quot; &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; gcc -fexec-charset=GBK &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; gcc &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C++编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; g++ -fexec-charset=GBK &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C++编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; g++ &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;修改命令&#34;&gt;修改命令&lt;/h1&gt;
+&lt;p&gt;想要将原来的命令行修改为改进后的命令行，发现Notepad++并没有提供修改的功能&lt;/p&gt;
+&lt;p&gt;想要修改，有2种办法&lt;/p&gt;
+&lt;p&gt;（1）点击&amp;quot;运行&amp;quot;菜单-&amp;gt;&amp;quot;管理快捷键&amp;quot;按钮后，删除原来的快捷键，然后重新建一遍。&lt;/p&gt;
+&lt;p&gt;（2）修改shortcuts.xml。注意shortcuts.xml的路径有可能为“C:\Users\XXX\AppData\Roaming\Notepad++”下的shortcuts.xml，而并不是“C:\Program Files (x86)\Notepad++”下的shortcuts.xml&lt;/p&gt;
+&lt;p&gt;当然系统中需要安装JDK、Python、MinGW-w64并配置好环境变量哦:)&lt;/p&gt;
+">Java&Python&C/C++程序设计：使用NotePad++编译并运行单文件</a>
       </div>
       
       <div class="item">

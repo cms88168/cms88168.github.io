@@ -8,8 +8,8 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
-<title>Java程序设计：使用NotePad++编译并运行单文件 | 蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631282510178">
+<title>Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件 | 蒼茫世界</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1631362599637">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -61,8 +61,8 @@
 
 
 
-  <meta name="description" content="Java程序设计：使用NotePad++编译并运行单文件" />
-  <meta name="keywords" content="Java" />
+  <meta name="description" content="Java&Python&C/C++程序设计：使用NotePad++编译并运行单文件" />
+  <meta name="keywords" content="Python,C,C++,Java" />
 </head>
 
 <body>
@@ -221,7 +221,8 @@
       <div class="sidebar-body pisces" id="sidebar_body">
         
           
-            
+            <div class="post-side-meta" id="post_side_meta">
+              
 <div class="sidebar-wrapper box-shadow-wrapper bg-color">
   <div class="sidebar-item">
     <img class="site-author-image right-motion" src="/images/avatar.png"/>
@@ -244,13 +245,13 @@
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">3</span>
+        <span class="site-item-stat-count">6</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -288,6 +289,192 @@
   </div>
 
 </div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li><a href="#%E5%88%9B%E5%BB%BA%E5%91%BD%E4%BB%A4">创建命令</a></li>
+<li><a href="#%E4%BF%AE%E6%94%B9%E5%91%BD%E4%BB%A4">修改命令</a></li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
           
         
       </div>
@@ -376,7 +563,7 @@
             <section class="post-header">
   <h1 class="post-title">
     <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">
-      Java程序设计：使用NotePad++编译并运行单文件
+      Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件
     </a>
   </h1>
   <div class="post-meta">
@@ -393,6 +580,24 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
+      <a href="https://www.cmsj.in/tag/python/">
+        <span>Python</span>
+      </a>、
+      
+      
+      
+      <a href="https://www.cmsj.in/tag/c/">
+        <span>C</span>
+      </a>、
+      
+      
+      
+      <a href="https://www.cmsj.in/tag/cpp/">
+        <span>C++</span>
+      </a>、
+      
+      
+      
       <a href="https://www.cmsj.in/tag/java/">
         <span>Java</span>
       </a>
@@ -403,17 +608,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>1<span class="language" data-lan="minute">分钟</span></span>
+      <span>4<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>223<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>642<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/" data-flag-title="Java程序设计：使用NotePad++编译并运行单文件" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/" data-flag-title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -422,19 +627,35 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>练习时经常打开一些单个的.java文件，使用IDEA的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。</p>
+              <p>练习时经常打开一些单个的.java，.py，.c/.cpp文件，使用IDEA、PyCharm、Clion/Visual Studio的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。</p>
 <!-- more -->
+<h1 id="创建命令">创建命令</h1>
 <p>点击菜单栏-运行-运行按钮，如图所示：<img src="https://www.cmsj.in/post-images/1631282232824.png" alt="" loading="lazy"></p>
 <p>在运行框中分别输入如下的指令，点击保存，输入对应的名称，就可以在运行菜单看到它们了。</p>
-<p>Java编译-UTF-8<br>
-<code>cmd /k javac -encoding UTF-8 &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp; PAUSE &amp; EXIT</code></p>
-<p>Java编译-GBK<br>
-<code>cmd /k javac &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp; PAUSE &amp; EXIT</code></p>
-<p>Java运行-UTF-8<br>
-<code>cmd /k cd /d &quot;$(CURRENT_DIRECTORY)&quot; &amp; java -Dfile.encoding=UTF-8 &quot;$(NAME_PART)&quot; &amp; pause &amp; exit</code></p>
-<p>Java运行-GBK<br>
-<code>cmd /k cd /d &quot;$(CURRENT_DIRECTORY)&quot; &amp; java &quot;$(NAME_PART)&quot; &amp; pause &amp; exit</code></p>
-<p>当然系统中需要安装JDK并配置好环境变量哦:)</p>
+<p>Java编译运行-UTF-8<br>
+<code>cmd /c javac -encoding UTF-8 -d &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp;&amp; java -cp &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; -Dfile.encoding=UTF-8 &quot;$(NAME_PART)&quot; &amp; PAUSE</code></p>
+<p>Java编译运行-GBK<br>
+<code>cmd /c javac -d &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; &quot;$(FULL_CURRENT_PATH)&quot; &amp;&amp; echo 编译成功！ &amp;&amp; java -cp &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; &quot;$(NAME_PART)&quot; &amp; PAUSE</code></p>
+<p>Java反编译-当前选中类<br>
+<code>cmd /c cd /d &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; &amp;&amp; javap -c -v -p &quot;$(CURRENT_WORD)&quot;&gt;&quot;$(CURRENT_WORD)&quot;.txt &amp;&amp; type &quot;$(CURRENT_WORD)&quot;.txt &amp;&amp; &quot;$(CURRENT_WORD)&quot;.txt &amp; pause</code></p>
+<p>Java反编译-当前文件所有类<br>
+<code>cmd /c cd /d &quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&quot; &amp;&amp; javap -c -v -p *.class&gt;class.txt &amp;&amp; type class.txt &amp;&amp; class.txt &amp; pause</code></p>
+<p>Python运行<br>
+<code>cmd /c cd /d &quot;$(CURRENT_DIRECTORY)&quot; &amp; python &quot;$(FILE_NAME)&quot; &amp; ECHO. &amp; PAUSE</code></p>
+<p>C编译运行-UTF-8<br>
+<code>cmd /c mkdir &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; cls &amp; cd /d &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; gcc -fexec-charset=GBK &quot;$(FULL_CURRENT_PATH)&quot; -o &quot;$(NAME_PART).exe&quot; &amp;&amp; &quot;$(NAME_PART)&quot;.exe &amp; ECHO. &amp; PAUSE</code></p>
+<p>C编译运行-GBK<br>
+<code>cmd /c mkdir &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; cls &amp; cd /d &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; gcc &quot;$(FULL_CURRENT_PATH)&quot; -o &quot;$(NAME_PART).exe&quot; &amp;&amp; &quot;$(NAME_PART)&quot;.exe &amp; ECHO. &amp; PAUSE</code></p>
+<p>C++编译运行-UTF-8<br>
+<code>cmd /c mkdir &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; cls &amp; cd /d &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; g++ -fexec-charset=GBK &quot;$(FULL_CURRENT_PATH)&quot; -o &quot;$(NAME_PART).exe&quot; &amp;&amp; &quot;$(NAME_PART)&quot;.exe &amp; ECHO. &amp; PAUSE</code></p>
+<p>C++编译运行-GBK<br>
+<code>cmd /c mkdir &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; cls &amp; cd /d &quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&quot; &amp; g++ &quot;$(FULL_CURRENT_PATH)&quot; -o &quot;$(NAME_PART).exe&quot; &amp;&amp; &quot;$(NAME_PART)&quot;.exe &amp; ECHO. &amp; PAUSE</code></p>
+<h1 id="修改命令">修改命令</h1>
+<p>想要将原来的命令行修改为改进后的命令行，发现Notepad++并没有提供修改的功能</p>
+<p>想要修改，有2种办法</p>
+<p>（1）点击&quot;运行&quot;菜单-&gt;&quot;管理快捷键&quot;按钮后，删除原来的快捷键，然后重新建一遍。</p>
+<p>（2）修改shortcuts.xml。注意shortcuts.xml的路径有可能为“C:\Users\XXX\AppData\Roaming\Notepad++”下的shortcuts.xml，而并不是“C:\Program Files (x86)\Notepad++”下的shortcuts.xml</p>
+<p>当然系统中需要安装JDK、Python、MinGW-w64并配置好环境变量哦:)</p>
 
             </div>
             
@@ -447,7 +668,7 @@
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/" title="Java程序设计：使用NotePad++编译并运行单文件">https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/</a>
+      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件">https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -455,6 +676,12 @@
     </li>
   </ul>
   <div class="tags">
+    
+      <a href="https://www.cmsj.in/tag/python/"># Python</a>
+    
+      <a href="https://www.cmsj.in/tag/c/"># C</a>
+    
+      <a href="https://www.cmsj.in/tag/cpp/"># C++</a>
     
       <a href="https://www.cmsj.in/tag/java/"># Java</a>
     
@@ -1583,20 +1810,36 @@ document.getElementsByTagName("body")[0].appendChild(e);
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/"" data-c="
-          &lt;p&gt;练习时经常打开一些单个的.java文件，使用IDEA的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。&lt;/p&gt;
+          &lt;p&gt;练习时经常打开一些单个的.java，.py，.c/.cpp文件，使用IDEA、PyCharm、Clion/Visual Studio的话未免太过笨重，研究了一下，在原来就在使用的文本编辑器NotePad++中设置一番便可方便地编译运行了。&lt;/p&gt;
 &lt;!-- more --&gt;
+&lt;h1 id=&#34;创建命令&#34;&gt;创建命令&lt;/h1&gt;
 &lt;p&gt;点击菜单栏-运行-运行按钮，如图所示：&lt;img src=&#34;https://www.cmsj.in/post-images/1631282232824.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
 &lt;p&gt;在运行框中分别输入如下的指令，点击保存，输入对应的名称，就可以在运行菜单看到它们了。&lt;/p&gt;
-&lt;p&gt;Java编译-UTF-8&lt;br&gt;
-&lt;code&gt;cmd /k javac -encoding UTF-8 &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp; PAUSE &amp;amp; EXIT&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java编译-GBK&lt;br&gt;
-&lt;code&gt;cmd /k javac &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp; PAUSE &amp;amp; EXIT&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java运行-UTF-8&lt;br&gt;
-&lt;code&gt;cmd /k cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; java -Dfile.encoding=UTF-8 &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; pause &amp;amp; exit&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;Java运行-GBK&lt;br&gt;
-&lt;code&gt;cmd /k cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; java &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; pause &amp;amp; exit&lt;/code&gt;&lt;/p&gt;
-&lt;p&gt;当然系统中需要安装JDK并配置好环境变量哦:)&lt;/p&gt;
-">Java程序设计：使用NotePad++编译并运行单文件</a>
+&lt;p&gt;Java编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c javac -encoding UTF-8 -d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp;&amp;amp; java -cp &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; -Dfile.encoding=UTF-8 &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c javac -d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; &amp;amp;&amp;amp; echo 编译成功！ &amp;amp;&amp;amp; java -cp &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;quot;$(NAME_PART)&amp;quot; &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java反编译-当前选中类&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;amp;&amp;amp; javap -c -v -p &amp;quot;$(CURRENT_WORD)&amp;quot;&amp;gt;&amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp;&amp;amp; type &amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp;&amp;amp; &amp;quot;$(CURRENT_WORD)&amp;quot;.txt &amp;amp; pause&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Java反编译-当前文件所有类&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)\Java\$(NAME_PART)&amp;quot; &amp;amp;&amp;amp; javap -c -v -p *.class&amp;gt;class.txt &amp;amp;&amp;amp; type class.txt &amp;amp;&amp;amp; class.txt &amp;amp; pause&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;Python运行&lt;br&gt;
+&lt;code&gt;cmd /c cd /d &amp;quot;$(CURRENT_DIRECTORY)&amp;quot; &amp;amp; python &amp;quot;$(FILE_NAME)&amp;quot; &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; gcc -fexec-charset=GBK &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; gcc &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C++编译运行-UTF-8&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; g++ -fexec-charset=GBK &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;C++编译运行-GBK&lt;br&gt;
+&lt;code&gt;cmd /c mkdir &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; cls &amp;amp; cd /d &amp;quot;$(CURRENT_DIRECTORY)\C_Cpp\$(NAME_PART)&amp;quot; &amp;amp; g++ &amp;quot;$(FULL_CURRENT_PATH)&amp;quot; -o &amp;quot;$(NAME_PART).exe&amp;quot; &amp;amp;&amp;amp; &amp;quot;$(NAME_PART)&amp;quot;.exe &amp;amp; ECHO. &amp;amp; PAUSE&lt;/code&gt;&lt;/p&gt;
+&lt;h1 id=&#34;修改命令&#34;&gt;修改命令&lt;/h1&gt;
+&lt;p&gt;想要将原来的命令行修改为改进后的命令行，发现Notepad++并没有提供修改的功能&lt;/p&gt;
+&lt;p&gt;想要修改，有2种办法&lt;/p&gt;
+&lt;p&gt;（1）点击&amp;quot;运行&amp;quot;菜单-&amp;gt;&amp;quot;管理快捷键&amp;quot;按钮后，删除原来的快捷键，然后重新建一遍。&lt;/p&gt;
+&lt;p&gt;（2）修改shortcuts.xml。注意shortcuts.xml的路径有可能为“C:\Users\XXX\AppData\Roaming\Notepad++”下的shortcuts.xml，而并不是“C:\Program Files (x86)\Notepad++”下的shortcuts.xml&lt;/p&gt;
+&lt;p&gt;当然系统中需要安装JDK、Python、MinGW-w64并配置好环境变量哦:)&lt;/p&gt;
+">Java&Python&C/C++程序设计：使用NotePad++编译并运行单文件</a>
       </div>
       
       <div class="item">
