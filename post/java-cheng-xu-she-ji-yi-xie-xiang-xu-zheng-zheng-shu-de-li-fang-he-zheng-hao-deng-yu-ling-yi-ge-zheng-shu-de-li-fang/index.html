@@ -9,7 +9,7 @@
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
 <title>Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方 | 蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631362599637">
+<link rel="shortcut icon" href="/favicon.ico?v=1631464788849">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -238,19 +238,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">8</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">6</span>
+        <span class="site-item-stat-count">7</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">6</span>
+        <span class="site-item-stat-count">7</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -1638,6 +1638,66 @@ document.getElementsByTagName("body")[0].appendChild(e);
 	  <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-shua-ti-shu-zu-zhong-chong-fu-de-shu-zi/"" data-c="
+          &lt;p&gt;在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任一一个重复的数字。 例如，如果输入长度为7的数组[2,3,1,0,2,5,3]，那么对应的输出是2或者3。存在不合法的输入的话输出-1&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;&lt;strong&gt;示例&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;输入：&lt;br&gt;
+[2,3,1,0,2,5,3]&lt;/p&gt;
+&lt;p&gt;返回值：&lt;br&gt;
+2&lt;/p&gt;
+&lt;p&gt;说明：&lt;br&gt;
+2或3都是对的&lt;/p&gt;
+&lt;h2 id=&#34;思路&#34;&gt;思路&lt;/h2&gt;
+&lt;p&gt;马上想到的就是暴力爆破😅两层循环，数组中每个数都与它后面的数对比，时间复杂度O(n!)太粗暴啦，那么有没有更好的办法呢？&lt;br&gt;
+先排序，然后再遍历看看跟它相邻的数是否相等即可，时间复杂度O(nlogn+n),空间复杂度O(1);&lt;br&gt;
+还可以另外建立一个数组，将对应的数字存放到对应下标的位置，或者用哈希表，走用空间换时间的路子；这样在存放时加个判断，时间复杂度O(n),空间复杂度O(n);&lt;br&gt;
+这题里面允许修改原数组，这样不用新建数组，直接在原来数组中操作，遍历整个数组：&lt;br&gt;
+1、当numbers[i]等于下标i，判断下一个下标是否对应；&lt;br&gt;
+2、当numbers[i]不等于下标i&lt;br&gt;
+(1)numbers[i]==numbers[numbers[i]],此时对应下标i的numbers[i]已经对应，那么出现重复数字；&lt;br&gt;
+(2)否则交换numbers[numbers[i]],numbers[i];&lt;br&gt;
+3、遍历结束都未发现重复数字，则返回-1；&lt;br&gt;
+举例：&lt;br&gt;
+numbers[i] = a, numbers[numbers[i]]=numbers[a]=b,&lt;br&gt;
+通过交换后，numbers[i]=b,numbers[numbers[i]]=numbers[a]=a;&lt;/p&gt;
+&lt;h2 id=&#34;代码&#34;&gt;代码&lt;/h2&gt;
+&lt;p&gt;如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param numbers int整型一维数组 
+     * @return int整型
+     */
+    public int duplicate (int[] numbers) {
+        // write code here
+        for(int i=0;i&amp;lt;numbers.length;){              
+            //注意这里，需要在判断i==numbers[i]后才能i++，否则有漏网之鱼
+            if(i==numbers[i])i++;
+            else{
+                if(numbers[i]==numbers[numbers[i]])return numbers[i];
+                else {int tmp=0;
+                      tmp=numbers[numbers[i]];
+                      numbers[numbers[i]]=numbers[i];
+                      numbers[i]=tmp;
+                    
+                }
+            }
+            
+        }
+        return -1;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+">Java刷题：数组中重复的数字</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/"" data-c="

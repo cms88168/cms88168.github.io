@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-11T12:18:00.378Z</updated>
+    <updated>2021-09-12T17:06:52.760Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -10,6 +10,71 @@
     <logo>https://www.cmsj.in/images/avatar.png</logo>
     <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2021, 蒼茫世界</rights>
+    <entry>
+        <title type="html"><![CDATA[Java刷题：数组中重复的数字]]></title>
+        <id>https://www.cmsj.in/post/java-shua-ti-shu-zu-zhong-chong-fu-de-shu-zi/</id>
+        <link href="https://www.cmsj.in/post/java-shua-ti-shu-zu-zhong-chong-fu-de-shu-zi/">
+        </link>
+        <updated>2020-09-02T09:17:04.000Z</updated>
+        <summary type="html"><![CDATA[<p>在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任一一个重复的数字。 例如，如果输入长度为7的数组[2,3,1,0,2,5,3]，那么对应的输出是2或者3。存在不合法的输入的话输出-1</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>在一个长度为n的数组里的所有数字都在0到n-1的范围内。 数组中某些数字是重复的，但不知道有几个数字是重复的。也不知道每个数字重复几次。请找出数组中任一一个重复的数字。 例如，如果输入长度为7的数组[2,3,1,0,2,5,3]，那么对应的输出是2或者3。存在不合法的输入的话输出-1</p>
+<!-- more -->
+<p><strong>示例</strong></p>
+<p>输入：<br>
+[2,3,1,0,2,5,3]</p>
+<p>返回值：<br>
+2</p>
+<p>说明：<br>
+2或3都是对的</p>
+<h2 id="思路">思路</h2>
+<p>马上想到的就是暴力爆破😅两层循环，数组中每个数都与它后面的数对比，时间复杂度O(n!)太粗暴啦，那么有没有更好的办法呢？<br>
+先排序，然后再遍历看看跟它相邻的数是否相等即可，时间复杂度O(nlogn+n),空间复杂度O(1);<br>
+还可以另外建立一个数组，将对应的数字存放到对应下标的位置，或者用哈希表，走用空间换时间的路子；这样在存放时加个判断，时间复杂度O(n),空间复杂度O(n);<br>
+这题里面允许修改原数组，这样不用新建数组，直接在原来数组中操作，遍历整个数组：<br>
+1、当numbers[i]等于下标i，判断下一个下标是否对应；<br>
+2、当numbers[i]不等于下标i<br>
+(1)numbers[i]==numbers[numbers[i]],此时对应下标i的numbers[i]已经对应，那么出现重复数字；<br>
+(2)否则交换numbers[numbers[i]],numbers[i];<br>
+3、遍历结束都未发现重复数字，则返回-1；<br>
+举例：<br>
+numbers[i] = a, numbers[numbers[i]]=numbers[a]=b,<br>
+通过交换后，numbers[i]=b,numbers[numbers[i]]=numbers[a]=a;</p>
+<h2 id="代码">代码</h2>
+<p>如下：</p>
+<pre><code class="language-java">import java.util.*;
+
+
+public class Solution {
+    /**
+     * 代码中的类名、方法名、参数名已经指定，请勿修改，直接返回方法规定的值即可
+     *
+     * 
+     * @param numbers int整型一维数组 
+     * @return int整型
+     */
+    public int duplicate (int[] numbers) {
+        // write code here
+        for(int i=0;i&lt;numbers.length;){              
+            //注意这里，需要在判断i==numbers[i]后才能i++，否则有漏网之鱼
+            if(i==numbers[i])i++;
+            else{
+                if(numbers[i]==numbers[numbers[i]])return numbers[i];
+                else {int tmp=0;
+                      tmp=numbers[numbers[i]];
+                      numbers[numbers[i]]=numbers[i];
+                      numbers[i]=tmp;
+                    
+                }
+            }
+            
+        }
+        return -1;
+    }
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java&Python&C/C++程序设计：使用NotePad++编译并运行单文件]]></title>
         <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/</id>
