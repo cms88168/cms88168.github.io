@@ -9,7 +9,7 @@
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#000">
 <title>在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券 | 蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631464788849">
+<link rel="shortcut icon" href="/favicon.ico?v=1631506415406">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -239,7 +239,7 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">9</span>
+        <span class="site-item-stat-count">10</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
@@ -1799,6 +1799,272 @@ document.getElementsByTagName("body")[0].appendChild(e);
 	  <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-lambda-biao-da-shi-yu-fang-fa-yin-yong/"" data-c="
+          &lt;p&gt;函数式编程（Functional Programming）是把函数作为基本运算单元，函数可以作为变量，可以接收函数，还可以返回函数。历史上研究函数式编程的理论是Lambda演算，所以我们经常把支持函数式编程的编码风格称为Lambda表达式。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;lambda表达式&#34;&gt;Lambda表达式&lt;/h1&gt;
+&lt;p&gt;在Java程序中，我们经常遇到一大堆单方法接口，即一个接口只定义了一个方法：&lt;/p&gt;
+&lt;p&gt;Comparator&lt;br&gt;
+Runnable&lt;br&gt;
+Callable&lt;/p&gt;
+&lt;p&gt;以Comparator为例，我们想要调用Arrays.sort()时，可以传入一个Comparator实例，以匿名类方式编写如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;String[] array = ...
+Arrays.sort(array, new Comparator&amp;lt;String&amp;gt;() {
+    public int compare(String s1, String s2) {
+        return s1.compareTo(s2);
+    }
+});
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上述写法非常繁琐。从Java 8开始，我们可以用Lambda表达式替换单方法接口。改写上述代码如下：&lt;/p&gt;
+&lt;p&gt;// Lambda&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        String[] array = new String[] { &amp;quot;Apple&amp;quot;, &amp;quot;Orange&amp;quot;, &amp;quot;Banana&amp;quot;, &amp;quot;Lemon&amp;quot; };
+        Arrays.sort(array, (s1, s2) -&amp;gt; {
+            return s1.compareTo(s2);
+        });
+        System.out.println(String.join(&amp;quot;, &amp;quot;, array));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;观察Lambda表达式的写法，它只需要写出方法定义：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;(s1, s2) -&amp;gt; {
+    return s1.compareTo(s2);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;其中，参数是(s1, s2)，参数类型可以省略，因为编译器可以自动推断出String类型。-&amp;gt; { ... }表示方法体，所有代码写在内部即可。Lambda表达式没有class定义，因此写法非常简洁。&lt;/p&gt;
+&lt;p&gt;如果只有一行return xxx的代码，完全可以用更简单的写法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Arrays.sort(array, (s1, s2) -&amp;gt; s1.compareTo(s2));
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;返回值的类型也是由编译器自动推断的，这里推断出的返回值是int，因此，只要返回int，编译器就不会报错。&lt;/p&gt;
+&lt;h2 id=&#34;functionalinterface&#34;&gt;FunctionalInterface&lt;/h2&gt;
+&lt;p&gt;我们把只定义了单方法的接口称之为FunctionalInterface，用注解@FunctionalInterface标记。例如，Callable接口：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@FunctionalInterface
+public interface Callable&amp;lt;V&amp;gt; {
+    V call() throws Exception;
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;再来看Comparator接口：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@FunctionalInterface
+public interface Comparator&amp;lt;T&amp;gt; {
+
+    int compare(T o1, T o2);
+
+    boolean equals(Object obj);
+
+    default Comparator&amp;lt;T&amp;gt; reversed() {
+        return Collections.reverseOrder(this);
+    }
+
+    default Comparator&amp;lt;T&amp;gt; thenComparing(Comparator&amp;lt;? super T&amp;gt; other) {
+        ...
+    }
+    ...
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;虽然Comparator接口有很多方法，但只有一个抽象方法int compare(T o1, T o2)，其他的方法都是default方法或static方法。另外注意到boolean equals(Object obj)是Object定义的方法，不算在接口方法内。因此，Comparator也是一个FunctionalInterface。&lt;/p&gt;
+&lt;h2 id=&#34;小结&#34;&gt;小结&lt;/h2&gt;
+&lt;p&gt;单方法接口被称为FunctionalInterface。&lt;/p&gt;
+&lt;p&gt;接收FunctionalInterface作为参数的时候，可以把实例化的匿名类改写为Lambda表达式，能大大简化代码。&lt;/p&gt;
+&lt;p&gt;Lambda表达式的参数和返回值均可由编译器自动推断。&lt;/p&gt;
+&lt;h1 id=&#34;方法引用&#34;&gt;方法引用&lt;/h1&gt;
+&lt;p&gt;实际上，除了Lambda表达式，我们还可以直接传入方法引用。例如：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        String[] array = new String[] { &amp;quot;Apple&amp;quot;, &amp;quot;Orange&amp;quot;, &amp;quot;Banana&amp;quot;, &amp;quot;Lemon&amp;quot; };
+        Arrays.sort(array, Main::cmp);
+        System.out.println(String.join(&amp;quot;, &amp;quot;, array));
+    }
+
+    static int cmp(String s1, String s2) {
+        return s1.compareTo(s2);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;上述代码在Arrays.sort()中直接传入了静态方法cmp的引用，用Main::cmp表示。&lt;/p&gt;
+&lt;p&gt;因此，所谓方法引用，是指如果某个方法签名和接口恰好一致，就可以直接传入方法引用。&lt;/p&gt;
+&lt;p&gt;因为Comparator&lt;String&gt;接口定义的方法是int compare(String, String)，和静态方法int cmp(String, String)相比，除了方法名外，方法参数一致，返回类型相同，因此，我们说两者的方法签名一致，可以直接把方法名作为Lambda表达式传入：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;Arrays.sort(array, Main::cmp);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;注意：在这里，方法签名只看参数类型和返回类型，不看方法名称，也不看类的继承关系。&lt;/p&gt;
+&lt;p&gt;我们再看看如何引用实例方法。如果我们把代码改写如下：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;import java.util.Arrays;
+public class Main {
+    public static void main(String[] args) {
+        String[] array = new String[] { &amp;quot;Apple&amp;quot;, &amp;quot;Orange&amp;quot;, &amp;quot;Banana&amp;quot;, &amp;quot;Lemon&amp;quot; };
+        Arrays.sort(array, String::compareTo);
+        System.out.println(String.join(&amp;quot;, &amp;quot;, array));
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;不但可以编译通过，而且运行结果也是一样的，这说明String.compareTo()方法也符合Lambda定义。&lt;/p&gt;
+&lt;p&gt;观察String.compareTo()的方法定义：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public final class String {
+    public int compareTo(String o) {
+        ...
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;这个方法的签名只有一个参数，为什么和int Comparator&lt;String&gt;.compare(String, String)能匹配呢？&lt;/p&gt;
+&lt;p&gt;因为实例方法有一个隐含的this参数，String类的compareTo()方法在实际调用的时候，第一个隐含参数总是传入this，相当于静态方法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public static int compareTo(this, String o);
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;所以，String.compareTo()方法也可作为方法引用传入。&lt;/p&gt;
+&lt;h2 id=&#34;构造方法引用&#34;&gt;构造方法引用&lt;/h2&gt;
+&lt;p&gt;除了可以引用静态方法和实例方法，我们还可以引用构造方法。&lt;/p&gt;
+&lt;p&gt;我们来看一个例子：如果要把一个List&lt;String&gt;转换为List&lt;Person&gt;，应该怎么办？&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;class Person {
+    String name;
+    public Person(String name) {
+        this.name = name;
+    }
+}
+
+List&amp;lt;String&amp;gt; names = List.of(&amp;quot;Bob&amp;quot;, &amp;quot;Alice&amp;quot;, &amp;quot;Tim&amp;quot;);
+List&amp;lt;Person&amp;gt; persons = ???
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;传统的做法是先定义一个ArrayList&lt;Person&gt;，然后用for循环填充这个List：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;List&amp;lt;String&amp;gt; names = List.of(&amp;quot;Bob&amp;quot;, &amp;quot;Alice&amp;quot;, &amp;quot;Tim&amp;quot;);
+List&amp;lt;Person&amp;gt; persons = new ArrayList&amp;lt;&amp;gt;();
+for (String name : names) {
+    persons.add(new Person(name));
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;要更简单地实现String到Person的转换，我们可以引用Person的构造方法：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;// 引用构造方法
+import java.util.*;
+import java.util.stream.*;
+public class Main {
+    public static void main(String[] args) {
+        List&amp;lt;String&amp;gt; names = List.of(&amp;quot;Bob&amp;quot;, &amp;quot;Alice&amp;quot;, &amp;quot;Tim&amp;quot;);
+        List&amp;lt;Person&amp;gt; persons = names.stream().map(Person::new).collect(Collectors.toList());
+        System.out.println(persons);
+    }
+}
+
+class Person {
+    String name;
+    public Person(String name) {
+        this.name = name;
+    }
+    public String toString() {
+        return &amp;quot;Person:&amp;quot; + this.name;
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;后面我们会讲到Stream的map()方法。现在我们看到，这里的map()需要传入的FunctionalInterface的定义是：&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;@FunctionalInterface
+public interface Function&amp;lt;T, R&amp;gt; {
+    R apply(T t);
+}
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;把泛型对应上就是方法签名Person apply(String)，即传入参数String，返回类型Person。而Person类的构造方法恰好满足这个条件，因为构造方法的参数是String，而构造方法虽然没有return语句，但它会隐式地返回this实例，类型就是Person，因此，此处可以引用构造方法。构造方法的引用写法是类名::new，因此，此处传入Person::new。&lt;/p&gt;
+&lt;h2 id=&#34;小结-2&#34;&gt;小结&lt;/h2&gt;
+&lt;p&gt;FunctionalInterface允许传入：&lt;/p&gt;
+&lt;p&gt;接口的实现类（传统写法，代码较繁琐）；&lt;br&gt;
+Lambda表达式（只需列出参数名，由编译器推断类型）；&lt;br&gt;
+符合方法签名的静态方法；&lt;br&gt;
+符合方法签名的实例方法（实例类型被看做第一个参数类型）；&lt;br&gt;
+符合方法签名的构造方法（实例类型被看做返回类型）。&lt;br&gt;
+FunctionalInterface不强制继承关系，不需要方法名称相同，只要求方法参数（类型和数量）与方法返回类型相同，即认为方法签名相同。&lt;/p&gt;
+&lt;h1 id=&#34;实例&#34;&gt;实例&lt;/h1&gt;
+&lt;p&gt;在下面main中新增的4个订阅者采用了不同的写法，效果是等价的。&lt;/p&gt;
+&lt;pre&gt;&lt;code class=&#34;language-java&#34;&gt;public class NewsDemo {
+    public static void main(String[] args) {
+        //模拟有一家新闻社
+        NewsAgency bbc = new NewsAgency(&amp;quot;BBC&amp;quot;);
+        //订阅该社的新闻-普通
+        bbc.addListener(new MyListener());
+        //订阅该社的新闻-匿名类
+        bbc.addListener(new Listener() {
+            @Override
+            public void newsArrived(NewsEvent e) {
+                if (e.level &amp;gt; 5) System.out.println(&amp;quot;warning :&amp;quot;);
+                System.out.println(&amp;quot;please note,&amp;quot; + e.text + &amp;quot; happened!&amp;quot;);
+            }
+        });
+        //订阅该社的新闻-lambda
+        bbc.addListener(e -&amp;gt; {
+            if (e.level &amp;gt; 5) System.out.println(&amp;quot;warning :&amp;quot;);
+            System.out.println(&amp;quot;please note,&amp;quot; + e.text + &amp;quot; happened!&amp;quot;);
+        });
+        //订阅该社的新闻-方法引用
+        bbc.addListener(new MyListener()::newsArrived);
+
+        //新闻社启动其工作流程
+        bbc.start();
+    }
+}
+
+
+/**
+ * 事件信息
+ */
+class NewsEvent {
+    Object source;  //事件来源
+    String text;    //事件内容
+    int level;      //事件级别
+
+    NewsEvent(Object source, String text, int level) {
+        this.source = source;
+        this.text = text;
+        this.level = level;
+    }
+}
+
+interface Listener {
+    void newsArrived(NewsEvent e);
+}
+
+/**
+ * 新闻机构
+ */
+class NewsAgency {
+    String name; //机构名
+
+    public NewsAgency(String name) {
+        this.name = name;
+    }
+
+    Listener[] listeners = new Listener[100]; //侦听者（订阅者）
+    int listenerCnt = 0; //已有的订阅者
+
+    //加入一个订阅者
+    void addListener(Listener oneListener) {
+        if (listenerCnt &amp;lt; listeners.length) {
+            listeners[listenerCnt] = oneListener;
+            listenerCnt++;
+        }
+    }
+
+    //模拟一个事件发生，并通知所有的订阅者
+    void start() {
+        NewsEvent event = new NewsEvent(&amp;quot;Mr. Joan&amp;quot;, &amp;quot;Bombing&amp;quot;, 9);
+
+        for (int i = 0; i &amp;lt; listenerCnt; i++) {
+            listeners[i].newsArrived(event);
+        }
+
+    }
+}
+
+/**
+ * 实现一个订阅者
+ */
+class MyListener implements Listener {
+    //当接收到消息后，进行一些显示
+    public void newsArrived(NewsEvent e) {
+        if (e.level &amp;gt; 5) System.out.println(&amp;quot;warning :&amp;quot;);
+        System.out.println(&amp;quot;please note,&amp;quot; + e.text + &amp;quot; happened!&amp;quot;);
+    }
+}
+&lt;/code&gt;&lt;/pre&gt;
+">Java程序设计：Lambda表达式与方法引用</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-shua-ti-shu-zu-zhong-chong-fu-de-shu-zi/"" data-c="
