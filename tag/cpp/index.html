@@ -9,7 +9,7 @@
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#845ef7">
 <title>蒼茫世界</title>
-<link rel="shortcut icon" href="/favicon.ico?v=1631551813369">
+<link rel="shortcut icon" href="/favicon.ico?v=1631716391443">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
 <link
@@ -221,19 +221,19 @@
     <div class="sidebar-item-box">
       <a href="/archives/">
         
-        <span class="site-item-stat-count">10</span>
+        <span class="site-item-stat-count">14</span>
         <span class="site-item-stat-name language" data-lan="article">文章</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="category">分类</span>
       </a>
     </div>
     <div class="sidebar-item-box">
       <a href="/tags/">
-        <span class="site-item-stat-count">7</span>
+        <span class="site-item-stat-count">9</span>
         <span class="site-item-stat-name language" data-lan="tag">标签</span>
       </a>
     </div>
@@ -297,6 +297,24 @@
           <small class="language" data-lan="tag">标签</small>
         </h2>
       </div>
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
+      
       
       
       
@@ -1204,6 +1222,412 @@ document.getElementsByTagName("body")[0].appendChild(e);
 	  <hr>
     </div>
     <div class="result" id="result">
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/"" data-c="
+          &lt;p&gt;穷举、迭代、递归和回溯这些算法属于“通用算法”，它们在解决许多问题中都有应用。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;穷举&#34;&gt;穷举&lt;/h1&gt;
+&lt;p&gt;在有限的范围内，可以对所有的值都进行试验和判断，从而找到满足条件的值&lt;br&gt;
+穷举的基本模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;for(;;){ if(); }&lt;/code&gt;&lt;br&gt;
+时间复杂度很高。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;迭代&#34;&gt;迭代&lt;/h1&gt;
+&lt;p&gt;多次利用同一公式进行计算，每次将计算的结果再代入公式进行计算，从而逐步逼近精确解&lt;br&gt;
+迭代的基本模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;while() { x = f(x); }&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;&lt;strong&gt;利用迭代算法解决问题，需要做好以下三个方面的工作：&lt;/strong&gt;&lt;/p&gt;
+&lt;h2 id=&#34;确定变量&#34;&gt;确定变量&lt;/h2&gt;
+&lt;p&gt;在可以用迭代算法解决的问题中，至少存在一个直接或间接地不断由旧值递推出新值的变量，这个变量就是迭代变量。&lt;/p&gt;
+&lt;h2 id=&#34;建立关系式&#34;&gt;建立关系式&lt;/h2&gt;
+&lt;p&gt;所谓迭代关系式，指如何从变量的前一个值推出其下一个值的公式（或关系）。迭代关系式的建立是解决迭代问题的关键，通常可以使用递推或倒推的方法来完成。&lt;/p&gt;
+&lt;h2 id=&#34;过程控制&#34;&gt;过程控制&lt;/h2&gt;
+&lt;p&gt;在什么时候结束迭代过程?这是编写迭代程序必须考虑的问题。不能让迭代过程无休止地重复执行下去。迭代过程的控制通常可分为两种情况：一种是所需的迭代次数是个确定的值，可以计算出来；另一种是所需的迭代次数无法确定。对于前一种情况，可以构建一个固定次数的循环来实现对迭代过程的控制；对于后一种情况，需要进一步分析出用来结束迭代过程的条件。&lt;/p&gt;
+&lt;h1 id=&#34;递归&#34;&gt;递归&lt;/h1&gt;
+&lt;p&gt;递归(recursive)就是一个过程调用过程本身。在递归调用中，一个过程执行的某一步要用到它的上一步(或上几步)的结果&lt;br&gt;
+递归的基本模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;f(n){ f(n-1); }&lt;/code&gt;&lt;br&gt;
+边界条件与递归方程是递归函数的二个要素。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;回溯&#34;&gt;回溯&lt;/h1&gt;
+&lt;p&gt;回溯法也叫试探回溯法，先选择某一可能的线索进行试探，每一步试探都有多种方式，将每一方式都一一试探，如果不符合条件就返回纠正，反复进行这种试探再返回纠正，直到得出全部符合条件的答案或是问题无解为止。&lt;br&gt;
+回溯的基本模式&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;x++; if(…) x--;&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;对回溯的算法优化&lt;br&gt;
+为了避免生成那些不可能产生最佳解的问题状态，要不断地利用限界函数(bounding function)来处死那些实际上不可能产生所需解的活结点，以减少问题的计算量。具有限界函数的深度优先生成法称为回溯法；在将来的文章中详细说明。&lt;/p&gt;
+">算法：常用的基础算法：穷举、迭代、递归和回溯</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/"" data-c="
+          &lt;p&gt;泛型程序设计（generic programming）是程序设计语言的一种风格或范式。泛型允许程序员在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型。&lt;/p&gt;
+&lt;p&gt;泛型的定义主要有以下两种：&lt;br&gt;
+在程序编码中一些包含类型参数的类型，也就是说泛型的参数只可以代表类，不能代表个别对象。（这是当今较常见的定义）&lt;br&gt;
+在程序编码中一些包含参数的类。其参数可以代表类或对象等等。（现在人们大多把这称作模板）&lt;br&gt;
+不论使用哪个定义，泛型的参数在真正使用泛型时都必须作出指明。&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;Java 泛型的参数只可以代表类，不能代表个别对象。由于Java泛型的类型参数之实际类型在编译时会被消除，所以无法在运行时得知其类型参数的类型，而且无法直接使用基本值类型作为泛型类型参数。Java编译程序在编译泛型时会自动加入类型转换的编码，故运行速度不会因为使用泛型而加快。&lt;br&gt;
+由于运行时会消除泛型的对象实例类型信息等缺陷经常被人诟病，Java及JVM的开发方面也尝试解决这个问题，例如Java通过在生成字节码时添加类型推导辅助信息，从而可以通过反射接口获得部分泛型信息。通过改进泛型在JVM的实现，使其支持基本值类型泛型和直接获得泛型信息等。&lt;br&gt;
+Java允许对个别泛型的类型参数进行约束，包括以下两种形式（假设T是泛型的类型参数，C是一般类、泛类，或是泛型的类型参数）：&lt;br&gt;
+T实现接口I。&lt;br&gt;
+T是C，或继承自C。&lt;/p&gt;
+&lt;p&gt;• 使用泛型可以针对不同的类有相同的处理办法&lt;br&gt;
+•Vector&lt;String&gt; v = new Vector&lt;String&gt; ();&lt;br&gt;
+v.addElement( “one” );&lt;br&gt;
+String s = v.elementAt(0);&lt;br&gt;
+• 使用泛型的好处&lt;br&gt;
+类型更安全&lt;br&gt;
+适用更广泛，针对不同的类有相同的处理办法，但这些类之间不一定有继承关系。&lt;/p&gt;
+&lt;h1 id=&#34;泛型的使用&#34;&gt;泛型的使用&lt;/h1&gt;
+&lt;p&gt;主要有泛型类、泛型接口、泛型方法以及泛型通配符。&lt;/p&gt;
+&lt;h2 id=&#34;泛型类&#34;&gt;泛型类&lt;/h2&gt;
+&lt;p&gt;①泛型使用格式&lt;/p&gt;
+&lt;p&gt;修饰符 class 类名&amp;lt;代表泛型的变量&amp;gt; { }；&lt;/p&gt;
+&lt;p&gt;ArrayList类中使用E来代表泛型的变量，E本身并没有含义，任意一个大写字母都可以，A、B、T、W都可以。&lt;/p&gt;
+&lt;p&gt;②泛型类的使用&lt;/p&gt;
+&lt;p&gt;在创建对象的时候确定泛型，指定好了后这个对象就只能装指定的数据类型了。&lt;/p&gt;
+&lt;p&gt;如果要换其他数据类型，就要重新创建该类的对象，重新指定泛型。泛型类有何好处？&lt;/p&gt;
+&lt;p&gt;③ArrayList的add方法&lt;/p&gt;
+&lt;p&gt;add方法参数就是一个泛型，也就是说创建对象时确定的是哪个类型，使用add方法就只能添加这个类型了，这就起到了一个千变万化的效果。&lt;/p&gt;
+&lt;h2 id=&#34;泛型接口&#34;&gt;泛型接口&lt;/h2&gt;
+&lt;p&gt;①泛型接口格式&lt;/p&gt;
+&lt;p&gt;修饰符 interface接口名&amp;lt;代表泛型的变量&amp;gt; { }&lt;/p&gt;
+&lt;p&gt;这次我们自定义一个泛型接口，泛型为A。&lt;/p&gt;
+&lt;p&gt;②泛型类的使用一&lt;/p&gt;
+&lt;p&gt;实现类实现接口、同时指定泛型类型。&lt;/p&gt;
+&lt;p&gt;③泛型类的使用二&lt;/p&gt;
+&lt;p&gt;实现类实现接口但不指定泛型，这个类也就成了泛型类。&lt;/p&gt;
+&lt;p&gt;ArrayList类本质上也就是这种情况，它实现了List&lt;E&gt;接口，但是没有指定泛型。&lt;/p&gt;
+&lt;h2 id=&#34;泛型方法&#34;&gt;泛型方法&lt;/h2&gt;
+&lt;p&gt;①泛型方法格式&lt;/p&gt;
+&lt;p&gt;修饰符 &amp;lt;代表泛型的变量&amp;gt; 返回值类型 方法名(参数){ }&lt;/p&gt;
+&lt;p&gt;②泛型方法使用&lt;/p&gt;
+&lt;p&gt;调用方法时，确定泛型的类型。&lt;/p&gt;
+&lt;h2 id=&#34;泛型通配符&#34;&gt;泛型通配符&lt;/h2&gt;
+&lt;p&gt;①两个不同类型的集合&lt;/p&gt;
+&lt;p&gt;一个集合泛型为String类，一个集合泛型为Integer：&lt;/p&gt;
+&lt;p&gt;ArrayList&amp;lt;String&amp;gt;list1和ArrayList&amp;lt;Integer&amp;gt; list2是两个不同的类型，如果用常规方法，那要两个方法（方法重载）&lt;/p&gt;
+&lt;p&gt;②泛型的通配符&lt;/p&gt;
+&lt;p&gt;不知道使用什么类型来接收的时候，此时可以使用?，?表示未知通配符。&lt;/p&gt;
+&lt;p&gt;其中泛型通配符还可以这样使用：&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;? extends Person&amp;gt;&lt;/code&gt;：表示可以传递Person及其子类&lt;/p&gt;
+&lt;p&gt;&lt;code&gt;&amp;lt;? super Person&amp;gt;&lt;/code&gt;：表示可以传递Person及其父类&lt;/p&gt;
+&lt;p&gt;例子&lt;/p&gt;
+&lt;p&gt;使用?&lt;br&gt;
+• 如Collections的reverse方法&lt;br&gt;
+• reverse(List&amp;lt;?&amp;gt; list)&lt;br&gt;
+使用extends&lt;br&gt;
+• 如Set的addAll方法&lt;br&gt;
+• addAll(Collection&amp;lt;? extends E&amp;gt; col )&lt;br&gt;
+使用super&lt;br&gt;
+• 如Collections的fill方法&lt;br&gt;
+• fill(List&amp;lt;? super T&amp;gt; list, T obj)&lt;/p&gt;
+&lt;p&gt;注意：&lt;/p&gt;
+&lt;p&gt;泛型不存在继承关系：ArrayList&amp;lt;Object&amp;gt;list并不是ArrayList&amp;lt;String&amp;gt;list1和ArrayList&amp;lt;Integer&amp;gt;list2的父类，它们三个是三个不同的类型。&lt;br&gt;
+其中Java里的泛型是一种伪泛型。什么叫伪泛型？也就是泛型只存在于编译时期，在运行时期会被擦除。&lt;/p&gt;
+&lt;h2 id=&#34;复杂的泛型例子&#34;&gt;复杂的泛型例子&lt;/h2&gt;
+&lt;p&gt;• Arrays.sort方法&lt;br&gt;
+&lt;code&gt;public static &amp;lt;T&amp;gt; void sort(T[] a, Comparator&amp;lt;? super T&amp;gt; c)&lt;/code&gt;&lt;br&gt;
+• Stream.map方法&lt;br&gt;
+&lt;code&gt;public &amp;lt;R&amp;gt; Stream&amp;lt;R&amp;gt; map(Function&amp;lt;? super T, ? extends R&amp;gt; mapper)&lt;/code&gt;&lt;br&gt;
+• Collections.max方法&lt;br&gt;
+&lt;code&gt;public static &amp;lt;T extends Object &amp;amp; Comparable&amp;lt;? super T&amp;gt;&amp;gt;T&lt;/code&gt;&lt;br&gt;
+&lt;code&gt;max(Collection&amp;lt;? extends T&amp;gt; coll)&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;协变与逆变&#34;&gt;协变与逆变&lt;/h2&gt;
+&lt;p&gt;协变(Covariance) ? extends T&lt;br&gt;
+• 原因：ListArray&amp;lt;Apple&amp;gt;不是ListArray&amp;lt;Fruit&amp;gt;的子类&lt;br&gt;
+但又想让&amp;lt;Apple&amp;gt;当作&amp;lt;Fruit&amp;gt;&lt;br&gt;
+就声明ListArray&amp;lt;? extends Fruit&amp;gt;&lt;br&gt;
+逆变(Contravariance) ? super T&lt;br&gt;
+• 原因：Basket&amp;lt;Apple&amp;gt;不是Basket&amp;lt;Fruit&amp;gt;的子类&lt;br&gt;
+但又想让Comparator&amp;lt;Fruit&amp;gt;用于Comparator&amp;lt;Apple&amp;gt;&lt;br&gt;
+就声明Comparator&amp;lt;? super Fruit&amp;gt;&lt;br&gt;
+注：? 实际上是去类型化(变成Object)，只在编译时检查&lt;br&gt;
+总之:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;协变 用于获取，用于out，用于Producer&lt;/li&gt;
+&lt;li&gt;逆变 用于加入，用于in, 用于Consumer&lt;/li&gt;
+&lt;/ul&gt;
+">Java程序设计：泛型</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/"" data-c="
+          &lt;p&gt;字符串可以分为两大类&lt;br&gt;
+1.String类&lt;br&gt;
+• 创建之后不会再做修改和变动，即 immutable&lt;/p&gt;
+&lt;p&gt;2.StringBuffer、StringBuilder类&lt;br&gt;
+• 创建之后允许再做更改和变化&lt;br&gt;
+• 其中 StringBuilder是JDK1.5增加的，它是非线程安全的，但是效率较高&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;p&gt;特别注意：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;在循环中使用String的+=可能会带来效率问题&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;string类&#34;&gt;String类&lt;/h1&gt;
+&lt;p&gt;String 类对象保存不可修改(immutable)的Unicode字符序列&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;String类的下述方法能创建并返回一个新的String对象实例: concat, replace,&lt;br&gt;
+replaceAll, substring, toLowerCase, toUpperCase, trim,toString.&lt;/li&gt;
+&lt;li&gt;查找: endsWith, startsWith, indexOf,，lastIndexOf.&lt;/li&gt;
+&lt;li&gt;比较: equals, equalsIgnoreCase,&lt;/li&gt;
+&lt;li&gt;字符及长度: charAt ，length.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;format函数&lt;br&gt;
+• %1&lt;span class=&#34;katex&#34;&gt;&lt;span class=&#34;katex-mathml&#34;&gt;&lt;math&gt;&lt;semantics&gt;&lt;mrow&gt;&lt;mo separator=&#34;true&#34;&gt;,&lt;/mo&gt;&lt;mn&gt;8.5&lt;/mn&gt;&lt;mi&gt;f&lt;/mi&gt;&lt;/mrow&gt;&lt;annotation encoding=&#34;application/x-tex&#34;&gt;,8.5f %序号&lt;/annotation&gt;&lt;/semantics&gt;&lt;/math&gt;&lt;/span&gt;&lt;span class=&#34;katex-html&#34; aria-hidden=&#34;true&#34;&gt;&lt;span class=&#34;base&#34;&gt;&lt;span class=&#34;strut&#34; style=&#34;height:0.8888799999999999em;vertical-align:-0.19444em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mpunct&#34;&gt;,&lt;/span&gt;&lt;span class=&#34;mspace&#34; style=&#34;margin-right:0.16666666666666666em;&#34;&gt;&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;8&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;.&lt;/span&gt;&lt;span class=&#34;mord&#34;&gt;5&lt;/span&gt;&lt;span class=&#34;mord mathdefault&#34; style=&#34;margin-right:0.10764em;&#34;&gt;f&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt; 标识 宽度及精度 转换方式&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;String常量的内部化（interned）问题&lt;br&gt;
+• 即同样的字符串常量是合并的（是指向同一个引用的）&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;pre&gt;&lt;code&gt;“abc”==“abc”
+但是 “abc” != new String(“abc”)
+&lt;/code&gt;&lt;/pre&gt;
+&lt;h1 id=&#34;stringbufferstringbuilder类&#34;&gt;StringBuffer,StringBuilder类&lt;/h1&gt;
+&lt;ul&gt;
+&lt;li&gt;StringBuffer类对象保存可修改的Unicode字符序列&lt;/li&gt;
+&lt;li&gt;StringBuilder类似，它效率更高，不考虑线程安全性&lt;br&gt;
+• 构造方法&lt;br&gt;
+StringBuffer()&lt;br&gt;
+StringBuffer(int capacity)&lt;br&gt;
+StringBuffer(String initialString)&lt;br&gt;
+• 实现修改操作的方法:&lt;br&gt;
+append, insert, reverse, setCharAt, setLength.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h1 id=&#34;stringtokenizer类&#34;&gt;StringTokenizer类&lt;/h1&gt;
+&lt;p&gt;java.util.StringTokenizer类提供了对字符串进行分割的功能。&lt;br&gt;
+• 构造&lt;br&gt;
+StringTokenizer(String str, String delim);&lt;br&gt;
+• 该类的重要方法有：&lt;br&gt;
+public int countTokens()；// 分割串的个数&lt;br&gt;
+public boolean hasMoreTokens()；// 是否还有分割串&lt;br&gt;
+public String nextToken()；// 得到下一分割串&lt;br&gt;
+• 另String类的 matches, replaceAll, split可以使用正则表达式&lt;/p&gt;
+">Java程序设计：字符串类</a>
+      </div>
+      
+      <div class="item">
+        <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/"" data-c="
+          &lt;p&gt;Collection API&lt;br&gt;
+• Collection API提供“集合”“收集”的功能&lt;br&gt;
+• Collection API包含一系列的接口和类&lt;/p&gt;
+&lt;p&gt;Collection接口：有两个子接口&lt;br&gt;
+• List: (Collection的子接口)记录元素的保存顺序，且允许有重复元素&lt;br&gt;
+• Set: (Collection的子接口)不记录元素的保存顺序，且不允许有重复元素&lt;br&gt;
+Map接口，即映射&lt;br&gt;
+• 键-值对（key-value pair）的集合&lt;/p&gt;
+&lt;!-- more --&gt;
+&lt;h1 id=&#34;collection接口&#34;&gt;Collection接口&lt;/h1&gt;
+&lt;p&gt;主要的方法：&lt;/p&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;方法  ：返回类型&lt;/th&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;+add(element : Object) : boolean&lt;/td&gt;
+&lt;td&gt;添加元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;+remove(element : Object) : boolean&lt;/td&gt;
+&lt;td&gt;删除元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;+size() : int&lt;/td&gt;
+&lt;td&gt;集合中元素的个数&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;+isEmpty() : boolean&lt;/td&gt;
+&lt;td&gt;集合是否为空&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;+contains(element : Object) : boolean&lt;/td&gt;
+&lt;td&gt;是否包含某个元素&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;+iterator() : Iterator&lt;/td&gt;
+&lt;td&gt;迭代器&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h2 id=&#34;迭代器iterator&#34;&gt;迭代器（Iterator）&lt;/h2&gt;
+&lt;p&gt;迭代器不是一个集合，它是一种用于访问集合的方法，可用于迭代 ArrayList 和 HashSet 等集合。&lt;br&gt;
+&lt;img src=&#34;https://www.cmsj.in/post-images/1631637679066.jpg&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Iterator 是 Java 迭代器最简单的实现，ListIterator 是 Collection API 中的接口， 它扩展了 Iterator 接口。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;迭代器 it 的两个基本操作是 next 、hasNext 和 remove。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调用 it.hasNext() 用于检测集合中是否还有元素。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;调用 it.remove() 将迭代器返回的元素删除。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;增强的for语句&lt;br&gt;
+在JDK1.5以后，增强的for语句(enhanced for)或叫for-each&lt;br&gt;
+for( Element e : list ) doSomething(e);&lt;br&gt;
+• for (Photo photo : album){&lt;br&gt;
+• System.out.println( photo.toString() );&lt;br&gt;
+• }&lt;br&gt;
+编译器生成了Iterator的while(hasNext（)) {….next() }&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;collection-api-层次结构&#34;&gt;Collection API 层次结构&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;1&#34;&gt;&lt;img src=&#34;https://www.cmsj.in/post-images/1631710102920.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;list-线性表&#34;&gt;List 线性表&lt;/h1&gt;
+&lt;p&gt;线性表是最基本、最简单、也是最常用的一种数据结构。线性表（linear list）是数据结构的一种，一个线性表是n个具有相同特性的数据元素的有限序列。&lt;br&gt;
+线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的（注意，这句话只适用大部分线性表，而不是全部。比如，循环链表逻辑层次上也是一种线性表（存储层次上属于链式存储，但是把最后一个数据元素的尾指针指向了首位结点）。&lt;/p&gt;
+&lt;h2 id=&#34;特征&#34;&gt;特征&lt;/h2&gt;
+&lt;p&gt;1．集合中必存在唯一的一个“第一元素”。&lt;br&gt;
+2．集合中必存在唯一的一个 “最后元素” 。&lt;br&gt;
+3．除最后一个元素之外，均有唯一的后继(后件)。&lt;br&gt;
+4．除第一个元素之外，均有唯一的前驱(前件)。&lt;/p&gt;
+&lt;p&gt;线性表主要由顺序表示ArrayList或链式表示LinkedList。&lt;/p&gt;
+&lt;p&gt;顺序表示指的是用一组地址连续的存储单元依次存储线性表的数据元素，称为线性表的顺序存储结构或顺序映像（sequential mapping）。它以“物理位置相邻”来表示线性表中数据元素间的逻辑关系，可随机存取表中任一元素。&lt;/p&gt;
+&lt;p&gt;链式表示指的是用一组任意的存储单元存储线性表中的数据元素，称为线性表的链式存储结构。它的存储单元可以是连续的，也可以是不连续的。在表示数据元素之间的逻辑关系时，除了存储其本身的信息之外，还需存储一个指示其直接后继的信息（即直接后继的存储位置），这两部分信息组成数据元素的存储映像，称为结点（node）。它包括两个域；存储数据元素信息的域称为数据域；存储直接后继存储位置的域称为指针域。指针域中存储的信息称为指针或链。&lt;/p&gt;
+&lt;h2 id=&#34;实现&#34;&gt;实现&lt;/h2&gt;
+&lt;p&gt;主要的实现类是 ArrayList. LinkedList， 以及早期的Vector&lt;br&gt;
+• E get(int index);&lt;br&gt;
+• E set(int index, E element);&lt;br&gt;
+• void add(int index, E element);&lt;br&gt;
+• E remove(int index);&lt;br&gt;
+• int indexOf(Object o);&lt;/p&gt;
+&lt;h1 id=&#34;stack-栈&#34;&gt;Stack 栈&lt;/h1&gt;
+&lt;p&gt;栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈(push)，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈(pop)，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。&lt;br&gt;
+• 遵循“后进先出”(Last In First Out, LIFO)原则&lt;br&gt;
+• 包含三个方法&lt;br&gt;
+public Object push(Object item)：将指定对象压入栈中。&lt;br&gt;
+Public Object pop()：将 栈最上面的元素从栈中取出，并返回这个对象。&lt;br&gt;
+public boolean empty()：判断栈中没有对象元素。&lt;/p&gt;
+&lt;h1 id=&#34;队列queue&#34;&gt;队列Queue&lt;/h1&gt;
+&lt;p&gt;队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。队列中没有元素时，称为空队列。&lt;br&gt;
+队列的数据元素又称为队列元素。在队列中插入一个队列元素称为入队，从队列中删除一个队列元素称为出队。因为队列只允许在一端插入，在另一端删除，所以只有最早进入队列的元素才能最先从队列中删除，故队列又称为先进先出（FIFO—first in first out）线性表。&lt;/p&gt;
+&lt;h2 id=&#34;顺序队列&#34;&gt;顺序队列&lt;/h2&gt;
+&lt;p&gt;建立顺序队列结构必须为其静态分配或动态申请一片连续的存储空间，并设置两个指针进行管理。一个是队头指针front，它指向队头元素；另一个是队尾指针rear，它指向下一个入队元素的存储位置。&lt;/p&gt;
+&lt;p&gt;每次在队尾插入一个元素是，rear增1；每次在队头删除一个元素时，front增1。随着插入和删除操作的进行，队列元素的个数不断变化，队列所占的存储空间也在为队列结构所分配的连续空间中移动。当front=rear时，队列中没有任何元素，称为空队列。当rear增加到指向分配的连续空间之外时，队列无法再插入新元素，但这时往往还有大量可用空间未被占用，这些空间是已经出队的队列元素曾经占用过得存储单元。&lt;/p&gt;
+&lt;p&gt;顺序队列中的溢出现象：&lt;br&gt;
+（1） &amp;quot;下溢&amp;quot;现象：当队列为空时，做出队运算产生的溢出现象。“下溢”是正常现象，常用作程序控制转移的条件。&lt;br&gt;
+（2）&amp;quot;真上溢&amp;quot;现象：当队列满时，做进栈运算产生空间溢出的现象。“真上溢”是一种出错状态，应设法避免。&lt;br&gt;
+（3）&amp;quot;假上溢&amp;quot;现象：由于入队和出队操作中，头尾指针只增加不减小，致使被删元素的空间永远无法重新利用。当队列中实际的元素个数远远小于向量空间的规模时，也可能由于尾指针已超越向量空间的上界而不能做入队操作。该现象称为&amp;quot;假上溢&amp;quot;现象。&lt;/p&gt;
+&lt;h2 id=&#34;循环队列&#34;&gt;循环队列&lt;/h2&gt;
+&lt;p&gt;在实际使用队列时，为了使队列空间能重复使用，往往对队列的使用方法稍加改进：无论插入或删除，一旦rear指针增1或front指针增1 时超出了所分配的队列空间，就让它指向这片连续空间的起始位置。自己真从MaxSize-1增1变到0，可用取余运算rear%MaxSize和front%MaxSize来实现。这实际上是把队列空间想象成一个环形空间，环形空间中的存储单元循环使用，用这种方法管理的队列也就称为循环队列。除了一些简单应用之外，真正实用的队列是循环队列。&lt;br&gt;
+在循环队列中，当队列为空时，有front=rear，而当所有队列空间全占满时，也有front=rear。为了区别这两种情况，规定循环队列最多只能有MaxSize-1个队列元素，当循环队列中只剩下一个空存储单元时，队列就已经满了。因此，队列判空的条件时front=rear，而队列判满的条件时front=（rear+1）%MaxSize。&lt;/p&gt;
+&lt;h2 id=&#34;队列的数组实现&#34;&gt;队列的数组实现&lt;/h2&gt;
+&lt;p&gt;队列可以用数组Q[1…m]来存储，数组的上界m即是队列所容许的最大容量。在队列的运算中需设两个指针：head，队头指针，指向实际队头元素；tail，队尾指针，指向实际队尾元素的下一个位置。一般情况下，两个指针的初值设为0，这时队列为空，没有元素。数组定义Q[1…10]。Q(i) i=3,4,5,6,7,8。头指针head=2，尾指针tail=8。队列中拥有的元素个数为:L=tail-head。现要让排头的元素出队，则需将头指针加1。即head=head+1这时头指针向上移动一个位置，指向Q(3)，表示Q(3)已出队。如果想让一个新元素入队，则需尾指针向上移动一个位置。即tail=tail+1这时Q(9)入队。当队尾已经处理在最上面时，即tail=10，如果还要执行入队操作，则要发生&amp;quot;上溢&amp;quot;，但实际上队列中还有三个空位置，所以这种溢出称为&amp;quot;假溢出&amp;quot;。&lt;br&gt;
+克服假溢出的方法有两种。一种是将队列中的所有元素均向低地址区移动，显然这种方法是很浪费时间的；另一种方法是将数组存储区看成是一个首尾相接的环形区域。当存放到n地址后，下一个地址就&amp;quot;翻转&amp;quot;为1。在结构上采用这种技巧来存储的队列称为循环队列。&lt;br&gt;
+队列和栈一样只允许在断点处插入和删除元素。&lt;br&gt;
+循环队的入队算法如下：&lt;br&gt;
+1、tail=tail+1；&lt;br&gt;
+2、若tail=n+1，则tail=1；&lt;br&gt;
+3、若head=tail，即尾指针与头指针重合了，表示元素已装满队列，则作上溢出错处理；&lt;br&gt;
+4、否则，Q(tail)=X，结束（X为新入出元素）。&lt;br&gt;
+队列和栈一样，有着非常广泛的应用。&lt;br&gt;
+注意：（1）有时候队列中还会设置表头结点，就是在队头的前面还有一个结点，这个结点的数据域为空，但是指针域指向队头元素。&lt;br&gt;
+（2）另外，上面的计算还可以利用下面给出的公式cq.rear=(cq.front+1)/max;&lt;br&gt;
+当有表头结点时，公式变为cq.rear=(cq.front+1)/（max+1）。&lt;/p&gt;
+&lt;h2 id=&#34;重要的实现是linkedlist类&#34;&gt;重要的实现是LinkedList类&lt;/h2&gt;
+&lt;table&gt;
+&lt;thead&gt;
+&lt;tr&gt;
+&lt;th&gt;&lt;/th&gt;
+&lt;th&gt;可抛出异类的&lt;/th&gt;
+&lt;th&gt;返回元素的&lt;/th&gt;
+&lt;/tr&gt;
+&lt;/thead&gt;
+&lt;tbody&gt;
+&lt;tr&gt;
+&lt;td&gt;Insert（插入）&lt;/td&gt;
+&lt;td&gt;add(e)&lt;/td&gt;
+&lt;td&gt;offer(e)&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Remove（移除）&lt;/td&gt;
+&lt;td&gt;remove()&lt;/td&gt;
+&lt;td&gt;poll()&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr&gt;
+&lt;td&gt;Examine（检查）&lt;/td&gt;
+&lt;td&gt;element()&lt;/td&gt;
+&lt;td&gt;peek()&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+&lt;h1 id=&#34;linkedlist&#34;&gt;LinkedList&lt;/h1&gt;
+&lt;p&gt;LinkedList同时实现了List接口和Deque接口，也就是说它既可以看作一个顺序容器，又可以看作一个队列（Queue），同时又可以看作一个栈（stack），这样看来，linkedList简直就是无敌的，当你需要使用栈或者队列时，可以考虑用LinkedList,一方面是因为Java官方已经声明不建议使用Stack类，更遗憾的是，Java里根本没有一个叫做Queue的类（只是一个接口的名字）。关于栈或队列，现在首选是ArrayDeque，它有着比LinkedList（当作栈或队列使用时）更好的性能。&lt;/p&gt;
+&lt;h1 id=&#34;几个早期的类或接口&#34;&gt;几个早期的类或接口&lt;/h1&gt;
+&lt;p&gt;• Vector， 现多用 ArrayList&lt;br&gt;
+相当于动态数组(比JDK1.0中的 ArrayList好), elementAt,&lt;br&gt;
+• Stack， 现多用 LinkedList&lt;br&gt;
+Stack是Vector的子类, push, pop, peek&lt;br&gt;
+• Hashtable， 现多用 HashMap&lt;br&gt;
+Hashtable实现Map接口, 参见Properties类&lt;br&gt;
+• Enumeration， 现多用Iterator&lt;br&gt;
+Enumeration用另一种方式实现Iterator的功能&lt;br&gt;
+如Vector可以得到枚举器&lt;br&gt;
+Enumeration&lt;E&gt; e = v.elements();&lt;br&gt;
+while(e.hasMoreElements()) doSomething(e.nextElement())&lt;/p&gt;
+&lt;h1 id=&#34;set-集&#34;&gt;Set 集&lt;/h1&gt;
+&lt;p&gt;两个重要的实现 HashSet及TreeSet&lt;br&gt;
+其中TreeSet的底层是用TreeMap来实现的&lt;br&gt;
+• &lt;strong&gt;Set中对象不重复&lt;/strong&gt;，即：&lt;br&gt;
+hashCode()不等&lt;br&gt;
+如果hashCode()相等，再看equals或==是否为false&lt;/p&gt;
+&lt;h1 id=&#34;map&#34;&gt;Map&lt;/h1&gt;
+&lt;p&gt;• Map是键-值对的集合&lt;br&gt;
+其中可以取到entrySet()、keySet()、values()、&lt;br&gt;
+Map.Entry是一个嵌套接口&lt;br&gt;
+• Map类的重要实现&lt;br&gt;
+HashMap类&lt;br&gt;
+TreeMap类：用红黑树的算法&lt;/p&gt;
+&lt;h2 id=&#34;map层次结构&#34;&gt;Map层次结构&lt;/h2&gt;
+&lt;figure data-type=&#34;image&#34; tabindex=&#34;2&#34;&gt;&lt;img src=&#34;https://www.cmsj.in/post-images/1631713185546.png&#34; alt=&#34;&#34; loading=&#34;lazy&#34;&gt;&lt;/figure&gt;
+&lt;h1 id=&#34;系统已有的排序与查找&#34;&gt;系统已有的排序与查找&lt;/h1&gt;
+&lt;p&gt;Arrays类及Collections类&lt;/p&gt;
+&lt;h2 id=&#34;arrays类&#34;&gt;Arrays类&lt;/h2&gt;
+&lt;p&gt;• Arrays类是用于对&lt;strong&gt;数组&lt;/strong&gt;进行排序和搜索的类。&lt;br&gt;
+Arrays.asList( 10, 7, 6, 5, 9) 方法可以直接得到一个List对象&lt;br&gt;
+• Arrays类提供了sort()和binarySearch()&lt;br&gt;
+• 执行binarySearch()之前应调用sort()&lt;br&gt;
+public static void sort(List list);&lt;br&gt;
+public static void sort(List list, Comparator c);&lt;br&gt;
+public static int binarySearch(List list, Object key);&lt;br&gt;
+public static int binarySearch(List list, Object key, Comparator c);&lt;/p&gt;
+&lt;h2 id=&#34;collections类&#34;&gt;Collections类&lt;/h2&gt;
+&lt;p&gt;此类完全由在 collection 上进行操作静态方法组成.&lt;br&gt;
+• 如sort, binarySearch, reverse等&lt;/p&gt;
+&lt;h2 id=&#34;关于比较&#34;&gt;关于比较&lt;/h2&gt;
+&lt;p&gt;1.对象是java.lang.Comparable&lt;br&gt;
+• 实现方法&lt;br&gt;
+• public int compareTo(Object obj){&lt;br&gt;
+return this.price – ((Book)obj).price;}&lt;br&gt;
+2.提供一个java.lang. Comparator&lt;br&gt;
+• 实现方法 public int compare(T o1, T o2)&lt;br&gt;
+• 这些方法的含义要与equals不冲突&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;更多的排序与查找方法，如冒泡排序 、选择排序 、快速排序等，和二叉树、红黑树，Dijkstra算法的相关知识将来在算法和数据结构相关的文章中详细介绍。&lt;/p&gt;
+&lt;/blockquote&gt;
+">Java程序设计：集合（Collection）API</a>
+      </div>
       
       <div class="item">
         <a class="result-title" style="opacity: 0;" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-lambda-biao-da-shi-yu-fang-fa-yin-yong/"" data-c="

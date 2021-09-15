@@ -8,7 +8,7 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#845ef7">
-<title>Java程序设计：统计代码的执行时间的3种方法 | 蒼茫世界</title>
+<title>算法：常用的基础算法：穷举、迭代、递归和回溯 | 蒼茫世界</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631716391443">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -61,8 +61,8 @@
 
 
 
-  <meta name="description" content="Java程序设计：统计代码的执行时间的3种方法" />
-  <meta name="keywords" content="Java" />
+  <meta name="description" content="算法：常用的基础算法：穷举、迭代、递归和回溯" />
+  <meta name="keywords" content="算法" />
 </head>
 
 <body>
@@ -295,9 +295,16 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80systemcurrenttimemillis">方法一：System.currentTimeMillis</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8Csystemnanotime">方法二：System.nanoTime</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89new-date">方法三：new Date</a></li>
+<li><a href="#%E7%A9%B7%E4%B8%BE">穷举</a></li>
+<li><a href="#%E8%BF%AD%E4%BB%A3">迭代</a>
+<ul>
+<li><a href="#%E7%A1%AE%E5%AE%9A%E5%8F%98%E9%87%8F">确定变量</a></li>
+<li><a href="#%E5%BB%BA%E7%AB%8B%E5%85%B3%E7%B3%BB%E5%BC%8F">建立关系式</a></li>
+<li><a href="#%E8%BF%87%E7%A8%8B%E6%8E%A7%E5%88%B6">过程控制</a></li>
+</ul>
+</li>
+<li><a href="#%E9%80%92%E5%BD%92">递归</a></li>
+<li><a href="#%E5%9B%9E%E6%BA%AF">回溯</a></li>
 </ul>
 
   </div>
@@ -563,8 +570,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/">
-      Java程序设计：统计代码的执行时间的3种方法
+    <a class="post-title-link" href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/">
+      算法：常用的基础算法：穷举、迭代、递归和回溯
     </a>
   </h1>
   <div class="post-meta">
@@ -572,7 +579,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-08-20 12:44:24">2020-08-20</span>
+      <span class="publish-time" data-t="2020-10-19 22:14:54">2020-10-19</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -581,8 +588,8 @@
       <span class="pc-show language" data-lan="category-in">分类于</span>
       
       
-      <a href="https://www.cmsj.in/tag/java/">
-        <span>Java</span>
+      <a href="https://www.cmsj.in/tag/Algorithm/">
+        <span>算法</span>
       </a>
       
       
@@ -591,17 +598,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>3<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>438<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>720<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" data-flag-title="Java程序设计：统计代码的执行时间的3种方法" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/" data-flag-title="算法：常用的基础算法：穷举、迭代、递归和回溯" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -610,62 +617,43 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>在日常开发中经常需要测试一些代码的执行时间，所以本文就汇总了一些 Java 中比较常用的执行时间统计方法。</p>
+              <p>穷举、迭代、递归和回溯这些算法属于“通用算法”，它们在解决许多问题中都有应用。</p>
 <!-- more -->
-<h1 id="方法一systemcurrenttimemillis">方法一：System.currentTimeMillis</h1>
-<p>此方法为 Java 内置的方法，使用 System#currentTimeMillis 来统计执行的时间（统计单位：毫秒），示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.currentTimeMillis();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.currentTimeMillis();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
-<h1 id="方法二systemnanotime">方法二：System.nanoTime</h1>
-<p>此方法为 Java 内置的方法，使用 System#nanoTime 来统计执行时间（统计单位：纳秒），它的执行方法和 System#currentTimeMillis 类似，示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.nanoTime();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.nanoTime();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 纳秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000769200 纳秒.</code></p>
-<p><code>小贴士：1 毫秒 = 100 万纳秒。</code></p>
-<h1 id="方法三new-date">方法三：new Date</h1>
-<p>此方法也是 Java 的内置方法，在开始执行前 new Date() 创建一个当前时间对象，在执行结束之后 new Date() 一个当前执行时间，然后再统计两个 Date 的时间间隔，示例代码如下：</p>
-<pre><code class="language-java">import java.util.Date;
- 
-public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        Date sdate = new Date();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        Date edate = new Date();
-        //  统计执行时间（毫秒）
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot; , (edate.getTime() - sdate.getTime())); 
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
+<h1 id="穷举">穷举</h1>
+<p>在有限的范围内，可以对所有的值都进行试验和判断，从而找到满足条件的值<br>
+穷举的基本模式</p>
+<ul>
+<li><code>for(;;){ if(); }</code><br>
+时间复杂度很高。</li>
+</ul>
+<h1 id="迭代">迭代</h1>
+<p>多次利用同一公式进行计算，每次将计算的结果再代入公式进行计算，从而逐步逼近精确解<br>
+迭代的基本模式</p>
+<ul>
+<li><code>while() { x = f(x); }</code></li>
+</ul>
+<p><strong>利用迭代算法解决问题，需要做好以下三个方面的工作：</strong></p>
+<h2 id="确定变量">确定变量</h2>
+<p>在可以用迭代算法解决的问题中，至少存在一个直接或间接地不断由旧值递推出新值的变量，这个变量就是迭代变量。</p>
+<h2 id="建立关系式">建立关系式</h2>
+<p>所谓迭代关系式，指如何从变量的前一个值推出其下一个值的公式（或关系）。迭代关系式的建立是解决迭代问题的关键，通常可以使用递推或倒推的方法来完成。</p>
+<h2 id="过程控制">过程控制</h2>
+<p>在什么时候结束迭代过程?这是编写迭代程序必须考虑的问题。不能让迭代过程无休止地重复执行下去。迭代过程的控制通常可分为两种情况：一种是所需的迭代次数是个确定的值，可以计算出来；另一种是所需的迭代次数无法确定。对于前一种情况，可以构建一个固定次数的循环来实现对迭代过程的控制；对于后一种情况，需要进一步分析出用来结束迭代过程的条件。</p>
+<h1 id="递归">递归</h1>
+<p>递归(recursive)就是一个过程调用过程本身。在递归调用中，一个过程执行的某一步要用到它的上一步(或上几步)的结果<br>
+递归的基本模式</p>
+<ul>
+<li><code>f(n){ f(n-1); }</code><br>
+边界条件与递归方程是递归函数的二个要素。</li>
+</ul>
+<h1 id="回溯">回溯</h1>
+<p>回溯法也叫试探回溯法，先选择某一可能的线索进行试探，每一步试探都有多种方式，将每一方式都一一试探，如果不符合条件就返回纠正，反复进行这种试探再返回纠正，直到得出全部符合条件的答案或是问题无解为止。<br>
+回溯的基本模式</p>
+<ul>
+<li><code>x++; if(…) x--;</code></li>
+</ul>
+<p>对回溯的算法优化<br>
+为了避免生成那些不可能产生最佳解的问题状态，要不断地利用限界函数(bounding function)来处死那些实际上不可能产生所需解的活结点，以减少问题的计算量。具有限界函数的深度优先生成法称为回溯法；在将来的文章中详细说明。</p>
 
             </div>
             
@@ -678,7 +666,7 @@ public class TimeIntervalTest {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" title="Java程序设计：统计代码的执行时间的3种方法">https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/</a>
+      <a href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/" title="算法：常用的基础算法：穷举、迭代、递归和回溯">https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -687,21 +675,17 @@ public class TimeIntervalTest {
   </ul>
   <div class="tags">
     
-      <a href="https://www.cmsj.in/tag/java/"># Java</a>
+      <a href="https://www.cmsj.in/tag/Algorithm/"># 算法</a>
     
   </div>
   <div class="nav">
     <div class="nav-prev">
       
-        <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">上一篇</a>
-      
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">Java程序设计：更改Swing的Look and Feel UI皮肤</a>
-        <a class="nav-mobile-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">下一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：泛型" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">Java程序设计：泛型</a>
+        <a class="nav-mobile-next" title="Java程序设计：泛型" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

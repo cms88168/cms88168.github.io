@@ -8,7 +8,7 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#845ef7">
-<title>Java程序设计：统计代码的执行时间的3种方法 | 蒼茫世界</title>
+<title>Java程序设计：字符串类 | 蒼茫世界</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631716391443">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -61,7 +61,7 @@
 
 
 
-  <meta name="description" content="Java程序设计：统计代码的执行时间的3种方法" />
+  <meta name="description" content="Java程序设计：字符串类" />
   <meta name="keywords" content="Java" />
 </head>
 
@@ -295,9 +295,9 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80systemcurrenttimemillis">方法一：System.currentTimeMillis</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8Csystemnanotime">方法二：System.nanoTime</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89new-date">方法三：new Date</a></li>
+<li><a href="#string%E7%B1%BB">String类</a></li>
+<li><a href="#stringbufferstringbuilder%E7%B1%BB">StringBuffer,StringBuilder类</a></li>
+<li><a href="#stringtokenizer%E7%B1%BB">StringTokenizer类</a></li>
 </ul>
 
   </div>
@@ -563,8 +563,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/">
-      Java程序设计：统计代码的执行时间的3种方法
+    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">
+      Java程序设计：字符串类
     </a>
   </h1>
   <div class="post-meta">
@@ -572,7 +572,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-08-20 12:44:24">2020-08-20</span>
+      <span class="publish-time" data-t="2020-09-27 22:41:55">2020-09-27</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -596,12 +596,12 @@
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>438<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>354<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" data-flag-title="Java程序设计：统计代码的执行时间的3种方法" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/" data-flag-title="Java程序设计：字符串类" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -610,62 +610,59 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>在日常开发中经常需要测试一些代码的执行时间，所以本文就汇总了一些 Java 中比较常用的执行时间统计方法。</p>
+              <p>字符串可以分为两大类<br>
+1.String类<br>
+• 创建之后不会再做修改和变动，即 immutable</p>
+<p>2.StringBuffer、StringBuilder类<br>
+• 创建之后允许再做更改和变化<br>
+• 其中 StringBuilder是JDK1.5增加的，它是非线程安全的，但是效率较高</p>
 <!-- more -->
-<h1 id="方法一systemcurrenttimemillis">方法一：System.currentTimeMillis</h1>
-<p>此方法为 Java 内置的方法，使用 System#currentTimeMillis 来统计执行的时间（统计单位：毫秒），示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.currentTimeMillis();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.currentTimeMillis();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot;, (etime - stime));
-    }
-}
+<p>特别注意：</p>
+<blockquote>
+<p>在循环中使用String的+=可能会带来效率问题</p>
+</blockquote>
+<h1 id="string类">String类</h1>
+<p>String 类对象保存不可修改(immutable)的Unicode字符序列</p>
+<ul>
+<li>String类的下述方法能创建并返回一个新的String对象实例: concat, replace,<br>
+replaceAll, substring, toLowerCase, toUpperCase, trim,toString.</li>
+<li>查找: endsWith, startsWith, indexOf,，lastIndexOf.</li>
+<li>比较: equals, equalsIgnoreCase,</li>
+<li>字符及长度: charAt ，length.</li>
+</ul>
+<ul>
+<li>
+<p>format函数<br>
+• %1<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo separator="true">,</mo><mn>8.5</mn><mi>f</mi></mrow><annotation encoding="application/x-tex">,8.5f %序号</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">8</span><span class="mord">.</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span> 标识 宽度及精度 转换方式</p>
+</li>
+<li>
+<p>String常量的内部化（interned）问题<br>
+• 即同样的字符串常量是合并的（是指向同一个引用的）</p>
+</li>
+</ul>
+<pre><code>“abc”==“abc”
+但是 “abc” != new String(“abc”)
 </code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
-<h1 id="方法二systemnanotime">方法二：System.nanoTime</h1>
-<p>此方法为 Java 内置的方法，使用 System#nanoTime 来统计执行时间（统计单位：纳秒），它的执行方法和 System#currentTimeMillis 类似，示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.nanoTime();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.nanoTime();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 纳秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000769200 纳秒.</code></p>
-<p><code>小贴士：1 毫秒 = 100 万纳秒。</code></p>
-<h1 id="方法三new-date">方法三：new Date</h1>
-<p>此方法也是 Java 的内置方法，在开始执行前 new Date() 创建一个当前时间对象，在执行结束之后 new Date() 一个当前执行时间，然后再统计两个 Date 的时间间隔，示例代码如下：</p>
-<pre><code class="language-java">import java.util.Date;
- 
-public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        Date sdate = new Date();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        Date edate = new Date();
-        //  统计执行时间（毫秒）
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot; , (edate.getTime() - sdate.getTime())); 
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
+<h1 id="stringbufferstringbuilder类">StringBuffer,StringBuilder类</h1>
+<ul>
+<li>StringBuffer类对象保存可修改的Unicode字符序列</li>
+<li>StringBuilder类似，它效率更高，不考虑线程安全性<br>
+• 构造方法<br>
+StringBuffer()<br>
+StringBuffer(int capacity)<br>
+StringBuffer(String initialString)<br>
+• 实现修改操作的方法:<br>
+append, insert, reverse, setCharAt, setLength.</li>
+</ul>
+<h1 id="stringtokenizer类">StringTokenizer类</h1>
+<p>java.util.StringTokenizer类提供了对字符串进行分割的功能。<br>
+• 构造<br>
+StringTokenizer(String str, String delim);<br>
+• 该类的重要方法有：<br>
+public int countTokens()；// 分割串的个数<br>
+public boolean hasMoreTokens()；// 是否还有分割串<br>
+public String nextToken()；// 得到下一分割串<br>
+• 另String类的 matches, replaceAll, split可以使用正则表达式</p>
 
             </div>
             
@@ -678,7 +675,7 @@ public class TimeIntervalTest {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" title="Java程序设计：统计代码的执行时间的3种方法">https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/</a>
+      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/" title="Java程序设计：字符串类">https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -694,14 +691,14 @@ public class TimeIntervalTest {
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">上一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：泛型" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">Java程序设计：泛型</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Java程序设计：泛型" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">Java程序设计：更改Swing的Look and Feel UI皮肤</a>
-        <a class="nav-mobile-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">下一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：集合（Collection）API" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/">Java程序设计：集合（Collection）API</a>
+        <a class="nav-mobile-next" title="Java程序设计：集合（Collection）API" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

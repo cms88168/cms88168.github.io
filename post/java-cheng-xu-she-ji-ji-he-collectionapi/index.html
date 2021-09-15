@@ -8,7 +8,7 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#845ef7">
-<title>Java程序设计：统计代码的执行时间的3种方法 | 蒼茫世界</title>
+<title>Java程序设计：集合（Collection）API | 蒼茫世界</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631716391443">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -61,8 +61,8 @@
 
 
 
-  <meta name="description" content="Java程序设计：统计代码的执行时间的3种方法" />
-  <meta name="keywords" content="Java" />
+  <meta name="description" content="Java程序设计：集合（Collection）API" />
+  <meta name="keywords" content="数据结构,Java" />
 </head>
 
 <body>
@@ -295,9 +295,42 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80systemcurrenttimemillis">方法一：System.currentTimeMillis</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8Csystemnanotime">方法二：System.nanoTime</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89new-date">方法三：new Date</a></li>
+<li><a href="#collection%E6%8E%A5%E5%8F%A3">Collection接口</a>
+<ul>
+<li><a href="#%E8%BF%AD%E4%BB%A3%E5%99%A8iterator">迭代器（Iterator）</a></li>
+<li><a href="#collection-api-%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84">Collection API 层次结构</a></li>
+</ul>
+</li>
+<li><a href="#list-%E7%BA%BF%E6%80%A7%E8%A1%A8">List 线性表</a>
+<ul>
+<li><a href="#%E7%89%B9%E5%BE%81">特征</a></li>
+<li><a href="#%E5%AE%9E%E7%8E%B0">实现</a></li>
+</ul>
+</li>
+<li><a href="#stack-%E6%A0%88">Stack 栈</a></li>
+<li><a href="#%E9%98%9F%E5%88%97queue">队列Queue</a>
+<ul>
+<li><a href="#%E9%A1%BA%E5%BA%8F%E9%98%9F%E5%88%97">顺序队列</a></li>
+<li><a href="#%E5%BE%AA%E7%8E%AF%E9%98%9F%E5%88%97">循环队列</a></li>
+<li><a href="#%E9%98%9F%E5%88%97%E7%9A%84%E6%95%B0%E7%BB%84%E5%AE%9E%E7%8E%B0">队列的数组实现</a></li>
+<li><a href="#%E9%87%8D%E8%A6%81%E7%9A%84%E5%AE%9E%E7%8E%B0%E6%98%AFlinkedlist%E7%B1%BB">重要的实现是LinkedList类</a></li>
+</ul>
+</li>
+<li><a href="#linkedlist">LinkedList</a></li>
+<li><a href="#%E5%87%A0%E4%B8%AA%E6%97%A9%E6%9C%9F%E7%9A%84%E7%B1%BB%E6%88%96%E6%8E%A5%E5%8F%A3">几个早期的类或接口</a></li>
+<li><a href="#set-%E9%9B%86">Set 集</a></li>
+<li><a href="#map">Map</a>
+<ul>
+<li><a href="#map%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84">Map层次结构</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B3%BB%E7%BB%9F%E5%B7%B2%E6%9C%89%E7%9A%84%E6%8E%92%E5%BA%8F%E4%B8%8E%E6%9F%A5%E6%89%BE">系统已有的排序与查找</a>
+<ul>
+<li><a href="#arrays%E7%B1%BB">Arrays类</a></li>
+<li><a href="#collections%E7%B1%BB">Collections类</a></li>
+<li><a href="#%E5%85%B3%E4%BA%8E%E6%AF%94%E8%BE%83">关于比较</a></li>
+</ul>
+</li>
 </ul>
 
   </div>
@@ -563,8 +596,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/">
-      Java程序设计：统计代码的执行时间的3种方法
+    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/">
+      Java程序设计：集合（Collection）API
     </a>
   </h1>
   <div class="post-meta">
@@ -572,13 +605,19 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-08-20 12:44:24">2020-08-20</span>
+      <span class="publish-time" data-t="2020-09-14 17:48:34">2020-09-14</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
     <span class="meta-item">
       <i class="fa fa-folder-o"></i>
       <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://www.cmsj.in/tag/Data Structure/">
+        <span>数据结构</span>
+      </a>、
+      
       
       
       <a href="https://www.cmsj.in/tag/java/">
@@ -591,17 +630,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>13<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>438<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>3319<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" data-flag-title="Java程序设计：统计代码的执行时间的3种方法" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/java-cheng-xu-she-ji-ji-he-collectionapi/" data-flag-title="Java程序设计：集合（Collection）API" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -610,62 +649,214 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>在日常开发中经常需要测试一些代码的执行时间，所以本文就汇总了一些 Java 中比较常用的执行时间统计方法。</p>
+              <p>Collection API<br>
+• Collection API提供“集合”“收集”的功能<br>
+• Collection API包含一系列的接口和类</p>
+<p>Collection接口：有两个子接口<br>
+• List: (Collection的子接口)记录元素的保存顺序，且允许有重复元素<br>
+• Set: (Collection的子接口)不记录元素的保存顺序，且不允许有重复元素<br>
+Map接口，即映射<br>
+• 键-值对（key-value pair）的集合</p>
 <!-- more -->
-<h1 id="方法一systemcurrenttimemillis">方法一：System.currentTimeMillis</h1>
-<p>此方法为 Java 内置的方法，使用 System#currentTimeMillis 来统计执行的时间（统计单位：毫秒），示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.currentTimeMillis();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.currentTimeMillis();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
-<h1 id="方法二systemnanotime">方法二：System.nanoTime</h1>
-<p>此方法为 Java 内置的方法，使用 System#nanoTime 来统计执行时间（统计单位：纳秒），它的执行方法和 System#currentTimeMillis 类似，示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.nanoTime();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.nanoTime();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 纳秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000769200 纳秒.</code></p>
-<p><code>小贴士：1 毫秒 = 100 万纳秒。</code></p>
-<h1 id="方法三new-date">方法三：new Date</h1>
-<p>此方法也是 Java 的内置方法，在开始执行前 new Date() 创建一个当前时间对象，在执行结束之后 new Date() 一个当前执行时间，然后再统计两个 Date 的时间间隔，示例代码如下：</p>
-<pre><code class="language-java">import java.util.Date;
- 
-public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        Date sdate = new Date();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        Date edate = new Date();
-        //  统计执行时间（毫秒）
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot; , (edate.getTime() - sdate.getTime())); 
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
+<h1 id="collection接口">Collection接口</h1>
+<p>主要的方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法  ：返回类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+add(element : Object) : boolean</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>+remove(element : Object) : boolean</td>
+<td>删除元素</td>
+</tr>
+<tr>
+<td>+size() : int</td>
+<td>集合中元素的个数</td>
+</tr>
+<tr>
+<td>+isEmpty() : boolean</td>
+<td>集合是否为空</td>
+</tr>
+<tr>
+<td>+contains(element : Object) : boolean</td>
+<td>是否包含某个元素</td>
+</tr>
+<tr>
+<td>+iterator() : Iterator</td>
+<td>迭代器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="迭代器iterator">迭代器（Iterator）</h2>
+<p>迭代器不是一个集合，它是一种用于访问集合的方法，可用于迭代 ArrayList 和 HashSet 等集合。<br>
+<img src="https://www.cmsj.in/post-images/1631637679066.jpg" alt="" loading="lazy"></p>
+<ul>
+<li>
+<p>Iterator 是 Java 迭代器最简单的实现，ListIterator 是 Collection API 中的接口， 它扩展了 Iterator 接口。</p>
+</li>
+<li>
+<p>迭代器 it 的两个基本操作是 next 、hasNext 和 remove。</p>
+</li>
+<li>
+<p>调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。</p>
+</li>
+<li>
+<p>调用 it.hasNext() 用于检测集合中是否还有元素。</p>
+</li>
+<li>
+<p>调用 it.remove() 将迭代器返回的元素删除。</p>
+</li>
+<li>
+<p>增强的for语句<br>
+在JDK1.5以后，增强的for语句(enhanced for)或叫for-each<br>
+for( Element e : list ) doSomething(e);<br>
+• for (Photo photo : album){<br>
+• System.out.println( photo.toString() );<br>
+• }<br>
+编译器生成了Iterator的while(hasNext（)) {….next() }</p>
+</li>
+</ul>
+<h2 id="collection-api-层次结构">Collection API 层次结构</h2>
+<figure data-type="image" tabindex="1"><img src="https://www.cmsj.in/post-images/1631710102920.png" alt="" loading="lazy"></figure>
+<h1 id="list-线性表">List 线性表</h1>
+<p>线性表是最基本、最简单、也是最常用的一种数据结构。线性表（linear list）是数据结构的一种，一个线性表是n个具有相同特性的数据元素的有限序列。<br>
+线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的（注意，这句话只适用大部分线性表，而不是全部。比如，循环链表逻辑层次上也是一种线性表（存储层次上属于链式存储，但是把最后一个数据元素的尾指针指向了首位结点）。</p>
+<h2 id="特征">特征</h2>
+<p>1．集合中必存在唯一的一个“第一元素”。<br>
+2．集合中必存在唯一的一个 “最后元素” 。<br>
+3．除最后一个元素之外，均有唯一的后继(后件)。<br>
+4．除第一个元素之外，均有唯一的前驱(前件)。</p>
+<p>线性表主要由顺序表示ArrayList或链式表示LinkedList。</p>
+<p>顺序表示指的是用一组地址连续的存储单元依次存储线性表的数据元素，称为线性表的顺序存储结构或顺序映像（sequential mapping）。它以“物理位置相邻”来表示线性表中数据元素间的逻辑关系，可随机存取表中任一元素。</p>
+<p>链式表示指的是用一组任意的存储单元存储线性表中的数据元素，称为线性表的链式存储结构。它的存储单元可以是连续的，也可以是不连续的。在表示数据元素之间的逻辑关系时，除了存储其本身的信息之外，还需存储一个指示其直接后继的信息（即直接后继的存储位置），这两部分信息组成数据元素的存储映像，称为结点（node）。它包括两个域；存储数据元素信息的域称为数据域；存储直接后继存储位置的域称为指针域。指针域中存储的信息称为指针或链。</p>
+<h2 id="实现">实现</h2>
+<p>主要的实现类是 ArrayList. LinkedList， 以及早期的Vector<br>
+• E get(int index);<br>
+• E set(int index, E element);<br>
+• void add(int index, E element);<br>
+• E remove(int index);<br>
+• int indexOf(Object o);</p>
+<h1 id="stack-栈">Stack 栈</h1>
+<p>栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈(push)，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈(pop)，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。<br>
+• 遵循“后进先出”(Last In First Out, LIFO)原则<br>
+• 包含三个方法<br>
+public Object push(Object item)：将指定对象压入栈中。<br>
+Public Object pop()：将 栈最上面的元素从栈中取出，并返回这个对象。<br>
+public boolean empty()：判断栈中没有对象元素。</p>
+<h1 id="队列queue">队列Queue</h1>
+<p>队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。队列中没有元素时，称为空队列。<br>
+队列的数据元素又称为队列元素。在队列中插入一个队列元素称为入队，从队列中删除一个队列元素称为出队。因为队列只允许在一端插入，在另一端删除，所以只有最早进入队列的元素才能最先从队列中删除，故队列又称为先进先出（FIFO—first in first out）线性表。</p>
+<h2 id="顺序队列">顺序队列</h2>
+<p>建立顺序队列结构必须为其静态分配或动态申请一片连续的存储空间，并设置两个指针进行管理。一个是队头指针front，它指向队头元素；另一个是队尾指针rear，它指向下一个入队元素的存储位置。</p>
+<p>每次在队尾插入一个元素是，rear增1；每次在队头删除一个元素时，front增1。随着插入和删除操作的进行，队列元素的个数不断变化，队列所占的存储空间也在为队列结构所分配的连续空间中移动。当front=rear时，队列中没有任何元素，称为空队列。当rear增加到指向分配的连续空间之外时，队列无法再插入新元素，但这时往往还有大量可用空间未被占用，这些空间是已经出队的队列元素曾经占用过得存储单元。</p>
+<p>顺序队列中的溢出现象：<br>
+（1） &quot;下溢&quot;现象：当队列为空时，做出队运算产生的溢出现象。“下溢”是正常现象，常用作程序控制转移的条件。<br>
+（2）&quot;真上溢&quot;现象：当队列满时，做进栈运算产生空间溢出的现象。“真上溢”是一种出错状态，应设法避免。<br>
+（3）&quot;假上溢&quot;现象：由于入队和出队操作中，头尾指针只增加不减小，致使被删元素的空间永远无法重新利用。当队列中实际的元素个数远远小于向量空间的规模时，也可能由于尾指针已超越向量空间的上界而不能做入队操作。该现象称为&quot;假上溢&quot;现象。</p>
+<h2 id="循环队列">循环队列</h2>
+<p>在实际使用队列时，为了使队列空间能重复使用，往往对队列的使用方法稍加改进：无论插入或删除，一旦rear指针增1或front指针增1 时超出了所分配的队列空间，就让它指向这片连续空间的起始位置。自己真从MaxSize-1增1变到0，可用取余运算rear%MaxSize和front%MaxSize来实现。这实际上是把队列空间想象成一个环形空间，环形空间中的存储单元循环使用，用这种方法管理的队列也就称为循环队列。除了一些简单应用之外，真正实用的队列是循环队列。<br>
+在循环队列中，当队列为空时，有front=rear，而当所有队列空间全占满时，也有front=rear。为了区别这两种情况，规定循环队列最多只能有MaxSize-1个队列元素，当循环队列中只剩下一个空存储单元时，队列就已经满了。因此，队列判空的条件时front=rear，而队列判满的条件时front=（rear+1）%MaxSize。</p>
+<h2 id="队列的数组实现">队列的数组实现</h2>
+<p>队列可以用数组Q[1…m]来存储，数组的上界m即是队列所容许的最大容量。在队列的运算中需设两个指针：head，队头指针，指向实际队头元素；tail，队尾指针，指向实际队尾元素的下一个位置。一般情况下，两个指针的初值设为0，这时队列为空，没有元素。数组定义Q[1…10]。Q(i) i=3,4,5,6,7,8。头指针head=2，尾指针tail=8。队列中拥有的元素个数为:L=tail-head。现要让排头的元素出队，则需将头指针加1。即head=head+1这时头指针向上移动一个位置，指向Q(3)，表示Q(3)已出队。如果想让一个新元素入队，则需尾指针向上移动一个位置。即tail=tail+1这时Q(9)入队。当队尾已经处理在最上面时，即tail=10，如果还要执行入队操作，则要发生&quot;上溢&quot;，但实际上队列中还有三个空位置，所以这种溢出称为&quot;假溢出&quot;。<br>
+克服假溢出的方法有两种。一种是将队列中的所有元素均向低地址区移动，显然这种方法是很浪费时间的；另一种方法是将数组存储区看成是一个首尾相接的环形区域。当存放到n地址后，下一个地址就&quot;翻转&quot;为1。在结构上采用这种技巧来存储的队列称为循环队列。<br>
+队列和栈一样只允许在断点处插入和删除元素。<br>
+循环队的入队算法如下：<br>
+1、tail=tail+1；<br>
+2、若tail=n+1，则tail=1；<br>
+3、若head=tail，即尾指针与头指针重合了，表示元素已装满队列，则作上溢出错处理；<br>
+4、否则，Q(tail)=X，结束（X为新入出元素）。<br>
+队列和栈一样，有着非常广泛的应用。<br>
+注意：（1）有时候队列中还会设置表头结点，就是在队头的前面还有一个结点，这个结点的数据域为空，但是指针域指向队头元素。<br>
+（2）另外，上面的计算还可以利用下面给出的公式cq.rear=(cq.front+1)/max;<br>
+当有表头结点时，公式变为cq.rear=(cq.front+1)/（max+1）。</p>
+<h2 id="重要的实现是linkedlist类">重要的实现是LinkedList类</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>可抛出异类的</th>
+<th>返回元素的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert（插入）</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+</tr>
+<tr>
+<td>Remove（移除）</td>
+<td>remove()</td>
+<td>poll()</td>
+</tr>
+<tr>
+<td>Examine（检查）</td>
+<td>element()</td>
+<td>peek()</td>
+</tr>
+</tbody>
+</table>
+<h1 id="linkedlist">LinkedList</h1>
+<p>LinkedList同时实现了List接口和Deque接口，也就是说它既可以看作一个顺序容器，又可以看作一个队列（Queue），同时又可以看作一个栈（stack），这样看来，linkedList简直就是无敌的，当你需要使用栈或者队列时，可以考虑用LinkedList,一方面是因为Java官方已经声明不建议使用Stack类，更遗憾的是，Java里根本没有一个叫做Queue的类（只是一个接口的名字）。关于栈或队列，现在首选是ArrayDeque，它有着比LinkedList（当作栈或队列使用时）更好的性能。</p>
+<h1 id="几个早期的类或接口">几个早期的类或接口</h1>
+<p>• Vector， 现多用 ArrayList<br>
+相当于动态数组(比JDK1.0中的 ArrayList好), elementAt,<br>
+• Stack， 现多用 LinkedList<br>
+Stack是Vector的子类, push, pop, peek<br>
+• Hashtable， 现多用 HashMap<br>
+Hashtable实现Map接口, 参见Properties类<br>
+• Enumeration， 现多用Iterator<br>
+Enumeration用另一种方式实现Iterator的功能<br>
+如Vector可以得到枚举器<br>
+Enumeration<E> e = v.elements();<br>
+while(e.hasMoreElements()) doSomething(e.nextElement())</p>
+<h1 id="set-集">Set 集</h1>
+<p>两个重要的实现 HashSet及TreeSet<br>
+其中TreeSet的底层是用TreeMap来实现的<br>
+• <strong>Set中对象不重复</strong>，即：<br>
+hashCode()不等<br>
+如果hashCode()相等，再看equals或==是否为false</p>
+<h1 id="map">Map</h1>
+<p>• Map是键-值对的集合<br>
+其中可以取到entrySet()、keySet()、values()、<br>
+Map.Entry是一个嵌套接口<br>
+• Map类的重要实现<br>
+HashMap类<br>
+TreeMap类：用红黑树的算法</p>
+<h2 id="map层次结构">Map层次结构</h2>
+<figure data-type="image" tabindex="2"><img src="https://www.cmsj.in/post-images/1631713185546.png" alt="" loading="lazy"></figure>
+<h1 id="系统已有的排序与查找">系统已有的排序与查找</h1>
+<p>Arrays类及Collections类</p>
+<h2 id="arrays类">Arrays类</h2>
+<p>• Arrays类是用于对<strong>数组</strong>进行排序和搜索的类。<br>
+Arrays.asList( 10, 7, 6, 5, 9) 方法可以直接得到一个List对象<br>
+• Arrays类提供了sort()和binarySearch()<br>
+• 执行binarySearch()之前应调用sort()<br>
+public static void sort(List list);<br>
+public static void sort(List list, Comparator c);<br>
+public static int binarySearch(List list, Object key);<br>
+public static int binarySearch(List list, Object key, Comparator c);</p>
+<h2 id="collections类">Collections类</h2>
+<p>此类完全由在 collection 上进行操作静态方法组成.<br>
+• 如sort, binarySearch, reverse等</p>
+<h2 id="关于比较">关于比较</h2>
+<p>1.对象是java.lang.Comparable<br>
+• 实现方法<br>
+• public int compareTo(Object obj){<br>
+return this.price – ((Book)obj).price;}<br>
+2.提供一个java.lang. Comparator<br>
+• 实现方法 public int compare(T o1, T o2)<br>
+• 这些方法的含义要与equals不冲突</p>
+<blockquote>
+<p>更多的排序与查找方法，如冒泡排序 、选择排序 、快速排序等，和二叉树、红黑树，Dijkstra算法的相关知识将来在算法和数据结构相关的文章中详细介绍。</p>
+</blockquote>
 
             </div>
             
@@ -678,7 +869,7 @@ public class TimeIntervalTest {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" title="Java程序设计：统计代码的执行时间的3种方法">https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/</a>
+      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/" title="Java程序设计：集合（Collection）API">https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -687,6 +878,8 @@ public class TimeIntervalTest {
   </ul>
   <div class="tags">
     
+      <a href="https://www.cmsj.in/tag/Data Structure/"># 数据结构</a>
+    
       <a href="https://www.cmsj.in/tag/java/"># Java</a>
     
   </div>
@@ -694,14 +887,14 @@ public class TimeIntervalTest {
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">上一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：字符串类" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">Java程序设计：字符串类</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Java程序设计：字符串类" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">Java程序设计：更改Swing的Look and Feel UI皮肤</a>
-        <a class="nav-mobile-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">下一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：Lambda表达式与方法引用" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-lambda-biao-da-shi-yu-fang-fa-yin-yong/">Java程序设计：Lambda表达式与方法引用</a>
+        <a class="nav-mobile-next" title="Java程序设计：Lambda表达式与方法引用" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-lambda-biao-da-shi-yu-fang-fa-yin-yong/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>

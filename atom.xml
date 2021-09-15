@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://www.cmsj.in</id>
     <title>蒼茫世界</title>
-    <updated>2021-09-13T17:14:50.007Z</updated>
+    <updated>2021-09-15T14:39:05.169Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://www.cmsj.in"/>
     <link rel="self" href="https://www.cmsj.in/atom.xml"/>
@@ -10,6 +10,448 @@
     <logo>https://www.cmsj.in/images/avatar.png</logo>
     <icon>https://www.cmsj.in/favicon.ico</icon>
     <rights>All rights reserved 2021, 蒼茫世界</rights>
+    <entry>
+        <title type="html"><![CDATA[算法：常用的基础算法：穷举、迭代、递归和回溯]]></title>
+        <id>https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/</id>
+        <link href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/">
+        </link>
+        <updated>2020-10-19T14:14:54.000Z</updated>
+        <summary type="html"><![CDATA[<p>穷举、迭代、递归和回溯这些算法属于“通用算法”，它们在解决许多问题中都有应用。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>穷举、迭代、递归和回溯这些算法属于“通用算法”，它们在解决许多问题中都有应用。</p>
+<!-- more -->
+<h1 id="穷举">穷举</h1>
+<p>在有限的范围内，可以对所有的值都进行试验和判断，从而找到满足条件的值<br>
+穷举的基本模式</p>
+<ul>
+<li><code>for(;;){ if(); }</code><br>
+时间复杂度很高。</li>
+</ul>
+<h1 id="迭代">迭代</h1>
+<p>多次利用同一公式进行计算，每次将计算的结果再代入公式进行计算，从而逐步逼近精确解<br>
+迭代的基本模式</p>
+<ul>
+<li><code>while() { x = f(x); }</code></li>
+</ul>
+<p><strong>利用迭代算法解决问题，需要做好以下三个方面的工作：</strong></p>
+<h2 id="确定变量">确定变量</h2>
+<p>在可以用迭代算法解决的问题中，至少存在一个直接或间接地不断由旧值递推出新值的变量，这个变量就是迭代变量。</p>
+<h2 id="建立关系式">建立关系式</h2>
+<p>所谓迭代关系式，指如何从变量的前一个值推出其下一个值的公式（或关系）。迭代关系式的建立是解决迭代问题的关键，通常可以使用递推或倒推的方法来完成。</p>
+<h2 id="过程控制">过程控制</h2>
+<p>在什么时候结束迭代过程?这是编写迭代程序必须考虑的问题。不能让迭代过程无休止地重复执行下去。迭代过程的控制通常可分为两种情况：一种是所需的迭代次数是个确定的值，可以计算出来；另一种是所需的迭代次数无法确定。对于前一种情况，可以构建一个固定次数的循环来实现对迭代过程的控制；对于后一种情况，需要进一步分析出用来结束迭代过程的条件。</p>
+<h1 id="递归">递归</h1>
+<p>递归(recursive)就是一个过程调用过程本身。在递归调用中，一个过程执行的某一步要用到它的上一步(或上几步)的结果<br>
+递归的基本模式</p>
+<ul>
+<li><code>f(n){ f(n-1); }</code><br>
+边界条件与递归方程是递归函数的二个要素。</li>
+</ul>
+<h1 id="回溯">回溯</h1>
+<p>回溯法也叫试探回溯法，先选择某一可能的线索进行试探，每一步试探都有多种方式，将每一方式都一一试探，如果不符合条件就返回纠正，反复进行这种试探再返回纠正，直到得出全部符合条件的答案或是问题无解为止。<br>
+回溯的基本模式</p>
+<ul>
+<li><code>x++; if(…) x--;</code></li>
+</ul>
+<p>对回溯的算法优化<br>
+为了避免生成那些不可能产生最佳解的问题状态，要不断地利用限界函数(bounding function)来处死那些实际上不可能产生所需解的活结点，以减少问题的计算量。具有限界函数的深度优先生成法称为回溯法；在将来的文章中详细说明。</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：泛型]]></title>
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">
+        </link>
+        <updated>2020-10-04T13:57:50.000Z</updated>
+        <summary type="html"><![CDATA[<p>泛型程序设计（generic programming）是程序设计语言的一种风格或范式。泛型允许程序员在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型。</p>
+<p>泛型的定义主要有以下两种：<br>
+在程序编码中一些包含类型参数的类型，也就是说泛型的参数只可以代表类，不能代表个别对象。（这是当今较常见的定义）<br>
+在程序编码中一些包含参数的类。其参数可以代表类或对象等等。（现在人们大多把这称作模板）<br>
+不论使用哪个定义，泛型的参数在真正使用泛型时都必须作出指明。</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>泛型程序设计（generic programming）是程序设计语言的一种风格或范式。泛型允许程序员在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型。</p>
+<p>泛型的定义主要有以下两种：<br>
+在程序编码中一些包含类型参数的类型，也就是说泛型的参数只可以代表类，不能代表个别对象。（这是当今较常见的定义）<br>
+在程序编码中一些包含参数的类。其参数可以代表类或对象等等。（现在人们大多把这称作模板）<br>
+不论使用哪个定义，泛型的参数在真正使用泛型时都必须作出指明。</p>
+<!-- more -->
+<p>Java 泛型的参数只可以代表类，不能代表个别对象。由于Java泛型的类型参数之实际类型在编译时会被消除，所以无法在运行时得知其类型参数的类型，而且无法直接使用基本值类型作为泛型类型参数。Java编译程序在编译泛型时会自动加入类型转换的编码，故运行速度不会因为使用泛型而加快。<br>
+由于运行时会消除泛型的对象实例类型信息等缺陷经常被人诟病，Java及JVM的开发方面也尝试解决这个问题，例如Java通过在生成字节码时添加类型推导辅助信息，从而可以通过反射接口获得部分泛型信息。通过改进泛型在JVM的实现，使其支持基本值类型泛型和直接获得泛型信息等。<br>
+Java允许对个别泛型的类型参数进行约束，包括以下两种形式（假设T是泛型的类型参数，C是一般类、泛类，或是泛型的类型参数）：<br>
+T实现接口I。<br>
+T是C，或继承自C。</p>
+<p>• 使用泛型可以针对不同的类有相同的处理办法<br>
+•Vector<String> v = new Vector<String> ();<br>
+v.addElement( “one” );<br>
+String s = v.elementAt(0);<br>
+• 使用泛型的好处<br>
+类型更安全<br>
+适用更广泛，针对不同的类有相同的处理办法，但这些类之间不一定有继承关系。</p>
+<h1 id="泛型的使用">泛型的使用</h1>
+<p>主要有泛型类、泛型接口、泛型方法以及泛型通配符。</p>
+<h2 id="泛型类">泛型类</h2>
+<p>①泛型使用格式</p>
+<p>修饰符 class 类名&lt;代表泛型的变量&gt; { }；</p>
+<p>ArrayList类中使用E来代表泛型的变量，E本身并没有含义，任意一个大写字母都可以，A、B、T、W都可以。</p>
+<p>②泛型类的使用</p>
+<p>在创建对象的时候确定泛型，指定好了后这个对象就只能装指定的数据类型了。</p>
+<p>如果要换其他数据类型，就要重新创建该类的对象，重新指定泛型。泛型类有何好处？</p>
+<p>③ArrayList的add方法</p>
+<p>add方法参数就是一个泛型，也就是说创建对象时确定的是哪个类型，使用add方法就只能添加这个类型了，这就起到了一个千变万化的效果。</p>
+<h2 id="泛型接口">泛型接口</h2>
+<p>①泛型接口格式</p>
+<p>修饰符 interface接口名&lt;代表泛型的变量&gt; { }</p>
+<p>这次我们自定义一个泛型接口，泛型为A。</p>
+<p>②泛型类的使用一</p>
+<p>实现类实现接口、同时指定泛型类型。</p>
+<p>③泛型类的使用二</p>
+<p>实现类实现接口但不指定泛型，这个类也就成了泛型类。</p>
+<p>ArrayList类本质上也就是这种情况，它实现了List<E>接口，但是没有指定泛型。</p>
+<h2 id="泛型方法">泛型方法</h2>
+<p>①泛型方法格式</p>
+<p>修饰符 &lt;代表泛型的变量&gt; 返回值类型 方法名(参数){ }</p>
+<p>②泛型方法使用</p>
+<p>调用方法时，确定泛型的类型。</p>
+<h2 id="泛型通配符">泛型通配符</h2>
+<p>①两个不同类型的集合</p>
+<p>一个集合泛型为String类，一个集合泛型为Integer：</p>
+<p>ArrayList&lt;String&gt;list1和ArrayList&lt;Integer&gt; list2是两个不同的类型，如果用常规方法，那要两个方法（方法重载）</p>
+<p>②泛型的通配符</p>
+<p>不知道使用什么类型来接收的时候，此时可以使用?，?表示未知通配符。</p>
+<p>其中泛型通配符还可以这样使用：</p>
+<p><code>&lt;? extends Person&gt;</code>：表示可以传递Person及其子类</p>
+<p><code>&lt;? super Person&gt;</code>：表示可以传递Person及其父类</p>
+<p>例子</p>
+<p>使用?<br>
+• 如Collections的reverse方法<br>
+• reverse(List&lt;?&gt; list)<br>
+使用extends<br>
+• 如Set的addAll方法<br>
+• addAll(Collection&lt;? extends E&gt; col )<br>
+使用super<br>
+• 如Collections的fill方法<br>
+• fill(List&lt;? super T&gt; list, T obj)</p>
+<p>注意：</p>
+<p>泛型不存在继承关系：ArrayList&lt;Object&gt;list并不是ArrayList&lt;String&gt;list1和ArrayList&lt;Integer&gt;list2的父类，它们三个是三个不同的类型。<br>
+其中Java里的泛型是一种伪泛型。什么叫伪泛型？也就是泛型只存在于编译时期，在运行时期会被擦除。</p>
+<h2 id="复杂的泛型例子">复杂的泛型例子</h2>
+<p>• Arrays.sort方法<br>
+<code>public static &lt;T&gt; void sort(T[] a, Comparator&lt;? super T&gt; c)</code><br>
+• Stream.map方法<br>
+<code>public &lt;R&gt; Stream&lt;R&gt; map(Function&lt;? super T, ? extends R&gt; mapper)</code><br>
+• Collections.max方法<br>
+<code>public static &lt;T extends Object &amp; Comparable&lt;? super T&gt;&gt;T</code><br>
+<code>max(Collection&lt;? extends T&gt; coll)</code></p>
+<h2 id="协变与逆变">协变与逆变</h2>
+<p>协变(Covariance) ? extends T<br>
+• 原因：ListArray&lt;Apple&gt;不是ListArray&lt;Fruit&gt;的子类<br>
+但又想让&lt;Apple&gt;当作&lt;Fruit&gt;<br>
+就声明ListArray&lt;? extends Fruit&gt;<br>
+逆变(Contravariance) ? super T<br>
+• 原因：Basket&lt;Apple&gt;不是Basket&lt;Fruit&gt;的子类<br>
+但又想让Comparator&lt;Fruit&gt;用于Comparator&lt;Apple&gt;<br>
+就声明Comparator&lt;? super Fruit&gt;<br>
+注：? 实际上是去类型化(变成Object)，只在编译时检查<br>
+总之:</p>
+<ul>
+<li>协变 用于获取，用于out，用于Producer</li>
+<li>逆变 用于加入，用于in, 用于Consumer</li>
+</ul>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：字符串类]]></title>
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">
+        </link>
+        <updated>2020-09-27T14:41:55.000Z</updated>
+        <summary type="html"><![CDATA[<p>字符串可以分为两大类<br>
+1.String类<br>
+• 创建之后不会再做修改和变动，即 immutable</p>
+<p>2.StringBuffer、StringBuilder类<br>
+• 创建之后允许再做更改和变化<br>
+• 其中 StringBuilder是JDK1.5增加的，它是非线程安全的，但是效率较高</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>字符串可以分为两大类<br>
+1.String类<br>
+• 创建之后不会再做修改和变动，即 immutable</p>
+<p>2.StringBuffer、StringBuilder类<br>
+• 创建之后允许再做更改和变化<br>
+• 其中 StringBuilder是JDK1.5增加的，它是非线程安全的，但是效率较高</p>
+<!-- more -->
+<p>特别注意：</p>
+<blockquote>
+<p>在循环中使用String的+=可能会带来效率问题</p>
+</blockquote>
+<h1 id="string类">String类</h1>
+<p>String 类对象保存不可修改(immutable)的Unicode字符序列</p>
+<ul>
+<li>String类的下述方法能创建并返回一个新的String对象实例: concat, replace,<br>
+replaceAll, substring, toLowerCase, toUpperCase, trim,toString.</li>
+<li>查找: endsWith, startsWith, indexOf,，lastIndexOf.</li>
+<li>比较: equals, equalsIgnoreCase,</li>
+<li>字符及长度: charAt ，length.</li>
+</ul>
+<ul>
+<li>
+<p>format函数<br>
+• %1<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mo separator="true">,</mo><mn>8.5</mn><mi>f</mi></mrow><annotation encoding="application/x-tex">,8.5f %序号</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8888799999999999em;vertical-align:-0.19444em;"></span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord">8</span><span class="mord">.</span><span class="mord">5</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span></span></span></span> 标识 宽度及精度 转换方式</p>
+</li>
+<li>
+<p>String常量的内部化（interned）问题<br>
+• 即同样的字符串常量是合并的（是指向同一个引用的）</p>
+</li>
+</ul>
+<pre><code>“abc”==“abc”
+但是 “abc” != new String(“abc”)
+</code></pre>
+<h1 id="stringbufferstringbuilder类">StringBuffer,StringBuilder类</h1>
+<ul>
+<li>StringBuffer类对象保存可修改的Unicode字符序列</li>
+<li>StringBuilder类似，它效率更高，不考虑线程安全性<br>
+• 构造方法<br>
+StringBuffer()<br>
+StringBuffer(int capacity)<br>
+StringBuffer(String initialString)<br>
+• 实现修改操作的方法:<br>
+append, insert, reverse, setCharAt, setLength.</li>
+</ul>
+<h1 id="stringtokenizer类">StringTokenizer类</h1>
+<p>java.util.StringTokenizer类提供了对字符串进行分割的功能。<br>
+• 构造<br>
+StringTokenizer(String str, String delim);<br>
+• 该类的重要方法有：<br>
+public int countTokens()；// 分割串的个数<br>
+public boolean hasMoreTokens()；// 是否还有分割串<br>
+public String nextToken()；// 得到下一分割串<br>
+• 另String类的 matches, replaceAll, split可以使用正则表达式</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[Java程序设计：集合（Collection）API]]></title>
+        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/</id>
+        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-he-collectionapi/">
+        </link>
+        <updated>2020-09-14T09:48:34.000Z</updated>
+        <summary type="html"><![CDATA[<p>Collection API<br>
+• Collection API提供“集合”“收集”的功能<br>
+• Collection API包含一系列的接口和类</p>
+<p>Collection接口：有两个子接口<br>
+• List: (Collection的子接口)记录元素的保存顺序，且允许有重复元素<br>
+• Set: (Collection的子接口)不记录元素的保存顺序，且不允许有重复元素<br>
+Map接口，即映射<br>
+• 键-值对（key-value pair）的集合</p>
+]]></summary>
+        <content type="html"><![CDATA[<p>Collection API<br>
+• Collection API提供“集合”“收集”的功能<br>
+• Collection API包含一系列的接口和类</p>
+<p>Collection接口：有两个子接口<br>
+• List: (Collection的子接口)记录元素的保存顺序，且允许有重复元素<br>
+• Set: (Collection的子接口)不记录元素的保存顺序，且不允许有重复元素<br>
+Map接口，即映射<br>
+• 键-值对（key-value pair）的集合</p>
+<!-- more -->
+<h1 id="collection接口">Collection接口</h1>
+<p>主要的方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法  ：返回类型</th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>+add(element : Object) : boolean</td>
+<td>添加元素</td>
+</tr>
+<tr>
+<td>+remove(element : Object) : boolean</td>
+<td>删除元素</td>
+</tr>
+<tr>
+<td>+size() : int</td>
+<td>集合中元素的个数</td>
+</tr>
+<tr>
+<td>+isEmpty() : boolean</td>
+<td>集合是否为空</td>
+</tr>
+<tr>
+<td>+contains(element : Object) : boolean</td>
+<td>是否包含某个元素</td>
+</tr>
+<tr>
+<td>+iterator() : Iterator</td>
+<td>迭代器</td>
+</tr>
+</tbody>
+</table>
+<h2 id="迭代器iterator">迭代器（Iterator）</h2>
+<p>迭代器不是一个集合，它是一种用于访问集合的方法，可用于迭代 ArrayList 和 HashSet 等集合。<br>
+<img src="https://www.cmsj.in/post-images/1631637679066.jpg" alt="" loading="lazy"></p>
+<ul>
+<li>
+<p>Iterator 是 Java 迭代器最简单的实现，ListIterator 是 Collection API 中的接口， 它扩展了 Iterator 接口。</p>
+</li>
+<li>
+<p>迭代器 it 的两个基本操作是 next 、hasNext 和 remove。</p>
+</li>
+<li>
+<p>调用 it.next() 会返回迭代器的下一个元素，并且更新迭代器的状态。</p>
+</li>
+<li>
+<p>调用 it.hasNext() 用于检测集合中是否还有元素。</p>
+</li>
+<li>
+<p>调用 it.remove() 将迭代器返回的元素删除。</p>
+</li>
+<li>
+<p>增强的for语句<br>
+在JDK1.5以后，增强的for语句(enhanced for)或叫for-each<br>
+for( Element e : list ) doSomething(e);<br>
+• for (Photo photo : album){<br>
+• System.out.println( photo.toString() );<br>
+• }<br>
+编译器生成了Iterator的while(hasNext（)) {….next() }</p>
+</li>
+</ul>
+<h2 id="collection-api-层次结构">Collection API 层次结构</h2>
+<figure data-type="image" tabindex="1"><img src="https://www.cmsj.in/post-images/1631710102920.png" alt="" loading="lazy"></figure>
+<h1 id="list-线性表">List 线性表</h1>
+<p>线性表是最基本、最简单、也是最常用的一种数据结构。线性表（linear list）是数据结构的一种，一个线性表是n个具有相同特性的数据元素的有限序列。<br>
+线性表中数据元素之间的关系是一对一的关系，即除了第一个和最后一个数据元素之外，其它数据元素都是首尾相接的（注意，这句话只适用大部分线性表，而不是全部。比如，循环链表逻辑层次上也是一种线性表（存储层次上属于链式存储，但是把最后一个数据元素的尾指针指向了首位结点）。</p>
+<h2 id="特征">特征</h2>
+<p>1．集合中必存在唯一的一个“第一元素”。<br>
+2．集合中必存在唯一的一个 “最后元素” 。<br>
+3．除最后一个元素之外，均有唯一的后继(后件)。<br>
+4．除第一个元素之外，均有唯一的前驱(前件)。</p>
+<p>线性表主要由顺序表示ArrayList或链式表示LinkedList。</p>
+<p>顺序表示指的是用一组地址连续的存储单元依次存储线性表的数据元素，称为线性表的顺序存储结构或顺序映像（sequential mapping）。它以“物理位置相邻”来表示线性表中数据元素间的逻辑关系，可随机存取表中任一元素。</p>
+<p>链式表示指的是用一组任意的存储单元存储线性表中的数据元素，称为线性表的链式存储结构。它的存储单元可以是连续的，也可以是不连续的。在表示数据元素之间的逻辑关系时，除了存储其本身的信息之外，还需存储一个指示其直接后继的信息（即直接后继的存储位置），这两部分信息组成数据元素的存储映像，称为结点（node）。它包括两个域；存储数据元素信息的域称为数据域；存储直接后继存储位置的域称为指针域。指针域中存储的信息称为指针或链。</p>
+<h2 id="实现">实现</h2>
+<p>主要的实现类是 ArrayList. LinkedList， 以及早期的Vector<br>
+• E get(int index);<br>
+• E set(int index, E element);<br>
+• void add(int index, E element);<br>
+• E remove(int index);<br>
+• int indexOf(Object o);</p>
+<h1 id="stack-栈">Stack 栈</h1>
+<p>栈（stack）又名堆栈，它是一种运算受限的线性表。限定仅在表尾进行插入和删除操作的线性表。这一端被称为栈顶，相对地，把另一端称为栈底。向一个栈插入新元素又称作进栈、入栈或压栈(push)，它是把新元素放到栈顶元素的上面，使之成为新的栈顶元素；从一个栈删除元素又称作出栈或退栈(pop)，它是把栈顶元素删除掉，使其相邻的元素成为新的栈顶元素。<br>
+• 遵循“后进先出”(Last In First Out, LIFO)原则<br>
+• 包含三个方法<br>
+public Object push(Object item)：将指定对象压入栈中。<br>
+Public Object pop()：将 栈最上面的元素从栈中取出，并返回这个对象。<br>
+public boolean empty()：判断栈中没有对象元素。</p>
+<h1 id="队列queue">队列Queue</h1>
+<p>队列是一种特殊的线性表，特殊之处在于它只允许在表的前端（front）进行删除操作，而在表的后端（rear）进行插入操作，和栈一样，队列是一种操作受限制的线性表。进行插入操作的端称为队尾，进行删除操作的端称为队头。队列中没有元素时，称为空队列。<br>
+队列的数据元素又称为队列元素。在队列中插入一个队列元素称为入队，从队列中删除一个队列元素称为出队。因为队列只允许在一端插入，在另一端删除，所以只有最早进入队列的元素才能最先从队列中删除，故队列又称为先进先出（FIFO—first in first out）线性表。</p>
+<h2 id="顺序队列">顺序队列</h2>
+<p>建立顺序队列结构必须为其静态分配或动态申请一片连续的存储空间，并设置两个指针进行管理。一个是队头指针front，它指向队头元素；另一个是队尾指针rear，它指向下一个入队元素的存储位置。</p>
+<p>每次在队尾插入一个元素是，rear增1；每次在队头删除一个元素时，front增1。随着插入和删除操作的进行，队列元素的个数不断变化，队列所占的存储空间也在为队列结构所分配的连续空间中移动。当front=rear时，队列中没有任何元素，称为空队列。当rear增加到指向分配的连续空间之外时，队列无法再插入新元素，但这时往往还有大量可用空间未被占用，这些空间是已经出队的队列元素曾经占用过得存储单元。</p>
+<p>顺序队列中的溢出现象：<br>
+（1） &quot;下溢&quot;现象：当队列为空时，做出队运算产生的溢出现象。“下溢”是正常现象，常用作程序控制转移的条件。<br>
+（2）&quot;真上溢&quot;现象：当队列满时，做进栈运算产生空间溢出的现象。“真上溢”是一种出错状态，应设法避免。<br>
+（3）&quot;假上溢&quot;现象：由于入队和出队操作中，头尾指针只增加不减小，致使被删元素的空间永远无法重新利用。当队列中实际的元素个数远远小于向量空间的规模时，也可能由于尾指针已超越向量空间的上界而不能做入队操作。该现象称为&quot;假上溢&quot;现象。</p>
+<h2 id="循环队列">循环队列</h2>
+<p>在实际使用队列时，为了使队列空间能重复使用，往往对队列的使用方法稍加改进：无论插入或删除，一旦rear指针增1或front指针增1 时超出了所分配的队列空间，就让它指向这片连续空间的起始位置。自己真从MaxSize-1增1变到0，可用取余运算rear%MaxSize和front%MaxSize来实现。这实际上是把队列空间想象成一个环形空间，环形空间中的存储单元循环使用，用这种方法管理的队列也就称为循环队列。除了一些简单应用之外，真正实用的队列是循环队列。<br>
+在循环队列中，当队列为空时，有front=rear，而当所有队列空间全占满时，也有front=rear。为了区别这两种情况，规定循环队列最多只能有MaxSize-1个队列元素，当循环队列中只剩下一个空存储单元时，队列就已经满了。因此，队列判空的条件时front=rear，而队列判满的条件时front=（rear+1）%MaxSize。</p>
+<h2 id="队列的数组实现">队列的数组实现</h2>
+<p>队列可以用数组Q[1…m]来存储，数组的上界m即是队列所容许的最大容量。在队列的运算中需设两个指针：head，队头指针，指向实际队头元素；tail，队尾指针，指向实际队尾元素的下一个位置。一般情况下，两个指针的初值设为0，这时队列为空，没有元素。数组定义Q[1…10]。Q(i) i=3,4,5,6,7,8。头指针head=2，尾指针tail=8。队列中拥有的元素个数为:L=tail-head。现要让排头的元素出队，则需将头指针加1。即head=head+1这时头指针向上移动一个位置，指向Q(3)，表示Q(3)已出队。如果想让一个新元素入队，则需尾指针向上移动一个位置。即tail=tail+1这时Q(9)入队。当队尾已经处理在最上面时，即tail=10，如果还要执行入队操作，则要发生&quot;上溢&quot;，但实际上队列中还有三个空位置，所以这种溢出称为&quot;假溢出&quot;。<br>
+克服假溢出的方法有两种。一种是将队列中的所有元素均向低地址区移动，显然这种方法是很浪费时间的；另一种方法是将数组存储区看成是一个首尾相接的环形区域。当存放到n地址后，下一个地址就&quot;翻转&quot;为1。在结构上采用这种技巧来存储的队列称为循环队列。<br>
+队列和栈一样只允许在断点处插入和删除元素。<br>
+循环队的入队算法如下：<br>
+1、tail=tail+1；<br>
+2、若tail=n+1，则tail=1；<br>
+3、若head=tail，即尾指针与头指针重合了，表示元素已装满队列，则作上溢出错处理；<br>
+4、否则，Q(tail)=X，结束（X为新入出元素）。<br>
+队列和栈一样，有着非常广泛的应用。<br>
+注意：（1）有时候队列中还会设置表头结点，就是在队头的前面还有一个结点，这个结点的数据域为空，但是指针域指向队头元素。<br>
+（2）另外，上面的计算还可以利用下面给出的公式cq.rear=(cq.front+1)/max;<br>
+当有表头结点时，公式变为cq.rear=(cq.front+1)/（max+1）。</p>
+<h2 id="重要的实现是linkedlist类">重要的实现是LinkedList类</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>可抛出异类的</th>
+<th>返回元素的</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Insert（插入）</td>
+<td>add(e)</td>
+<td>offer(e)</td>
+</tr>
+<tr>
+<td>Remove（移除）</td>
+<td>remove()</td>
+<td>poll()</td>
+</tr>
+<tr>
+<td>Examine（检查）</td>
+<td>element()</td>
+<td>peek()</td>
+</tr>
+</tbody>
+</table>
+<h1 id="linkedlist">LinkedList</h1>
+<p>LinkedList同时实现了List接口和Deque接口，也就是说它既可以看作一个顺序容器，又可以看作一个队列（Queue），同时又可以看作一个栈（stack），这样看来，linkedList简直就是无敌的，当你需要使用栈或者队列时，可以考虑用LinkedList,一方面是因为Java官方已经声明不建议使用Stack类，更遗憾的是，Java里根本没有一个叫做Queue的类（只是一个接口的名字）。关于栈或队列，现在首选是ArrayDeque，它有着比LinkedList（当作栈或队列使用时）更好的性能。</p>
+<h1 id="几个早期的类或接口">几个早期的类或接口</h1>
+<p>• Vector， 现多用 ArrayList<br>
+相当于动态数组(比JDK1.0中的 ArrayList好), elementAt,<br>
+• Stack， 现多用 LinkedList<br>
+Stack是Vector的子类, push, pop, peek<br>
+• Hashtable， 现多用 HashMap<br>
+Hashtable实现Map接口, 参见Properties类<br>
+• Enumeration， 现多用Iterator<br>
+Enumeration用另一种方式实现Iterator的功能<br>
+如Vector可以得到枚举器<br>
+Enumeration<E> e = v.elements();<br>
+while(e.hasMoreElements()) doSomething(e.nextElement())</p>
+<h1 id="set-集">Set 集</h1>
+<p>两个重要的实现 HashSet及TreeSet<br>
+其中TreeSet的底层是用TreeMap来实现的<br>
+• <strong>Set中对象不重复</strong>，即：<br>
+hashCode()不等<br>
+如果hashCode()相等，再看equals或==是否为false</p>
+<h1 id="map">Map</h1>
+<p>• Map是键-值对的集合<br>
+其中可以取到entrySet()、keySet()、values()、<br>
+Map.Entry是一个嵌套接口<br>
+• Map类的重要实现<br>
+HashMap类<br>
+TreeMap类：用红黑树的算法</p>
+<h2 id="map层次结构">Map层次结构</h2>
+<figure data-type="image" tabindex="2"><img src="https://www.cmsj.in/post-images/1631713185546.png" alt="" loading="lazy"></figure>
+<h1 id="系统已有的排序与查找">系统已有的排序与查找</h1>
+<p>Arrays类及Collections类</p>
+<h2 id="arrays类">Arrays类</h2>
+<p>• Arrays类是用于对<strong>数组</strong>进行排序和搜索的类。<br>
+Arrays.asList( 10, 7, 6, 5, 9) 方法可以直接得到一个List对象<br>
+• Arrays类提供了sort()和binarySearch()<br>
+• 执行binarySearch()之前应调用sort()<br>
+public static void sort(List list);<br>
+public static void sort(List list, Comparator c);<br>
+public static int binarySearch(List list, Object key);<br>
+public static int binarySearch(List list, Object key, Comparator c);</p>
+<h2 id="collections类">Collections类</h2>
+<p>此类完全由在 collection 上进行操作静态方法组成.<br>
+• 如sort, binarySearch, reverse等</p>
+<h2 id="关于比较">关于比较</h2>
+<p>1.对象是java.lang.Comparable<br>
+• 实现方法<br>
+• public int compareTo(Object obj){<br>
+return this.price – ((Book)obj).price;}<br>
+2.提供一个java.lang. Comparator<br>
+• 实现方法 public int compare(T o1, T o2)<br>
+• 这些方法的含义要与equals不冲突</p>
+<blockquote>
+<p>更多的排序与查找方法，如冒泡排序 、选择排序 、快速排序等，和二叉树、红黑树，Dijkstra算法的相关知识将来在算法和数据结构相关的文章中详细介绍。</p>
+</blockquote>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[Java程序设计：Lambda表达式与方法引用]]></title>
         <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-lambda-biao-da-shi-yu-fang-fa-yin-yong/</id>
@@ -627,519 +1069,6 @@ public class Gui {
 </code></pre>
 <h3 id="运行效果如图">运行效果如图：</h3>
 <figure data-type="image" tabindex="1"><img src="https://www.cmsj.in/post-images/1631116714046.png" alt="" loading="lazy"></figure>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Java程序设计：基本数据类型]]></title>
-        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-ben-shu-ju-lei-xing/</id>
-        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-ji-ben-shu-ju-lei-xing/">
-        </link>
-        <updated>2020-08-10T14:07:44.000Z</updated>
-        <summary type="html"><![CDATA[<p>变量就是申请内存来存储值。也就是说，当创建变量的时候，需要在内存中申请空间。</p>
-<p>内存管理系统根据变量的类型为变量分配存储空间，分配的空间只能用来储存该类型数据。</p>
-<p>因此，通过定义不同类型的变量，可以在内存中储存整数、小数或者字符。</p>
-<p>Java 的两大数据类型:</p>
-<p>内置数据类型<br>
-引用数据类型<br>
-<img src="https://www.cmsj.in/post-images/1631025505934.png" alt="" loading="lazy"></p>
-<h1 id="内置数据类型">内置数据类型</h1>
-<p>Java语言提供了八种基本类型。六种数字类型（四个整数型，两个浮点型），一种字符类型，还有一种布尔型。</p>
-]]></summary>
-        <content type="html"><![CDATA[<p>变量就是申请内存来存储值。也就是说，当创建变量的时候，需要在内存中申请空间。</p>
-<p>内存管理系统根据变量的类型为变量分配存储空间，分配的空间只能用来储存该类型数据。</p>
-<p>因此，通过定义不同类型的变量，可以在内存中储存整数、小数或者字符。</p>
-<p>Java 的两大数据类型:</p>
-<p>内置数据类型<br>
-引用数据类型<br>
-<img src="https://www.cmsj.in/post-images/1631025505934.png" alt="" loading="lazy"></p>
-<h1 id="内置数据类型">内置数据类型</h1>
-<p>Java语言提供了八种基本类型。六种数字类型（四个整数型，两个浮点型），一种字符类型，还有一种布尔型。</p>
-<h2 id="-more-byte"><!-- more --><br>
-<img src="https://www.cmsj.in/post-images/1631024418478.png" alt="" loading="lazy"><br>
-byte：</h2>
-<p>byte 数据类型是8位、有符号的，以二进制补码表示的整数；<br>
-最小值是 -128（-2^7）；<br>
-最大值是 127（2^7-1）；<br>
-默认值是 0；<br>
-byte 类型用在大型数组中节约空间，主要代替整数，因为 byte 变量占用的空间只有 int 类型的四分之一；<br>
-例子：byte a = 100，byte b = -50。</p>
-<h2 id="short">short：</h2>
-<p>short 数据类型是 16 位、有符号的以二进制补码表示的整数<br>
-最小值是 -32768（-2^15）；<br>
-最大值是 32767（2^15 - 1）；<br>
-Short 数据类型也可以像 byte 那样节省空间。一个short变量是int型变量所占空间的二分之一；<br>
-默认值是 0；<br>
-例子：short s = 1000，short r = -20000。</p>
-<h2 id="int">int：</h2>
-<p>int 数据类型是32位、有符号的以二进制补码表示的整数；<br>
-最小值是 -2,147,483,648（-2^31）；<br>
-最大值是 2,147,483,647（2^31 - 1）；<br>
-一般地整型变量默认为 int 类型；<br>
-默认值是 0 ；<br>
-例子：int a = 100000, int b = -200000。</p>
-<h2 id="long">long：</h2>
-<p>long 数据类型是 64 位、有符号的以二进制补码表示的整数；<br>
-最小值是 -9,223,372,036,854,775,808（-2^63）；<br>
-最大值是 9,223,372,036,854,775,807（2^63 -1）；<br>
-这种类型主要使用在需要比较大整数的系统上；<br>
-默认值是 0L；<br>
-例子： long a = 100000L，Long b = -200000L。<br>
-&quot;L&quot;理论上不分大小写，但是若写成&quot;l&quot;容易与数字&quot;1&quot;混淆，不容易分辩。所以最好大写。</p>
-<h2 id="float">float：</h2>
-<p>float 数据类型是单精度、32位、符合IEEE 754标准的浮点数；<br>
-float 在储存大型浮点数组的时候可节省内存空间；<br>
-默认值是 0.0f；<br>
-浮点数不能用来表示精确的值，如货币；<br>
-例子：float f1 = 234.5f。</p>
-<h2 id="double">double：</h2>
-<p>double 数据类型是双精度、64 位、符合 IEEE 754 标准的浮点数；<br>
-浮点数的默认类型为 double 类型；<br>
-double类型同样不能表示精确的值，如货币；<br>
-默认值是 0.0d；<br>
-例子：</p>
-<p>double   d1  = 7D ;<br>
-double   d2  = 7.;<br>
-double   d3  =  8.0;<br>
-double   d4  =  8.D;<br>
-double   d5  =  12.9867;<br>
-7 是一个 int 字面量，而 7D，7. 和 8.0 是 double 字面量。</p>
-<h2 id="boolean">boolean：</h2>
-<p>boolean数据类型表示一位的信息；<br>
-只有两个取值：true 和 false；<br>
-这种类型只作为一种标志来记录 true/false 情况；<br>
-默认值是 false；<br>
-例子：boolean one = true。</p>
-<h2 id="char">char：</h2>
-<p>char 类型是一个单一的 16 位 Unicode 字符；<br>
-最小值是 \u0000（十进制等效值为 0）；<br>
-最大值是 \uffff（即为 65535）；<br>
-char 数据类型可以储存任何字符；<br>
-例子：char letter = 'A';。</p>
-<h2 id="实例">实例</h2>
-<p>对于数值类型的基本类型的取值范围，我们无需强制去记忆，因为它们的值都已经以常量的形式定义在对应的包装类中了。请看下面的例子：</p>
-<p>实例</p>
-<pre><code class="language-java">public class PrimitiveTypeTest {  
-    public static void main(String[] args) {  
-        // byte  
-        System.out.println(&quot;基本类型：byte 二进制位数：&quot; + Byte.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Byte&quot;);  
-        System.out.println(&quot;最小值：Byte.MIN_VALUE=&quot; + Byte.MIN_VALUE);  
-        System.out.println(&quot;最大值：Byte.MAX_VALUE=&quot; + Byte.MAX_VALUE);  
-        System.out.println();  
-  
-        // short  
-        System.out.println(&quot;基本类型：short 二进制位数：&quot; + Short.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Short&quot;);  
-        System.out.println(&quot;最小值：Short.MIN_VALUE=&quot; + Short.MIN_VALUE);  
-        System.out.println(&quot;最大值：Short.MAX_VALUE=&quot; + Short.MAX_VALUE);  
-        System.out.println();  
-  
-        // int  
-        System.out.println(&quot;基本类型：int 二进制位数：&quot; + Integer.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Integer&quot;);  
-        System.out.println(&quot;最小值：Integer.MIN_VALUE=&quot; + Integer.MIN_VALUE);  
-        System.out.println(&quot;最大值：Integer.MAX_VALUE=&quot; + Integer.MAX_VALUE);  
-        System.out.println();  
-  
-        // long  
-        System.out.println(&quot;基本类型：long 二进制位数：&quot; + Long.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Long&quot;);  
-        System.out.println(&quot;最小值：Long.MIN_VALUE=&quot; + Long.MIN_VALUE);  
-        System.out.println(&quot;最大值：Long.MAX_VALUE=&quot; + Long.MAX_VALUE);  
-        System.out.println();  
-  
-        // float  
-        System.out.println(&quot;基本类型：float 二进制位数：&quot; + Float.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Float&quot;);  
-        System.out.println(&quot;最小值：Float.MIN_VALUE=&quot; + Float.MIN_VALUE);  
-        System.out.println(&quot;最大值：Float.MAX_VALUE=&quot; + Float.MAX_VALUE);  
-        System.out.println();  
-  
-        // double  
-        System.out.println(&quot;基本类型：double 二进制位数：&quot; + Double.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Double&quot;);  
-        System.out.println(&quot;最小值：Double.MIN_VALUE=&quot; + Double.MIN_VALUE);  
-        System.out.println(&quot;最大值：Double.MAX_VALUE=&quot; + Double.MAX_VALUE);  
-        System.out.println();  
-  
-        // char  
-        System.out.println(&quot;基本类型：char 二进制位数：&quot; + Character.SIZE);  
-        System.out.println(&quot;包装类：java.lang.Character&quot;);  
-        // 以数值形式而不是字符形式将Character.MIN_VALUE输出到控制台  
-        System.out.println(&quot;最小值：Character.MIN_VALUE=&quot;  
-                + (int) Character.MIN_VALUE);  
-        // 以数值形式而不是字符形式将Character.MAX_VALUE输出到控制台  
-        System.out.println(&quot;最大值：Character.MAX_VALUE=&quot;  
-                + (int) Character.MAX_VALUE);  
-    }  
-}
-</code></pre>
-<p>编译以上代码输出结果如下所示：</p>
-<p>基本类型：byte 二进制位数：8<br>
-包装类：java.lang.Byte<br>
-最小值：Byte.MIN_VALUE=-128<br>
-最大值：Byte.MAX_VALUE=127</p>
-<p>基本类型：short 二进制位数：16<br>
-包装类：java.lang.Short<br>
-最小值：Short.MIN_VALUE=-32768<br>
-最大值：Short.MAX_VALUE=32767</p>
-<p>基本类型：int 二进制位数：32<br>
-包装类：java.lang.Integer<br>
-最小值：Integer.MIN_VALUE=-2147483648<br>
-最大值：Integer.MAX_VALUE=2147483647</p>
-<p>基本类型：long 二进制位数：64<br>
-包装类：java.lang.Long<br>
-最小值：Long.MIN_VALUE=-9223372036854775808<br>
-最大值：Long.MAX_VALUE=9223372036854775807</p>
-<p>基本类型：float 二进制位数：32<br>
-包装类：java.lang.Float<br>
-最小值：Float.MIN_VALUE=1.4E-45<br>
-最大值：Float.MAX_VALUE=3.4028235E38</p>
-<p>基本类型：double 二进制位数：64<br>
-包装类：java.lang.Double<br>
-最小值：Double.MIN_VALUE=4.9E-324<br>
-最大值：Double.MAX_VALUE=1.7976931348623157E308</p>
-<p>基本类型：char 二进制位数：16<br>
-包装类：java.lang.Character<br>
-最小值：Character.MIN_VALUE=0<br>
-最大值：Character.MAX_VALUE=65535</p>
-<p>Float和Double的最小值和最大值都是以科学记数法的形式输出的，结尾的&quot;E+数字&quot;表示E之前的数字要乘以10的多少次方。比如3.14E3就是3.14 × 103 =3140，3.14E-3 就是 3.14 x 10-3 =0.00314。</p>
-<p>实际上，JAVA中还存在另外一种基本类型 void，它也有对应的包装类 java.lang.Void，不过我们无法直接对它们进行操作。</p>
-<h2 id="类型默认值">类型默认值</h2>
-<p>下表列出了 Java 各个类型的默认值：</p>
-<ul>
-<li>数据类型	默认值</li>
-<li>byte	      0</li>
-<li>short	      0</li>
-<li>int	        0</li>
-<li>long	      0L</li>
-<li>float	       0.0f</li>
-<li>double	0.0d</li>
-<li>char	       'u0000'</li>
-<li>String (or any object)	null</li>
-<li>boolean	false</li>
-</ul>
-<h2 id="实例-2">实例</h2>
-<pre><code class="language-java">public class Test {
-    static boolean bool;
-    static byte by;
-    static char ch;
-    static double d;
-    static float f;
-    static int i;
-    static long l;
-    static short sh;
-    static String str;
- 
-    public static void main(String[] args) {
-        System.out.println(&quot;Bool :&quot; + bool);
-        System.out.println(&quot;Byte :&quot; + by);
-        System.out.println(&quot;Character:&quot; + ch);
-        System.out.println(&quot;Double :&quot; + d);
-        System.out.println(&quot;Float :&quot; + f);
-        System.out.println(&quot;Integer :&quot; + i);
-        System.out.println(&quot;Long :&quot; + l);
-        System.out.println(&quot;Short :&quot; + sh);
-        System.out.println(&quot;String :&quot; + str);
-    }
-}
-</code></pre>
-<p>实例输出结果为：</p>
-<p>Bool     :false<br>
-Byte     :0<br>
-Character:<br>
-Double   :0.0<br>
-Float    :0.0<br>
-Integer  :0<br>
-Long     :0<br>
-Short    :0<br>
-String   :null</p>
-<h1 id="引用类型">引用类型</h1>
-<p>在Java中，引用类型的变量非常类似于C/C++的指针。引用类型指向一个对象，指向对象的变量是引用变量。这些变量在声明时被指定为一个特定的类型，比如 Employee、Puppy 等。变量一旦声明后，类型就不能被改变了。<br>
-对象、数组都是引用数据类型。<br>
-所有引用类型的默认值都是null。<br>
-一个引用变量可以用来引用任何与之兼容的类型。<br>
-例子：Site site = new Site(&quot;Runoob&quot;)。</p>
-<h2 id="java-常量">Java 常量</h2>
-<p>常量在程序运行时是不能被修改的。</p>
-<p>在 Java 中使用 final 关键字来修饰常量，声明方式和变量类似：</p>
-<p>final double PI = 3.1415927;<br>
-虽然常量名也可以用小写，但为了便于识别，通常使用大写字母表示常量。</p>
-<p>字面量可以赋给任何内置类型的变量。例如：</p>
-<p>byte a = 68;<br>
-char a = 'A'<br>
-byte、int、long、和short都可以用十进制、16进制以及8进制的方式来表示。</p>
-<p>当使用字面量的时候，前缀 0 表示 8 进制，而前缀 0x 代表 16 进制, 例如：</p>
-<p>int decimal = 100;<br>
-int octal = 0144;<br>
-int hexa =  0x64;</p>
-<p>和其他语言一样，Java的字符串常量也是包含在两个引号之间的字符序列。下面是字符串型字面量的例子：</p>
-<p>&quot;Hello World&quot;<br>
-&quot;two\nlines&quot;<br>
-&quot;&quot;This is in quotes&quot;&quot;</p>
-<p>字符串常量和字符常量都可以包含任何Unicode字符。例如：</p>
-<p>char a = '\u0001';<br>
-String a = &quot;\u0001&quot;;</p>
-<p>Java语言支持一些特殊的转义字符序列。</p>
-<ul>
-<li>符号	字符含义</li>
-<li>\n	换行 (0x0a)</li>
-<li>\r	回车 (0x0d)</li>
-<li>\f	换页符(0x0c)</li>
-<li>\b	退格 (0x08)</li>
-<li>\0	空字符 (0x0)</li>
-<li>\s	空格 (0x20)</li>
-<li>\t	制表符</li>
-<li>&quot;	双引号</li>
-<li>'	单引号</li>
-<li>\	反斜杠</li>
-<li>\ddd	八进制字符 (ddd)</li>
-<li>\uxxxx	16进制Unicode字符 (xxxx)</li>
-</ul>
-<h1 id="自动类型转换">自动类型转换</h1>
-<p>整型、实型（常量）、字符型数据可以混合运算。运算中，不同类型的数据先转化为同一类型，然后进行运算。</p>
-<p>转换从低级到高级。</p>
-<p>低  ------------------------------------&gt;  高</p>
-<p>byte,short,char—&gt; int —&gt; long—&gt; float —&gt; double<br>
-数据类型转换必须满足如下规则：</p>
-<ol>
-<li>
-<p>不能对boolean类型进行类型转换。</p>
-</li>
-<li>
-<p>不能把对象类型转换成不相关类的对象。</p>
-</li>
-<li>
-<p>在把容量大的类型转换为容量小的类型时必须使用强制类型转换。</p>
-</li>
-<li>
-<p>转换过程中可能导致溢出或损失精度，例如：</p>
-</li>
-</ol>
-<p>int i =128;<br>
-byte b = (byte)i;<br>
-因为 byte 类型是 8 位，最大值为127，所以当 int 强制转换为 byte 类型时，值 128 时候就会导致溢出。</p>
-<ol start="5">
-<li>浮点数到整数的转换是通过舍弃小数得到，而不是四舍五入，例如：</li>
-</ol>
-<p>(int)23.7 == 23;<br>
-(int)-45.89f == -45</p>
-<h2 id="自动类型转换-2">自动类型转换</h2>
-<p>必须满足转换前的数据类型的位数要低于转换后的数据类型，例如: short数据类型的位数为16位，就可以自动转换位数为32的int类型，同样float数据类型的位数为32，可以自动转换为64位的double类型。</p>
-<h2 id="实例-3">实例</h2>
-<pre><code class="language-java">public class ZiDongLeiZhuan{
-        public static void main(String[] args){
-            char c1='a';//定义一个char类型
-            int i1 = c1;//char自动类型转换为int
-            System.out.println(&quot;char自动类型转换为int后的值等于&quot;+i1);
-            char c2 = 'A';//定义一个char类型
-            int i2 = c2+1;//char 类型和 int 类型计算
-            System.out.println(&quot;char类型和int计算后的值等于&quot;+i2);
-        }
-}
-</code></pre>
-<p>运行结果为:</p>
-<p>char自动类型转换为int后的值等于97<br>
-char类型和int计算后的值等于66<br>
-解析：c1 的值为字符 a ,查 ASCII 码表可知对应的 int 类型值为 97， A 对应值为 65，所以 i2=65+1=66。</p>
-<h2 id="强制类型转换">强制类型转换</h2>
-<ol>
-<li>
-<p>条件是转换的数据类型必须是兼容的。</p>
-</li>
-<li>
-<p>格式：(type)value type是要强制类型转换后的数据类型 实例：</p>
-</li>
-</ol>
-<p>实例</p>
-<pre><code class="language-java">public class QiangZhiZhuanHuan{
-    public static void main(String[] args){
-        int i1 = 123;
-        byte b = (byte)i1;//强制类型转换为byte
-        System.out.println(&quot;int强制类型转换为byte后的值等于&quot;+b);
-    }
-}
-</code></pre>
-<p>运行结果：</p>
-<p>int强制类型转换为byte后的值等于123</p>
-<h2 id="隐含强制类型转换">隐含强制类型转换</h2>
-<p>1、 整数的默认类型是 int。</p>
-<ol start="2">
-<li>小数默认是 double 类型浮点型，在定义 float 类型时必须在数字后面跟上 F 或者 f。</li>
-</ol>
-<p>如果整数的值超出了byte所能表示的范围，结果将对byte类型的范围取余数。例如a=256超出了byte的[-128,127]的范围，所以将257除以byte的范围（256）取余数得到b=1；需要注意的是，当a=200时，此时除了256取余数应该为-56，而不是200。</p>
-<p>将浮点类型赋给整数类型的时候，会发生截尾（truncation）。也就是把小数的部分去掉，只留下整数部分。此时如果整数超出目标类型范围，一样将对目标类型的范围取余数。</p>
-<p>7种基本类型转换总结如下图：<br>
-<img src="https://www.cmsj.in/post-images/1631024373762.png" alt="" loading="lazy"></p>
-<h2 id="赋值及表达式中的类型转换">赋值及表达式中的类型转换</h2>
-<h2 id="字面值赋值">字面值赋值</h2>
-<p>在使用字面值对整数赋值的过程中，可以将int literal赋值给byte short char int，只要不超出范围。这个过程中的类型转换时自动完成的，但是如果你试图将long literal赋给byte，即使没有超出范围，也必须进行强制类型转换。例如 byte b = 10L；是错的，要进行强制转换。</p>
-<h2 id="表达式中的自动类型提升">表达式中的自动类型提升</h2>
-<p>除了赋值以外，表达式计算过程中也可能发生一些类型转换。在表达式中，类型提升规则如下：</p>
-<p>· 所有byte/short/char都被提升为int。</p>
-<p>· 如果有一个操作数为long，整个表达式提升为long。float和double情况也一样。</p>
-<h1 id="易错点">易错点：</h1>
-<p>1.Java 里使用 long 类型的数据一定要在数值后面加上 L，否则将作为整型解析：</p>
-<p>long g = (long)9223372036854775807;<br>
-long h = (long)-9223372036854775808;</p>
-<p>或者<br>
-long g = 9223372036854775807;<br>
-long h = -9223372036854775808;</p>
-<p>会出现以下报错信息：</p>
-<p>Exception in thread &quot;main&quot; java.lang.Error: Unresolved compilation problems:<br>
-The literal 9223372036854775807 of type int is out of range<br>
-The literal 9223372036854775808 of type int is out of range</p>
-<p>溢出了~</p>
-<p>解决方法在数值后面加上 L：</p>
-<p>long value = 9223372036854775807L;</p>
-<p>2.引用类型是一个对象类型，它的值是指向内存空间的引用，就是地址，所指向的内存中保存着变量所表示的一个值或一组值。</p>
-<p>int a;<br>
-a = 250; // 声明变量a的同时，系统给a分配了空间。</p>
-<p>引用类型就不是了，只给变量分配了引用空间，数据空间没有分配，因为不知道数据是什么。</p>
-<p>错误的例子：</p>
-<p>MyDate today;<br>
-today.day = 4; // 发生错误，因为today对象的数据空间未分配。</p>
-<p>引用类型变量在声明后必须通过实例化开辟数据空间，才能对变量所指向的对象进行访问。</p>
-<p>MyDate today;          //将变量分配一个保存引用的空间<br>
-today = new MyDate();     // 这句话是2步，首先执行new MyDate（），给today变量开辟数据空间，然后再执行赋值操作</p>
-<p>引用变量赋值：</p>
-<p>MyDate a，b;       // 在内存开辟两个引用空间<br>
-a = new MyDate();       // 开辟MyDate对象的数据空间，并把该空间的首地址赋给a<br>
-b = a;                   // 将a存储空间中的地址写到b的存储空间中</p>
-<p>3.那么 a+b 是什么类型？</p>
-<p>答：在java的世界里，如果比int类型小的类型做运算，java在编译的时候就会将它们统一强转成int类型。当是比int类型大的类型做运算，就会自动转换成它们中最大类型那个。</p>
-<p>4.char a = 'S'; char 后面赋值要用单引号，因为是字符型数据类型</p>
-<p>String a = &quot;I AM FINE&quot;; String 后面赋值要用双引号，因为是字符串数据类型</p>
-<p>5.Java中没有“无符号数”<br>
-可以使用long来处理无符号整数(uint)</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Java程序设计：一些相续正整数的立方和正好等于另一个整数的立方]]></title>
-        <id>https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/</id>
-        <link href="https://www.cmsj.in/post/java-cheng-xu-she-ji-yi-xie-xiang-xu-zheng-zheng-shu-de-li-fang-he-zheng-hao-deng-yu-ling-yi-ge-zheng-shu-de-li-fang/">
-        </link>
-        <updated>2020-08-06T17:21:52.000Z</updated>
-        <summary type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
-<img src="https://cms88168.github.io/post-images/1630948999715.png" alt="" loading="lazy"></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>编写一个应用程序，找到一些相续正整数的立方和正好等于另一个整数的立方。如下图所示：<br>
-<img src="https://www.cmsj.in/post-images/1630948999715.png" alt="" loading="lazy"></p>
-<!-- more -->
-<p>相关的程序实现如下：</p>
-<pre><code class="language-java">package com.company;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-
-
-public class Main {
-
-    static String s = &quot;&quot;;
-    static int high = 0;
-
-    public static void main(String[] args) {
-        System.out.println(&quot;请输入最大值：&quot;);
-        io();
-        long sum = 0;
-        //sumSaver数组存放从1到数组下标的立方和
-        long[] sumSaver = new long[high];
-        //i3Saver数组存放数组下表的立方值
-        long[] i3Saver = new long[high];
-        for (long i = 1; i &lt;= high; i++) {
-            i3Saver[(int) i - 1] = i * i * i;
-            sum = sum + i3Saver[(int) i - 1];
-            sumSaver[(int) i - 1] = sum;
-
-        }
-        //要求的最大项数组下标
-        for (int i = 3; i &lt;= high; i++) {
-            //左边从开始到第j项的和
-            for (int j = 1; j &lt; i; j++) {
-                //再减去左边第k项的和
-                for (int k = 1; k &lt; j; k++) {
-                    long temp = sumSaver[j - 1] - sumSaver[k - 1];
-                    if (i3Saver[i - 1] == temp) {
-                        System.out.printf(&quot;%d³=%d³+...+%d³\n&quot;, i, k + 1, j);
-                        break;
-                    }
-                    if (i3Saver[i - 1] &gt; temp) {
-                        break;
-                    }
-                }
-            }
-        }
-    }
-
-    static void io() {
-        try {
-            BufferedReader io = new BufferedReader(new InputStreamReader(System.in));
-            s = io.readLine();
-            try {
-                high = Integer.parseInt(s);
-            } catch (NumberFormatException e) {
-                System.out.println(&quot;请输入数字！&quot;);
-                Main.io();
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-            Main.io();
-        }
-    }
-
-}
-</code></pre>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[在NameSilo.com购买域名 文中附送namesilo优惠码 namesilo优惠券]]></title>
-        <id>https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/</id>
-        <link href="https://www.cmsj.in/post/zai-namesilocom-gou-mai-yu-ming-wen-zhong-fu-song-namesilo-you-hui-ma-namesilo-you-hui-quan/">
-        </link>
-        <updated>2020-05-02T02:11:13.000Z</updated>
-        <summary type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
-<p>这里先送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
-]]></summary>
-        <content type="html"><![CDATA[<p>namesilo也算是比较老牌的域名注册商了，我的这个域名就是在这里注册的。而且价格并非namesilo唯一优势，高可用性、高安全性、免费域名隐私保护都是namesilo相对于其他家拥有的优势。而且支持支付宝，可以说是非常方便了。</p>
-<p>这里先送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
-<!-- more -->
-<h2 id="namesilo优势">Namesilo优势</h2>
-<p>低价格：com域名为例，新注册域名为8.99美元，续费价格不变，仍为8.99美元。虽说godaddy有Domain Discount Club的8.49美元每年的续费价格（需交58美元一年获取此价格），但即使是达到182个以上域名，godaddy价格低于namesilo的续费价格时候，namesilo仍有一项巨大的优势，就是永久免费的域名隐私，而同样服务在godaddy每年的价格为9.99美金。</p>
-<p>高可用性：godaddy树大招风，name server 经常在国内被照顾造成域名解析不正常，其网站本身也有这样的困扰。每次找优惠码尝试的时候，都要挂代理，否则打开一个页面都要好几分钟。而namesilo就好的多，访问页面非常顺畅，而目前为止也没有任何name server被关照的先例。</p>
-<p>高安全性：namesilo本身就有类似qq密码保护的安全问题等加强型安全措施，相对于godaddy等单一密码凭证要强上许多，最近又加上了google的TSV（Two Step Verification，两部验证），更是让namesilo的安全系数达到消费级域名服务提供商的顶级水准。当然，还有免费的域名隐私保护更是锦上添花。</p>
-<p>免费域名隐私：域名隐私保护不仅可以让域名注册者的信息免于泄露，更是无形当中提高了域名安全性，同时也解决了垃圾邮件的困扰。</p>
-<p>支持支付宝：除了paypal和信用卡，支付宝直接支付对于大陆用户来说要方便得多。</p>
-<h2 id="1访问网站并注册用户账号">1.访问网站并注册用户账号</h2>
-<p>直接去官网：www.namesilo.com<br>
-<img src="https://www.cmsj.in/post-images/1630948452805.png" alt="" loading="lazy"></p>
-<p>邮箱可以填 QQ邮箱，国家选择 China，注册信息尽量真实。没有必要担心你的真实信息被暴露，Namesilo 会提供免费的 Domain Privacy Protection 服务。</p>
-<p>注册完之后，记得去邮箱激活验证邮件。如果没有收到 validation email，可以在用户平台 account 里面 resend validation email.</p>
-<h2 id="2选择域名准备注册">2.选择域名准备注册</h2>
-<p>在register页面，输入自己想要的域名，点击SEARCH：<br>
-<img src="https://www.cmsj.in/post-images/1630948468952.png" alt="" loading="lazy"></p>
-<h2 id="3选择域名后缀">3.选择域名后缀</h2>
-<p>在你想要注册的后缀前面打√，推荐com，之后点击REGISTER CHECKED DOMAINS：<br>
-<img src="https://www.cmsj.in/post-images/1630948481952.png" alt="" loading="lazy"></p>
-<h2 id="4选择域名参数并使用优惠码">4.选择域名参数并使用优惠码</h2>
-<p><img src="https://www.cmsj.in/post-images/1630948496575.png" alt="" loading="lazy"><br>
-如上图所示，可以设置域名的参数。在下方优惠码提交栏可以输入优惠码，之后点击Submit，可以减1刀。再次送上1美元的优惠券 <font color=red><strong>1usdollar</strong></font></p>
-<h2 id="5选择支付方式">5.选择支付方式</h2>
-<p>目前NameSilo支持支付宝、信用卡、PayPal等多种支付方式，选择一个自己喜欢的支付方式即可</p>
-]]></content>
-    </entry>
-    <entry>
-        <title type="html"><![CDATA[Domcomp 在线域名比价大全]]></title>
-        <id>https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/</id>
-        <link href="https://www.cmsj.in/post/domcomp-zai-xian-yu-ming-bi-jie-da-quan/">
-        </link>
-        <updated>2020-01-31T16:46:17.000Z</updated>
-        <summary type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a>  网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
-<p>这个站是真的强 一方面可以查寻域名注册情况 同时还可以比较多个域名注册商价格 我的域名就是在里面找的：）</p>
-]]></summary>
-        <content type="html"><![CDATA[<p><a href="https://www.domcomp.com/">Domcomp</a>  网站是一个集合了1800种不同的域名后缀注册价格，让域名收集用户轻松找出最便宜，最优惠的域名注册商，世界各国的域名商会不定期的发布促销或特价活动，该网站可以让你一站式查找最优惠价格的信息。</p>
-<p>这个站是真的强 一方面可以查寻域名注册情况 同时还可以比较多个域名注册商价格 我的域名就是在里面找的：）</p>
-<!-- more -->
 ]]></content>
     </entry>
 </feed>

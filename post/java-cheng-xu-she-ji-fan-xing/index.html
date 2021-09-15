@@ -8,7 +8,7 @@
 <meta name="keywords" content="Java;博客;编程;C语言;program">
 <meta name="description" content="蒼茫世界,誰主沉浮">
 <meta name="theme-color" content="#845ef7">
-<title>Java程序设计：统计代码的执行时间的3种方法 | 蒼茫世界</title>
+<title>Java程序设计：泛型 | 蒼茫世界</title>
 <link rel="shortcut icon" href="/favicon.ico?v=1631716391443">
 <link rel="stylesheet" href="/media/css/pisces.css">
 <link rel="stylesheet" href="/media/fonts/font-awesome.css">
@@ -61,7 +61,7 @@
 
 
 
-  <meta name="description" content="Java程序设计：统计代码的执行时间的3种方法" />
+  <meta name="description" content="Java程序设计：泛型" />
   <meta name="keywords" content="Java" />
 </head>
 
@@ -295,9 +295,16 @@
   <div class="toc-wrapper auto-number auto"
     id="toc_wrapper">
     <ul class="markdownIt-TOC">
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%80systemcurrenttimemillis">方法一：System.currentTimeMillis</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%BA%8Csystemnanotime">方法二：System.nanoTime</a></li>
-<li><a href="#%E6%96%B9%E6%B3%95%E4%B8%89new-date">方法三：new Date</a></li>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E7%9A%84%E4%BD%BF%E7%94%A8">泛型的使用</a>
+<ul>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E7%B1%BB">泛型类</a></li>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E6%8E%A5%E5%8F%A3">泛型接口</a></li>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E6%96%B9%E6%B3%95">泛型方法</a></li>
+<li><a href="#%E6%B3%9B%E5%9E%8B%E9%80%9A%E9%85%8D%E7%AC%A6">泛型通配符</a></li>
+<li><a href="#%E5%A4%8D%E6%9D%82%E7%9A%84%E6%B3%9B%E5%9E%8B%E4%BE%8B%E5%AD%90">复杂的泛型例子</a></li>
+<li><a href="#%E5%8D%8F%E5%8F%98%E4%B8%8E%E9%80%86%E5%8F%98">协变与逆变</a></li>
+</ul>
+</li>
 </ul>
 
   </div>
@@ -563,8 +570,8 @@
           <div class="section bg-color post post-page">
             <section class="post-header">
   <h1 class="post-title">
-    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/">
-      Java程序设计：统计代码的执行时间的3种方法
+    <a class="post-title-link" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/">
+      Java程序设计：泛型
     </a>
   </h1>
   <div class="post-meta">
@@ -572,7 +579,7 @@
     <span class="meta-item pc-show">
       <i class="fa fa-calendar-o"></i>
       <span class="language" data-lan="publish">发布于</span>
-      <span class="publish-time" data-t="2020-08-20 12:44:24">2020-08-20</span>
+      <span class="publish-time" data-t="2020-10-04 21:57:50">2020-10-04</span>
       <span class="post-meta-divider pc-show">|</span>
     </span>
     
@@ -591,17 +598,17 @@
     
     <span class="meta-item">
       <i class="fa fa-clock-o"></i>
-      <span>2<span class="language" data-lan="minute">分钟</span></span>
+      <span>6<span class="language" data-lan="minute">分钟</span></span>
     </span>
     <span class="meta-item">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-file-word-o"></i>
-      <span>438<span class="pc-show language" data-lan="words">字数</span></span>
+      <span>1453<span class="pc-show language" data-lan="words">字数</span></span>
     </span>
     
     
     
-    <span id="/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" data-flag-title="Java程序设计：统计代码的执行时间的3种方法" class="meta-item pc-show leancloud_visitors">
+    <span id="/post/java-cheng-xu-she-ji-fan-xing/" data-flag-title="Java程序设计：泛型" class="meta-item pc-show leancloud_visitors">
       <span class="post-meta-divider">|</span>
       <i class="fa fa-eye"></i>
       <span><span class="language" data-lan="view">浏览量</span>：<span class="leancloud-visitors-count"></span></span>
@@ -610,62 +617,94 @@
   </div>
 </section>
             <div class="post-body next-md-body" id="post_body">
-              <p>在日常开发中经常需要测试一些代码的执行时间，所以本文就汇总了一些 Java 中比较常用的执行时间统计方法。</p>
+              <p>泛型程序设计（generic programming）是程序设计语言的一种风格或范式。泛型允许程序员在强类型程序设计语言中编写代码时使用一些以后才指定的类型，在实例化时作为参数指明这些类型。</p>
+<p>泛型的定义主要有以下两种：<br>
+在程序编码中一些包含类型参数的类型，也就是说泛型的参数只可以代表类，不能代表个别对象。（这是当今较常见的定义）<br>
+在程序编码中一些包含参数的类。其参数可以代表类或对象等等。（现在人们大多把这称作模板）<br>
+不论使用哪个定义，泛型的参数在真正使用泛型时都必须作出指明。</p>
 <!-- more -->
-<h1 id="方法一systemcurrenttimemillis">方法一：System.currentTimeMillis</h1>
-<p>此方法为 Java 内置的方法，使用 System#currentTimeMillis 来统计执行的时间（统计单位：毫秒），示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.currentTimeMillis();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.currentTimeMillis();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
-<h1 id="方法二systemnanotime">方法二：System.nanoTime</h1>
-<p>此方法为 Java 内置的方法，使用 System#nanoTime 来统计执行时间（统计单位：纳秒），它的执行方法和 System#currentTimeMillis 类似，示例代码如下：</p>
-<pre><code class="language-java">public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        long stime = System.nanoTime();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        long etime = System.nanoTime();
-        // 计算执行时间
-        System.out.printf(&quot;执行时长：%d 纳秒.&quot;, (etime - stime));
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000769200 纳秒.</code></p>
-<p><code>小贴士：1 毫秒 = 100 万纳秒。</code></p>
-<h1 id="方法三new-date">方法三：new Date</h1>
-<p>此方法也是 Java 的内置方法，在开始执行前 new Date() 创建一个当前时间对象，在执行结束之后 new Date() 一个当前执行时间，然后再统计两个 Date 的时间间隔，示例代码如下：</p>
-<pre><code class="language-java">import java.util.Date;
- 
-public class TimeIntervalTest {
-    public static void main(String[] args) throws InterruptedException {
-        // 开始时间
-        Date sdate = new Date();
-        // 执行时间（1s）
-        Thread.sleep(1000);
-        // 结束时间
-        Date edate = new Date();
-        //  统计执行时间（毫秒）
-        System.out.printf(&quot;执行时长：%d 毫秒.&quot; , (edate.getTime() - sdate.getTime())); 
-    }
-}
-</code></pre>
-<p>以上程序的执行结果为：</p>
-<p><code>执行时长：1000 毫秒.</code></p>
+<p>Java 泛型的参数只可以代表类，不能代表个别对象。由于Java泛型的类型参数之实际类型在编译时会被消除，所以无法在运行时得知其类型参数的类型，而且无法直接使用基本值类型作为泛型类型参数。Java编译程序在编译泛型时会自动加入类型转换的编码，故运行速度不会因为使用泛型而加快。<br>
+由于运行时会消除泛型的对象实例类型信息等缺陷经常被人诟病，Java及JVM的开发方面也尝试解决这个问题，例如Java通过在生成字节码时添加类型推导辅助信息，从而可以通过反射接口获得部分泛型信息。通过改进泛型在JVM的实现，使其支持基本值类型泛型和直接获得泛型信息等。<br>
+Java允许对个别泛型的类型参数进行约束，包括以下两种形式（假设T是泛型的类型参数，C是一般类、泛类，或是泛型的类型参数）：<br>
+T实现接口I。<br>
+T是C，或继承自C。</p>
+<p>• 使用泛型可以针对不同的类有相同的处理办法<br>
+•Vector<String> v = new Vector<String> ();<br>
+v.addElement( “one” );<br>
+String s = v.elementAt(0);<br>
+• 使用泛型的好处<br>
+类型更安全<br>
+适用更广泛，针对不同的类有相同的处理办法，但这些类之间不一定有继承关系。</p>
+<h1 id="泛型的使用">泛型的使用</h1>
+<p>主要有泛型类、泛型接口、泛型方法以及泛型通配符。</p>
+<h2 id="泛型类">泛型类</h2>
+<p>①泛型使用格式</p>
+<p>修饰符 class 类名&lt;代表泛型的变量&gt; { }；</p>
+<p>ArrayList类中使用E来代表泛型的变量，E本身并没有含义，任意一个大写字母都可以，A、B、T、W都可以。</p>
+<p>②泛型类的使用</p>
+<p>在创建对象的时候确定泛型，指定好了后这个对象就只能装指定的数据类型了。</p>
+<p>如果要换其他数据类型，就要重新创建该类的对象，重新指定泛型。泛型类有何好处？</p>
+<p>③ArrayList的add方法</p>
+<p>add方法参数就是一个泛型，也就是说创建对象时确定的是哪个类型，使用add方法就只能添加这个类型了，这就起到了一个千变万化的效果。</p>
+<h2 id="泛型接口">泛型接口</h2>
+<p>①泛型接口格式</p>
+<p>修饰符 interface接口名&lt;代表泛型的变量&gt; { }</p>
+<p>这次我们自定义一个泛型接口，泛型为A。</p>
+<p>②泛型类的使用一</p>
+<p>实现类实现接口、同时指定泛型类型。</p>
+<p>③泛型类的使用二</p>
+<p>实现类实现接口但不指定泛型，这个类也就成了泛型类。</p>
+<p>ArrayList类本质上也就是这种情况，它实现了List<E>接口，但是没有指定泛型。</p>
+<h2 id="泛型方法">泛型方法</h2>
+<p>①泛型方法格式</p>
+<p>修饰符 &lt;代表泛型的变量&gt; 返回值类型 方法名(参数){ }</p>
+<p>②泛型方法使用</p>
+<p>调用方法时，确定泛型的类型。</p>
+<h2 id="泛型通配符">泛型通配符</h2>
+<p>①两个不同类型的集合</p>
+<p>一个集合泛型为String类，一个集合泛型为Integer：</p>
+<p>ArrayList&lt;String&gt;list1和ArrayList&lt;Integer&gt; list2是两个不同的类型，如果用常规方法，那要两个方法（方法重载）</p>
+<p>②泛型的通配符</p>
+<p>不知道使用什么类型来接收的时候，此时可以使用?，?表示未知通配符。</p>
+<p>其中泛型通配符还可以这样使用：</p>
+<p><code>&lt;? extends Person&gt;</code>：表示可以传递Person及其子类</p>
+<p><code>&lt;? super Person&gt;</code>：表示可以传递Person及其父类</p>
+<p>例子</p>
+<p>使用?<br>
+• 如Collections的reverse方法<br>
+• reverse(List&lt;?&gt; list)<br>
+使用extends<br>
+• 如Set的addAll方法<br>
+• addAll(Collection&lt;? extends E&gt; col )<br>
+使用super<br>
+• 如Collections的fill方法<br>
+• fill(List&lt;? super T&gt; list, T obj)</p>
+<p>注意：</p>
+<p>泛型不存在继承关系：ArrayList&lt;Object&gt;list并不是ArrayList&lt;String&gt;list1和ArrayList&lt;Integer&gt;list2的父类，它们三个是三个不同的类型。<br>
+其中Java里的泛型是一种伪泛型。什么叫伪泛型？也就是泛型只存在于编译时期，在运行时期会被擦除。</p>
+<h2 id="复杂的泛型例子">复杂的泛型例子</h2>
+<p>• Arrays.sort方法<br>
+<code>public static &lt;T&gt; void sort(T[] a, Comparator&lt;? super T&gt; c)</code><br>
+• Stream.map方法<br>
+<code>public &lt;R&gt; Stream&lt;R&gt; map(Function&lt;? super T, ? extends R&gt; mapper)</code><br>
+• Collections.max方法<br>
+<code>public static &lt;T extends Object &amp; Comparable&lt;? super T&gt;&gt;T</code><br>
+<code>max(Collection&lt;? extends T&gt; coll)</code></p>
+<h2 id="协变与逆变">协变与逆变</h2>
+<p>协变(Covariance) ? extends T<br>
+• 原因：ListArray&lt;Apple&gt;不是ListArray&lt;Fruit&gt;的子类<br>
+但又想让&lt;Apple&gt;当作&lt;Fruit&gt;<br>
+就声明ListArray&lt;? extends Fruit&gt;<br>
+逆变(Contravariance) ? super T<br>
+• 原因：Basket&lt;Apple&gt;不是Basket&lt;Fruit&gt;的子类<br>
+但又想让Comparator&lt;Fruit&gt;用于Comparator&lt;Apple&gt;<br>
+就声明Comparator&lt;? super Fruit&gt;<br>
+注：? 实际上是去类型化(变成Object)，只在编译时检查<br>
+总之:</p>
+<ul>
+<li>协变 用于获取，用于out，用于Producer</li>
+<li>逆变 用于加入，用于in, 用于Consumer</li>
+</ul>
 
             </div>
             
@@ -678,7 +717,7 @@ public class TimeIntervalTest {
     </li>
     <li class="post-copyright-link">
       <strong class="language" data-lan="link">本文链接：</strong>
-      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/" title="Java程序设计：统计代码的执行时间的3种方法">https://www.cmsj.in/post/java-cheng-xu-she-ji-tong-ji-dai-ma-de-zhi-xing-shi-jian-de-3-chong-fang-fa/</a>
+      <a href="https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/" title="Java程序设计：泛型">https://www.cmsj.in/post/java-cheng-xu-she-ji-fan-xing/</a>
     </li>
     <li class="post-copyright-license">
       <strong class="language" data-lan="copyright">版权声明： </strong>
@@ -694,14 +733,14 @@ public class TimeIntervalTest {
     <div class="nav-prev">
       
         <i class="fa fa-chevron-left"></i>
-        <a class="nav-pc-next" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件</a class="nav-pc-next">
-        <a class="nav-mobile-prev" title="Java&amp;Python&amp;C/C++程序设计：使用NotePad++编译并运行单文件" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-shi-yong-notepadbian-yi-bing-yun-xing-dan-wen-jian/">上一篇</a>
+        <a class="nav-pc-next" title="算法：常用的基础算法：穷举、迭代、递归和回溯" href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/">算法：常用的基础算法：穷举、迭代、递归和回溯</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="算法：常用的基础算法：穷举、迭代、递归和回溯" href="https://www.cmsj.in/post/suan-fa-chang-yong-de-ji-chu-suan-fa-qiong-ju-die-dai-di-gui-he-hui-su/">上一篇</a>
       
     </div>
     <div class="nav-next">
       
-        <a class="nav-pc-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">Java程序设计：更改Swing的Look and Feel UI皮肤</a>
-        <a class="nav-mobile-next" title="Java程序设计：更改Swing的Look and Feel UI皮肤" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-geng-gai-swing-de-look-and-feel-ui-pi-fu/">下一篇</a>
+        <a class="nav-pc-next" title="Java程序设计：字符串类" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">Java程序设计：字符串类</a>
+        <a class="nav-mobile-next" title="Java程序设计：字符串类" href="https://www.cmsj.in/post/java-cheng-xu-she-ji-zi-fu-chuan-lei/">下一篇</a>
         <i class="fa fa-chevron-right"></i>
       
     </div>
