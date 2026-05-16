@@ -1,0 +1,2663 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Java;博客;编程;C语言;program">
+<meta name="description" content="尺墨素笺，且寄余闲">
+<meta name="theme-color" content="#845ef7">
+<title>日历系统开发(二)：数据库设计与日程模型 | 尺墨素笺</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1778947008473">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/vs.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Clarity tracking code for https://cmsj.in/ -->
+<script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ws2tu3tm1e");
+</script>
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143266332-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-143266332-1');
+</script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?1e63eab65a29a1826f89bf3f3796a2c6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+  <meta name="description" content="日历系统开发(二)：数据库设计与日程模型" />
+  <meta name="keywords" content="数据库,项目实战,日历系统" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>尺墨素笺</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">尺墨素笺，且寄余闲</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 归档
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/post/about/" target="_blank">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_blank">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">Jackie</p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">一介码农\n再细微的改变也值得被记录</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">216</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">56</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">56</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://www.cmsj.in/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="https://github.com/cms88168">
+              <i class="fa fa-github-alt" title="Github"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+
+
+  <div style="width: 100%; position: relative;">
+    <canvas id="canvasDiyBlock" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    <script src="/media/js/magic/clock.js"></script>
+  </div>
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E6%A0%B8%E5%BF%83%E8%A1%A8%E8%AE%BE%E8%AE%A1">核心表设计</a>
+<ul>
+<li><a href="#calendar-%E8%A1%A8">calendar 表</a></li>
+<li><a href="#event-%E8%A1%A8">event 表</a></li>
+<li><a href="#event_recurrence-%E8%A1%A8">event_recurrence 表</a></li>
+<li><a href="#event_attendee-%E8%A1%A8">event_attendee 表</a></li>
+<li><a href="#reminder-%E8%A1%A8">reminder 表</a></li>
+</ul>
+</li>
+<li><a href="#er%E5%85%B3%E7%B3%BB">ER关系</a></li>
+<li><a href="#%E6%97%B6%E9%97%B4%E5%AD%98%E5%82%A8%E7%AD%96%E7%95%A5">时间存储策略</a>
+<ul>
+<li><a href="#%E5%8E%9F%E5%88%99%E5%AD%98%E5%82%A8utc%E5%B1%95%E7%A4%BA%E8%BD%AC%E6%8D%A2">原则：存储UTC，展示转换</a></li>
+<li><a href="#%E5%85%A8%E5%A4%A9%E4%BA%8B%E4%BB%B6%E7%9A%84%E7%89%B9%E6%AE%8A%E5%A4%84%E7%90%86">全天事件的特殊处理</a></li>
+<li><a href="#%E8%B7%A8%E6%97%B6%E5%8C%BA%E4%BC%9A%E8%AE%AE">跨时区会议</a></li>
+</ul>
+</li>
+<li><a href="#%E7%B4%A2%E5%BC%95%E8%AE%BE%E8%AE%A1">索引设计</a></li>
+<li><a href="#%E5%B0%8F%E7%BB%93">小结</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://www.cmsj.in/post/ri-li-xi-tong-kai-fa-er-shu-ju-ku-she-ji-yu-ri-cheng-mo-xing/">
+      日历系统开发(二)：数据库设计与日程模型
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2022-06-24 22:01:05">2022-06-24</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://www.cmsj.in/tag/Database/">
+        <span>数据库</span>
+      </a>、
+      
+      
+      
+      <a href="https://www.cmsj.in/tag/project/">
+        <span>项目实战</span>
+      </a>、
+      
+      
+      
+      <a href="https://www.cmsj.in/tag/calendar-system/">
+        <span>日历系统</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>7<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>1740<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <p>日历系统的数据库设计是整个项目的根基。设计过程中可以参考 RFC 5545（iCalendar 规范）和 Google Calendar API 的数据模型，在规范兼容性和工程实用性之间做取舍。</p>
+<!-- more -->
+<h2 id="核心表设计">核心表设计</h2>
+<p>经过几轮讨论和调整，最终确定了5张核心表。</p>
+<h3 id="calendar-表">calendar 表</h3>
+<p>日历是日程的容器，类似于文件夹的概念。每个用户可以有多个日历（工作日历、个人日历等）。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT PK</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>BIGINT NOT NULL</td>
+<td>所属用户</td>
+</tr>
+<tr>
+<td>name</td>
+<td>VARCHAR(100)</td>
+<td>日历名称</td>
+</tr>
+<tr>
+<td>color</td>
+<td>VARCHAR(7)</td>
+<td>颜色代码（如#FF5733）</td>
+</tr>
+<tr>
+<td>description</td>
+<td>TEXT</td>
+<td>描述</td>
+</tr>
+<tr>
+<td>timezone</td>
+<td>VARCHAR(50)</td>
+<td>默认时区（如Asia/Shanghai）</td>
+</tr>
+<tr>
+<td>is_default</td>
+<td>BOOLEAN</td>
+<td>是否为默认日历</td>
+</tr>
+<tr>
+<td>is_visible</td>
+<td>BOOLEAN</td>
+<td>前端是否显示</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMPTZ</td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>TIMESTAMPTZ</td>
+<td>更新时间</td>
+</tr>
+</tbody>
+</table>
+<p>每个用户注册时自动创建一个默认日历。<code>timezone</code>字段存储IANA时区标识符，这个很重要——后面所有时间计算都依赖它。</p>
+<h3 id="event-表">event 表</h3>
+<p>这是最核心的表，存储日程事件。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT PK</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>calendar_id</td>
+<td>BIGINT FK</td>
+<td>所属日历</td>
+</tr>
+<tr>
+<td>title</td>
+<td>VARCHAR(200)</td>
+<td>标题</td>
+</tr>
+<tr>
+<td>description</td>
+<td>TEXT</td>
+<td>描述（支持富文本）</td>
+</tr>
+<tr>
+<td>location</td>
+<td>VARCHAR(500)</td>
+<td>地点</td>
+</tr>
+<tr>
+<td>start_time</td>
+<td>TIMESTAMPTZ</td>
+<td>开始时间</td>
+</tr>
+<tr>
+<td>end_time</td>
+<td>TIMESTAMPTZ</td>
+<td>结束时间</td>
+</tr>
+<tr>
+<td>all_day</td>
+<td>BOOLEAN</td>
+<td>是否全天事件</td>
+</tr>
+<tr>
+<td>status</td>
+<td>VARCHAR(20)</td>
+<td>confirmed/tentative/cancelled</td>
+</tr>
+<tr>
+<td>visibility</td>
+<td>VARCHAR(20)</td>
+<td>public/private/confidential</td>
+</tr>
+<tr>
+<td>recurrence_id</td>
+<td>BIGINT FK</td>
+<td>关联的重复规则（可空）</td>
+</tr>
+<tr>
+<td>recurring_event_id</td>
+<td>BIGINT FK</td>
+<td>原始重复事件ID（修改单次时用）</td>
+</tr>
+<tr>
+<td>original_start_time</td>
+<td>TIMESTAMPTZ</td>
+<td>原始开始时间（修改单次时用）</td>
+</tr>
+<tr>
+<td>organizer_id</td>
+<td>BIGINT</td>
+<td>组织者用户ID</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMPTZ</td>
+<td>创建时间</td>
+</tr>
+<tr>
+<td>updated_at</td>
+<td>TIMESTAMPTZ</td>
+<td>更新时间</td>
+</tr>
+</tbody>
+</table>
+<p>几个设计决策的考虑：</p>
+<p><strong><code>start_time</code>和<code>end_time</code>用TIMESTAMPTZ</strong>：PostgreSQL的<code>TIMESTAMPTZ</code>存储的是UTC时间戳，查询时自动按session时区转换。这样无论用户在哪个时区创建的事件，存储的都是同一个绝对时间点。</p>
+<p><strong>全天事件的处理</strong>：当<code>all_day=true</code>时，<code>start_time</code>存储的是当天00:00:00（日历时区），<code>end_time</code>存储的是结束日的00:00:00。比如&quot;5月25日全天事件&quot;，<code>start_time</code>是2022-05-25T00:00:00+08:00，<code>end_time</code>是2022-05-26T00:00:00+08:00。</p>
+<p><strong><code>recurring_event_id</code>和<code>original_start_time</code></strong>：用于处理重复事件的单次修改（exception）。比如&quot;每周一开会&quot;改了某一周的时间，修改后的那一次会作为新记录插入，<code>recurring_event_id</code>指向原始事件，<code>original_start_time</code>记录它原本应该出现的时间。</p>
+<h3 id="event_recurrence-表">event_recurrence 表</h3>
+<p>存储重复规则，遵循RFC 5545的RRULE格式。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT PK</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>event_id</td>
+<td>BIGINT FK</td>
+<td>关联事件</td>
+</tr>
+<tr>
+<td>rrule</td>
+<td>TEXT</td>
+<td>RFC 5545 RRULE字符串</td>
+</tr>
+<tr>
+<td>freq</td>
+<td>VARCHAR(20)</td>
+<td>DAILY/WEEKLY/MONTHLY/YEARLY</td>
+</tr>
+<tr>
+<td>interval_val</td>
+<td>INT</td>
+<td>间隔（每N天/周/月/年）</td>
+</tr>
+<tr>
+<td>by_day</td>
+<td>VARCHAR(100)</td>
+<td>按星期（如MO,WE,FR）</td>
+</tr>
+<tr>
+<td>by_month_day</td>
+<td>VARCHAR(100)</td>
+<td>按月中日期（如1,15）</td>
+</tr>
+<tr>
+<td>by_month</td>
+<td>VARCHAR(50)</td>
+<td>按月份（如1,6）</td>
+</tr>
+<tr>
+<td>until_date</td>
+<td>TIMESTAMPTZ</td>
+<td>结束日期（和count二选一）</td>
+</tr>
+<tr>
+<td>count</td>
+<td>INT</td>
+<td>重复次数（和until二选一）</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMPTZ</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p>我同时存了<code>rrule</code>原始字符串和解析后的各字段。<code>rrule</code>用于和外部系统（CalDAV）交互时的兼容性，解析后的字段用于数据库层面的查询优化。</p>
+<p>例如&quot;每周一、三、五重复，到2022年底&quot;：</p>
+<ul>
+<li><code>rrule</code>: <code>FREQ=WEEKLY;BYDAY=MO,WE,FR;UNTIL=20221231T235959Z</code></li>
+<li><code>freq</code>: WEEKLY</li>
+<li><code>by_day</code>: MO,WE,FR</li>
+<li><code>until_date</code>: 2022-12-31T23:59:59Z</li>
+</ul>
+<h3 id="event_attendee-表">event_attendee 表</h3>
+<p>参与者表。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT PK</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>event_id</td>
+<td>BIGINT FK</td>
+<td>关联事件</td>
+</tr>
+<tr>
+<td>user_id</td>
+<td>BIGINT</td>
+<td>参与者用户ID</td>
+</tr>
+<tr>
+<td>email</td>
+<td>VARCHAR(200)</td>
+<td>参与者邮箱（外部参与者）</td>
+</tr>
+<tr>
+<td>display_name</td>
+<td>VARCHAR(100)</td>
+<td>显示名</td>
+</tr>
+<tr>
+<td>role</td>
+<td>VARCHAR(20)</td>
+<td>organizer/nequired/optional</td>
+</tr>
+<tr>
+<td>status</td>
+<td>VARCHAR(20)</td>
+<td>accepted/declined/tentative/needsAction</td>
+</tr>
+<tr>
+<td>responded_at</td>
+<td>TIMESTAMPTZ</td>
+<td>最近一次响应时间</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMPTZ</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<p><code>user_id</code>和<code>email</code>至少有一个有值。内部用户填<code>user_id</code>，外部参与者填<code>email</code>。</p>
+<h3 id="reminder-表">reminder 表</h3>
+<p>提醒表。每个事件可以有多个提醒。</p>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>id</td>
+<td>BIGINT PK</td>
+<td>主键</td>
+</tr>
+<tr>
+<td>event_id</td>
+<td>BIGINT FK</td>
+<td>关联事件</td>
+</tr>
+<tr>
+<td>method</td>
+<td>VARCHAR(20)</td>
+<td>notification/email/webhook</td>
+</tr>
+<tr>
+<td>minutes_before</td>
+<td>INT</td>
+<td>事件前N分钟提醒</td>
+</tr>
+<tr>
+<td>is_sent</td>
+<td>BOOLEAN</td>
+<td>是否已发送</td>
+</tr>
+<tr>
+<td>sent_at</td>
+<td>TIMESTAMPTZ</td>
+<td>发送时间</td>
+</tr>
+<tr>
+<td>created_at</td>
+<td>TIMESTAMPTZ</td>
+<td>创建时间</td>
+</tr>
+</tbody>
+</table>
+<h2 id="er关系">ER关系</h2>
+<pre><code>user 1──N calendar 1──N event
+                           │
+                           ├── 1──0..1 event_recurrence
+                           ├── 1──N event_attendee
+                           └── 1──N reminder
+                           
+event.recurring_event_id ──&gt; event.id  (自关联，单次修改指向原始重复事件)
+</code></pre>
+<p>核心关系很清晰：用户拥有多个日历，日历包含多个事件，事件可以有重复规则、参与者和提醒。</p>
+<h2 id="时间存储策略">时间存储策略</h2>
+<p>这是我在设计过程中花时间最多的部分。日历系统的时间处理非常容易踩坑。</p>
+<h3 id="原则存储utc展示转换">原则：存储UTC，展示转换</h3>
+<p>所有时间字段使用<code>TIMESTAMPTZ</code>类型，PostgreSQL会把输入的时间转为UTC存储，查询时按当前session的timezone设置转换输出。</p>
+<pre><code class="language-sql">-- 设置session时区
+SET timezone = 'Asia/Shanghai';
+
+-- 插入事件（输入的是上海时间，存储为UTC）
+INSERT INTO event (title, start_time, end_time)
+VALUES ('团队会议', '2022-05-25 14:00:00', '2022-05-25 15:00:00');
+
+-- 查询（自动转换为session时区）
+SELECT title, start_time FROM event;
+-- 结果: 团队会议 | 2022-05-25 14:00:00+08
+
+-- 切换时区查看同一条记录
+SET timezone = 'America/New_York';
+SELECT title, start_time FROM event;
+-- 结果: 团队会议 | 2022-05-25 02:00:00-04
+</code></pre>
+<h3 id="全天事件的特殊处理">全天事件的特殊处理</h3>
+<p>全天事件在概念上是&quot;没有具体时间的&quot;，但数据库需要一个具体的时间戳。我的做法是用日历所属时区的当天00:00:00。</p>
+<p>API层做了封装，前端只传日期字符串（如&quot;2022-05-25&quot;），后端根据日历时区补全时间部分。</p>
+<h3 id="跨时区会议">跨时区会议</h3>
+<p>用户A在北京创建了&quot;上午10点开会&quot;，用户B在纽约看到的应该是&quot;晚上10点&quot;。因为我们存的是UTC时间戳，每个用户按自己的时区查询就自动转换了。这也是选择TIMESTAMPTZ的核心原因。</p>
+<h2 id="索引设计">索引设计</h2>
+<p>日历系统最频繁的查询是&quot;某个时间段内有哪些事件&quot;，索引设计围绕这个场景。</p>
+<p><strong>event表核心索引</strong>：</p>
+<ol>
+<li>
+<p><strong>日历+时间范围</strong>：最高频查询</p>
+<ul>
+<li><code>(calendar_id, start_time, end_time)</code> 复合索引</li>
+</ul>
+</li>
+<li>
+<p><strong>用户事件查询</strong>：查看某用户所有日历的事件</p>
+<ul>
+<li><code>(calendar_id)</code> 外键索引配合calendar表的user_id</li>
+</ul>
+</li>
+<li>
+<p><strong>重复事件关联</strong>：查找某个重复事件的所有exception</p>
+<ul>
+<li><code>(recurring_event_id)</code> 索引</li>
+</ul>
+</li>
+<li>
+<p><strong>时间范围查询优化</strong>：利用PostgreSQL的BRIN索引</p>
+<ul>
+<li><code>start_time</code>上建BRIN索引，因为日程数据天然有时间顺序</li>
+</ul>
+</li>
+</ol>
+<p><strong>attendee表索引</strong>：</p>
+<ul>
+<li><code>(event_id)</code> 查询事件的参与者</li>
+<li><code>(user_id, status)</code> 查询用户待处理的邀请</li>
+</ul>
+<p><strong>reminder表索引</strong>：</p>
+<ul>
+<li><code>(event_id)</code> 常规关联查询</li>
+<li><code>(is_sent, minutes_before)</code> 提醒调度服务扫描用</li>
+</ul>
+<p>PostgreSQL的<code>tstzrange</code>类型也值得考虑——可以用GiST索引做更高效的时间范围重叠查询（会议室冲突检测场景），不过这个留到后面优化阶段再看。</p>
+<h2 id="小结">小结</h2>
+<p>数据库设计阶段最关键的几个决策：</p>
+<ol>
+<li>所有时间用<code>TIMESTAMPTZ</code>，存储UTC</li>
+<li>重复规则独立成表，同时保留RRULE原始字符串和解析字段</li>
+<li>重复事件的单次修改通过<code>recurring_event_id</code>自关联实现</li>
+<li>全天事件用日历时区的00:00:00表示</li>
+</ol>
+<p>下一篇会进入编码阶段，实现日程的CRUD API。</p>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      Jackie
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://www.cmsj.in/post/ri-li-xi-tong-kai-fa-er-shu-ju-ku-she-ji-yu-ri-cheng-mo-xing/" title="日历系统开发(二)：数据库设计与日程模型">https://www.cmsj.in/post/ri-li-xi-tong-kai-fa-er-shu-ju-ku-she-ji-yu-ri-cheng-mo-xing/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://www.cmsj.in/tag/Database/"># 数据库</a>
+    
+      <a href="https://www.cmsj.in/tag/project/"># 项目实战</a>
+    
+      <a href="https://www.cmsj.in/tag/calendar-system/"># 日历系统</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+        <i class="fa fa-chevron-left"></i>
+        <a class="nav-pc-next" title="Go语言：泛型(Generics)初体验 (Go 1.18)" href="https://www.cmsj.in/post/go-yu-yan-fan-xing-generics-chu-ti-yan-go-1-18/">Go语言：泛型(Generics)初体验 (Go 1.18)</a class="nav-pc-next">
+        <a class="nav-mobile-prev" title="Go语言：泛型(Generics)初体验 (Go 1.18)" href="https://www.cmsj.in/post/go-yu-yan-fan-xing-generics-chu-ti-yan-go-1-18/">上一篇</a>
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="日历系统开发(一)：需求分析与技术选型" href="https://www.cmsj.in/post/ri-li-xi-tong-kai-fa-yi-xu-qiu-fen-xi-yu-ji-shu-xuan-xing/">日历系统开发(一)：需求分析与技术选型</a>
+        <a class="nav-mobile-next" title="日历系统开发(一)：需求分析与技术选型" href="https://www.cmsj.in/post/ri-li-xi-tong-kai-fa-yi-xu-qiu-fen-xi-yu-ji-shu-xuan-xing/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  <div id="utterances_thread" style="padding: 10px 0px 0px 0px"></div>
+
+<script src="https://utteranc.es/client.js"
+        repo="cms88168/cms88168.github.io"
+        issue-term="title"
+        
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+  .utterances {
+    max-width: 100% !important;
+  }
+  
+  .utterances-frame {
+    width: 100% !important;
+  }
+</style>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <span id="busuanzi_container_site_pv">浏览数 <span id="busuanzi_value_site_pv"></span> 次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
+    <div class="copyright">
+      Copyright ©<a href="/sitemap.xml" target="_blank">尺墨素笺，且寄余闲</a>
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+  <div class="bg-img">
+    <img src="/images/home-bg.jpg" />
+  </div>
+  
+  
+  
+  
+<link rel="stylesheet" href="/media/live2d/css/live2d.css" />
+<div class="box-scale">
+  <div id="landlord" style="left: 5px;bottom: px;"
+    data-key="">
+    <canvas id="live2d" width="500" height="560" class="live2d"></canvas>
+    
+
+      <div class="message" style="opacity:0"></div>
+      <div class="live_talk_input_body">
+        <div class="live_talk_input_name_body">
+          <input name="name" type="text" class="live_talk_name white_input" id="AIuserName" autocomplete="off"
+            placeholder="你的名字" />
+        </div>
+        <div class="live_talk_input_text_body">
+          <input name="talk" type="text" class="live_talk_talk white_input" id="AIuserText" autocomplete="off"
+            placeholder="要和我聊什么呀？" />
+          <button type="button" class="live_talk_send_btn" id="talk_send">发送</button>
+        </div>
+      </div>
+      <input name="live_talk" id="live_talk" value="1" type="hidden" />
+      <div class="live_ico_box">
+        <div class="live_ico_item type_info" id="showInfoBtn"></div>
+        <div class="live_ico_item type_talk" id="showTalkBtn"></div>
+        
+        <div class="live_ico_item type_youdu" id="youduButton"></div>
+        <div class="live_ico_item type_quit" id="hideButton"></div>
+        <input name="live_statu_val" id="live_statu_val" value="0" type="hidden" />
+        <audio src="" style="display:none;" id="live2d_bgm" data-bgm="0" preload="none"></audio>
+        <input id="duType" value="douqilai" type="hidden">
+        
+      </div>
+    
+  </div>
+</div>
+<div id="open_live2d">召唤看板娘</div>
+<script>
+  var message_Path = 'https://cdn.jsdelivr.net/gh/hsxyhao/live2d.github.io@master/';
+  let landlord = document.querySelector('#landlord');
+  var apiKey = landlord.dataset.key;
+</script>
+<script type="text/javascript" src="/media/live2d/js/live2d.js"></script>
+<script>
+	var home_Path = document.location.protocol + '//' + window.document.location.hostname + ":" + window.document.location.port + '/';
+	var userAgent = window.navigator.userAgent.toLowerCase();
+	var norunAI = ["android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser", "msie", "trident/7.0"];
+	var norunFlag = false;
+
+	for (var i = 0; i < norunAI.length; i++) {
+		if (userAgent.indexOf(norunAI[i]) > -1) {
+			norunFlag = true;
+			break;
+		}
+	}
+
+	if (!window.WebGLRenderingContext) {
+		norunFlag = true;
+	}
+
+	if (!norunFlag) {
+		var hitFlag = false;
+		var AIFadeFlag = false;
+		var liveTlakTimer = null;
+		var sleepTimer_ = null;
+		var AITalkFlag = false;
+		var talkNum = 0;
+		(function () {
+			function renderTip(template, context) {
+				var tokenReg = /(\\)?\{([^\{\}\\]+)(\\)?\}/g;
+				return template.replace(tokenReg, function (word, slash1, token, slash2) {
+					if (slash1 || slash2) {
+						return word.replace('\\', '');
+					}
+					var variables = token.replace(/\s/g, '').split('.');
+					var currentObject = context;
+					var i, length, variable;
+					for (i = 0, length = variables.length; i < length; ++i) {
+						variable = variables[i];
+						currentObject = currentObject[variable];
+						if (currentObject === undefined || currentObject === null) return '';
+					}
+					return currentObject;
+				});
+			}
+
+			String.prototype.renderTip = function (context) {
+				return renderTip(this, context);
+			};
+
+			var re = /x/;
+			re.toString = function () {
+				showMessage('哈哈，你打开了控制台，是想要看看我的秘密吗？', 5000);
+				return '';
+			};
+
+			$(document).on('copy', function () {
+				showMessage('你都复制了些什么呀，转载要记得加上出处哦~~', 5000);
+			});
+
+			function initTips() {
+				$.ajax({
+					cache: true,
+					url: message_Path + 'message.json',
+					dataType: "json",
+					success: function (result) {
+						$.each(result.mouseover, function (index, tips) {
+							$(tips.selector).mouseover(function () {
+								var text = tips.text;
+								if (Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1) - 1];
+								text = text.renderTip({ text: $(this).text() });
+								showMessage(text, 3000);
+								talkValTimer();
+								clearInterval(liveTlakTimer);
+								liveTlakTimer = null;
+							});
+							$(tips.selector).mouseout(function () {
+								showHitokoto();
+								if (liveTlakTimer == null) {
+									liveTlakTimer = window.setInterval(function () {
+										showHitokoto();
+									}, 15000);
+								};
+							});
+						});
+						$.each(result.click, function (index, tips) {
+							$(tips.selector).click(function () {
+								if (hitFlag) {
+									return false
+								}
+								hitFlag = true;
+								setTimeout(function () {
+									hitFlag = false;
+								}, 8000);
+								var text = tips.text;
+								if (Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1) - 1];
+								text = text.renderTip({ text: $(this).text() });
+								showMessage(text, 3000);
+							});
+							clearInterval(liveTlakTimer);
+							liveTlakTimer = null;
+							if (liveTlakTimer == null) {
+								liveTlakTimer = window.setInterval(function () {
+									showHitokoto();
+								}, 15000);
+							};
+						});
+					}
+				});
+			}
+			initTips();
+
+			var text;
+			if (document.referrer !== '') {
+				var referrer = document.createElement('a');
+				referrer.href = document.referrer;
+				text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
+				var domain = referrer.hostname.split('.')[1];
+				if (domain == 'baidu') {
+					text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				} else if (domain == 'so') {
+					text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				} else if (domain == 'google') {
+					text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				}
+			} else {
+				if (window.location.href == home_Path) { //主页URL判断，需要斜杠结尾
+					var now = (new Date()).getHours();
+					if (now > 23 || now <= 5) {
+						text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
+					} else if (now > 5 && now <= 7) {
+						text = '早上好！一日之计在于晨，美好的一天就要开始了！';
+					} else if (now > 7 && now <= 11) {
+						text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
+					} else if (now > 11 && now <= 14) {
+						text = '中午了，工作了一个上午，现在是午餐时间！';
+					} else if (now > 14 && now <= 17) {
+						text = '午后很容易犯困呢，今天的运动目标完成了吗？';
+					} else if (now > 17 && now <= 19) {
+						text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
+					} else if (now > 19 && now <= 21) {
+						text = '晚上好，今天过得怎么样？';
+					} else if (now > 21 && now <= 23) {
+						text = '已经这么晚了呀，早点休息吧，晚安~~';
+					} else {
+						text = '嗨~ 快来逗我玩吧！';
+					}
+				} else {
+					text = '欢迎阅读<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				}
+			}
+			showMessage(text, 12000);
+		})();
+
+		liveTlakTimer = setInterval(function () {
+			showHitokoto();
+		}, 15000);
+
+		function showHitokoto() {
+			if (sessionStorage.getItem("Sleepy") !== "1") {
+				if (!AITalkFlag) {
+					$.getJSON('https://v1.hitokoto.cn/', function (result) {
+						talkValTimer();
+						showMessage(result.hitokoto, 0);
+					});
+				}
+			} else {
+				hideMessage(0);
+				if (sleepTimer_ == null) {
+					sleepTimer_ = setInterval(function () {
+						checkSleep();
+					}, 200);
+				}
+			}
+		}
+
+		function checkSleep() {
+			var sleepStatu = sessionStorage.getItem("Sleepy");
+			if (sleepStatu !== '1') {
+				talkValTimer();
+				showMessage('你回来啦~', 0);
+				clearInterval(sleepTimer_);
+				sleepTimer_ = null;
+			}
+		}
+
+		function showMessage(text, timeout) {
+			if (Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1) - 1];
+			$('.message').stop();
+			$('.message').html(text);
+			$('.message').fadeTo(200, 1);
+			//if (timeout === null) timeout = 5000;
+			//hideMessage(timeout);
+		}
+		function talkValTimer() {
+			$('#live_talk').val('1');
+		}
+
+		function hideMessage(timeout) {
+			//$('.message').stop().css('opacity',1);
+			if (timeout === null) timeout = 5000;
+			$('.message').delay(timeout).fadeTo(200, 0);
+		}
+
+		function initLive2d() {
+			$('#hideButton').on('click', function () {
+				if (AIFadeFlag) {
+					return false;
+				} else {
+					AIFadeFlag = true;
+					localStorage.setItem("live2dhidden", "0");
+					$('#landlord').fadeOut(200);
+					$('#open_live2d').delay(200).fadeIn(200);
+					setTimeout(function () {
+						AIFadeFlag = false;
+					}, 300);
+				}
+			});
+			$('#open_live2d').on('click', function () {
+				if (AIFadeFlag) {
+					return false;
+				} else {
+					AIFadeFlag = true;
+					localStorage.setItem("live2dhidden", "1");
+					$('#open_live2d').fadeOut(200);
+					$('#landlord').delay(200).fadeIn(200);
+					setTimeout(function () {
+						AIFadeFlag = false;
+					}, 300);
+				}
+			});
+			$('#youduButton').on('click', function () {
+				if ($('#youduButton').hasClass('doudong')) {
+					var typeIs = $('#youduButton').attr('data-type');
+					$('#youduButton').removeClass('doudong');
+					$('body').removeClass(typeIs);
+					$('#youduButton').attr('data-type', '');
+				} else {
+					var duType = $('#duType').val();
+					var duArr = duType.split(",");
+					var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+
+					$('#youduButton').addClass('doudong');
+					$('#youduButton').attr('data-type', dataType);
+					$('body').addClass(dataType);
+				}
+			});
+			if (apiKey) {
+				$('#showInfoBtn').on('click', function () {
+					var live_statu = $('#live_statu_val').val();
+					if (live_statu == "0") {
+						return
+					} else {
+						$('#live_statu_val').val("0");
+						$('.live_talk_input_body').fadeOut(500);
+						AITalkFlag = false;
+						showHitokoto();
+						$('#showTalkBtn').show();
+						$('#showInfoBtn').hide();
+					}
+				});
+				$('#showTalkBtn').on('click', function () {
+					var live_statu = $('#live_statu_val').val();
+					if (live_statu == "1") {
+						return
+					} else {
+						$('#live_statu_val').val("1");
+						$('.live_talk_input_body').fadeIn(500);
+						AITalkFlag = true;
+						$('#showTalkBtn').hide();
+						$('#showInfoBtn').show();
+
+					}
+				});
+				$('#talk_send').on('click', function () {
+					var info_ = $('#AIuserText').val();
+					var userid_ = $('#AIuserName').val();
+					if (info_ == "") {
+						showMessage('写点什么吧！', 0);
+						return;
+					}
+					if (userid_ == "") {
+						showMessage('聊之前请告诉我你的名字吧！', 0);
+						return;
+					}
+					showMessage('思考中~', 0);
+					let protocol = window.location.protocol.indexOf("s") > 0 ? "https" : "http";
+					$.ajax({
+						type: "get",
+						url: `${protocol}://www.tuling123.com/openapi/api?key=${apiKey}&info=${info_}`,
+						dataType: "json",
+						success: function (res) {
+							talkValTimer();
+							showMessage(res.text, 0);
+							$('#AIuserText').val("");
+							sessionStorage.setItem("live2duser", userid_);
+						},
+						error: function (e) {
+							talkValTimer();
+							showMessage('似乎有什么错误，请和站长联系！', 0);
+						}
+					});
+				});
+			} else {
+				$('#showInfoBtn').hide();
+				$('#showTalkBtn').hide();
+			}
+			//获取音乐信息初始化
+			var bgmListInfo = $('input[name=live2dBGM]');
+			if (bgmListInfo.length == 0) {
+				$('#musicButton').hide();
+			} else {
+				var bgmPlayNow = parseInt($('#live2d_bgm').attr('data-bgm'));
+				var bgmPlayTime = 0;
+				var live2dBGM_Num = sessionStorage.getItem("live2dBGM_Num");
+				var live2dBGM_PlayTime = sessionStorage.getItem("live2dBGM_PlayTime");
+				if (live2dBGM_Num) {
+					if (live2dBGM_Num <= $('input[name=live2dBGM]').length - 1) {
+						bgmPlayNow = parseInt(live2dBGM_Num);
+					}
+				}
+				if (live2dBGM_PlayTime) {
+					bgmPlayTime = parseInt(live2dBGM_PlayTime);
+				}
+				var live2dBGMSrc = bgmListInfo.eq(bgmPlayNow).val();
+				$('#live2d_bgm').attr('data-bgm', bgmPlayNow);
+				$('#live2d_bgm').attr('src', live2dBGMSrc);
+				$('#live2d_bgm')[0].currentTime = bgmPlayTime;
+				$('#live2d_bgm')[0].volume = 0.5;
+				var live2dBGM_IsPlay = sessionStorage.getItem("live2dBGM_IsPlay");
+				var live2dBGM_WindowClose = sessionStorage.getItem("live2dBGM_WindowClose");
+				if (live2dBGM_IsPlay == '0' && live2dBGM_WindowClose == '0') {
+					$('#live2d_bgm')[0].play();
+					$('#musicButton').addClass('play');
+				}
+				sessionStorage.setItem("live2dBGM_WindowClose", '1');
+				$('#musicButton').on('click', function () {
+					if ($('#musicButton').hasClass('play')) {
+						$('#live2d_bgm')[0].pause();
+						$('#musicButton').removeClass('play');
+						sessionStorage.setItem("live2dBGM_IsPlay", '1');
+					} else {
+						$('#live2d_bgm')[0].play();
+						$('#musicButton').addClass('play');
+						sessionStorage.setItem("live2dBGM_IsPlay", '0');
+					}
+				});
+				window.onbeforeunload = function () {
+					sessionStorage.setItem("live2dBGM_WindowClose", '0');
+					if ($('#musicButton').hasClass('play')) {
+						sessionStorage.setItem("live2dBGM_IsPlay", '0');
+					}
+				}
+				document.getElementById('live2d_bgm').addEventListener("timeupdate", function () {
+					var live2dBgmPlayTimeNow = document.getElementById('live2d_bgm').currentTime;
+					sessionStorage.setItem("live2dBGM_PlayTime", live2dBgmPlayTimeNow);
+				});
+				document.getElementById('live2d_bgm').addEventListener("ended", function () {
+					var listNow = parseInt($('#live2d_bgm').attr('data-bgm'));
+					listNow++;
+					if (listNow > $('input[name=live2dBGM]').length - 1) {
+						listNow = 0;
+					}
+					var listNewSrc = $('input[name=live2dBGM]').eq(listNow).val();
+					sessionStorage.setItem("live2dBGM_Num", listNow);
+					$('#live2d_bgm').attr('src', listNewSrc);
+					$('#live2d_bgm')[0].play();
+					$('#live2d_bgm').attr('data-bgm', listNow);
+				});
+				document.getElementById('live2d_bgm').addEventListener("error", function () {
+					$('#live2d_bgm')[0].pause();
+					$('#musicButton').removeClass('play');
+					showMessage('音乐似乎加载不出来了呢！', 0);
+				});
+			}
+			//获取用户名
+			var live2dUser = sessionStorage.getItem("live2duser");
+			if (live2dUser !== null) {
+				$('#AIuserName').val(live2dUser);
+			}
+			//获取位置
+			var landL = sessionStorage.getItem("historywidth");
+			var landB = sessionStorage.getItem("historyheight");
+			if (landL == null || landB == null) {
+				landL = '5px'
+				landB = '0px'
+			}
+			$('#landlord').css('left', landL);
+			$('#landlord').css('bottom', landB);
+			//移动
+			function getEvent() {
+				return window.event || arguments.callee.caller.arguments[0];
+			}
+			var smcc = document.getElementById("landlord");
+			var moveX = 0;
+			var moveY = 0;
+			var moveBottom = 0;
+			var moveLeft = 0;
+			var moveable = false;
+			
+			function startDrag(e) {
+				var ent = e || getEvent();
+				moveable = true;
+				moveX = ent.clientX;
+				moveY = ent.clientY;
+				moveBottom = parseInt(smcc.style.bottom) || 0;
+				moveLeft = parseInt(smcc.style.left) || 0;
+				if (navigator.userAgent.indexOf("Firefox") > 0) {
+					window.getSelection().removeAllRanges();
+				}
+				e.preventDefault();
+			}
+			
+			function doDrag(e) {
+				if (moveable) {
+					var ent = e || getEvent();
+					var x = moveLeft + ent.clientX - moveX;
+					var y = moveBottom + moveY - ent.clientY;
+					smcc.style.left = x + "px";
+					smcc.style.bottom = y + "px";
+					e.preventDefault();
+				}
+			}
+			
+			function stopDrag() {
+				if (moveable) {
+					var historywidth = smcc.style.left;
+					var historyheight = smcc.style.bottom;
+					historywidth = historywidth.replace('px', '');
+					historyheight = historyheight.replace('px', '');
+					sessionStorage.setItem("historywidth", historywidth);
+					sessionStorage.setItem("historyheight", historyheight);
+					moveable = false;
+					moveX = 0;
+					moveY = 0;
+					moveBottom = 0;
+					moveLeft = 0;
+				}
+			}
+			
+			smcc.addEventListener('mousedown', startDrag, true);
+			var live2dCanvas = document.getElementById('live2d');
+			if(live2dCanvas) {
+				live2dCanvas.addEventListener('mousedown', startDrag, true);
+			}
+			document.addEventListener('mousemove', doDrag, true);
+			document.addEventListener('mouseup', stopDrag, true);
+		}
+		$(document).ready(function () {
+			var AIimgSrc = [];
+			let chooseLive2d = 'tororo'
+			if (chooseLive2d === 'histoire') {
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_00.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_01.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_02.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_03.png");
+			} else if (chooseLive2d === 'rem') {
+				AIimgSrc.push(message_Path + "model/rem/remu2048/texture_00.png");
+			} else if (chooseLive2d === 'aoba') {
+				AIimgSrc.push(message_Path + "model/aoba/textures/texture_00.png");
+			} else if (chooseLive2d === 'hijiki') {
+				AIimgSrc.push(message_Path + "model/hijiki/moc/hijiki.2048/texture_00.png");
+			} else if (chooseLive2d === 'tororo') {
+				AIimgSrc.push(message_Path + "model/tororo/moc/tororo.2048/texture_00.png");
+			}
+			var images = [];
+			var imgLength = AIimgSrc.length;
+			var loadingNum = 0;
+			for (var i = 0; i < imgLength; i++) {
+				images[i] = new Image();
+				images[i].src = AIimgSrc[i];
+				images[i].onload = function () {
+					loadingNum++;
+					if (loadingNum === imgLength) {
+						var live2dhidden = localStorage.getItem("live2dhidden");
+						if (live2dhidden === "0") {
+							setTimeout(function () {
+								$('#open_live2d').fadeIn(200);
+							}, 1300);
+						} else {
+							setTimeout(function () {
+								$('#landlord').fadeIn(200);
+							}, 1300);
+						}
+						let model = '';
+						if (chooseLive2d === 'histoire') {
+							model = message_Path + "model/histoire/model.json";
+						} else if (chooseLive2d === 'rem') {
+							model = message_Path + "model/rem/model.json";
+						} else if (chooseLive2d === 'aoba') {
+							model = message_Path + "model/aoba/model.json";
+						} else if (chooseLive2d === 'hijiki') {
+							model = message_Path + "model/hijiki/hijiki.model.json";
+						} else if (chooseLive2d === 'tororo') {
+							model = message_Path + "model/tororo/tororo.model.json";
+						}
+						setTimeout(function () {
+							loadlive2d("live2d", model);
+						}, 1000);
+						initLive2d();
+						images = null;
+					}
+				}
+			}
+		});
+	}
+</script>
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.addEventListener('resize', function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, 'stop');
+      jQuery.Velocity(viewport, 'stop');
+      jQuery.Velocity(rightMotions, 'stop');
+      if (open) {
+        jQuery.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        jQuery.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'true'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch && faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "喝完茶记得回来:)";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll('.section img');
+  images.forEach(image => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'images';
+    aelem.dataset['rel'] = 'fancybox-button';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  })
+</script>
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="摘要搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">在本站内容中搜索</span>
+    </div>
+    <div class="result" id="result">
+      <!-- 搜索结果将动态插入这里 -->
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    let searchIndexLoaded = false;
+    let currentSegments = []; // 保存当前的搜索关键词
+        
+    // 从JSON文件加载搜索索引(带缓存,通过版本号文件检查更新)
+    function loadSearchIndex() {
+      const CACHE_VERSION_KEY = 'search_index_version';
+      const CACHE_DATA_KEY = 'search_index_data';
+      const cachedVersion = localStorage.getItem(CACHE_VERSION_KEY);
+          
+      // 先检查版本号文件(很小,加载快)
+      fetch('/search-version.json')
+        .then(response => response.json())
+        .then(versionInfo => {
+          const currentVersion = versionInfo.version; // 文章数量作为版本号
+              
+          // 检查缓存版本是否匹配
+          if (cachedVersion && parseInt(cachedVersion) === currentVersion) {
+            const cachedData = localStorage.getItem(CACHE_DATA_KEY);
+            if (cachedData) {
+              try {
+                contents = JSON.parse(cachedData);
+                searchIndexLoaded = true;
+                console.log('使用缓存的搜索索引(v' + currentVersion + '),共 ' + contents.length + ' 篇文章');
+                return;
+              } catch (e) {
+                console.error('缓存数据解析失败,重新加载:', e);
+              }
+            }
+          }
+              
+          // 版本不匹配或缓存不存在,下载完整搜索索引
+          console.log('正在加载搜索索引...');
+          return fetch('/search.json')
+            .then(res => res.json())
+            .then(data => {
+              contents = data;
+              searchIndexLoaded = true;
+                  
+              // 更新缓存
+              try {
+                localStorage.setItem(CACHE_DATA_KEY, JSON.stringify(data));
+                localStorage.setItem(CACHE_VERSION_KEY, currentVersion.toString());
+                if (cachedVersion && parseInt(cachedVersion) !== currentVersion) {
+                  console.log('检测到文章数变化(' + cachedVersion + ' -> ' + currentVersion + '),已更新缓存');
+                } else {
+                  console.log('搜索索引加载并缓存成功(v' + currentVersion + '),共 ' + data.length + ' 篇文章');
+                }
+              } catch (e) {
+                console.warn('搜索索引缓存失败(可能超出存储限制):', e);
+              }
+            });
+        })
+        .catch(err => {
+          console.error('版本检查失败:', err);
+          // 版本检查失败,尝试使用缓存
+          const cachedData = localStorage.getItem(CACHE_DATA_KEY);
+          if (cachedData) {
+            try {
+              contents = JSON.parse(cachedData);
+              searchIndexLoaded = true;
+              console.log('版本检查失败,使用缓存数据');
+            } catch (e) {
+              console.error('缓存数据解析失败:', e);
+            }
+          }
+        });
+    }
+        
+    loadSearchIndex();
+    
+    // 提供清除缓存的方法(在控制台输入 clearSearchCache())
+    window.clearSearchCache = function() {
+      localStorage.removeItem('search_index_version');
+      localStorage.removeItem('search_index_data');
+      console.log('搜索索引缓存已清除,刷新页面后重新加载');
+    };
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.__proto__ === HTMLSpanElement.prototype) {
+        appendResults(parseInt(target.dataset.i));
+      }
+    })
+
+    /**
+     * 高亮字符串中的关键词
+     * @param {string} text - 原始文本
+     * @param {string[]} keywords - 关键词数组
+     * @returns {string} - 高亮后的HTML
+     */
+    function highlightKeywords(text, keywords) {
+      if (!text || !keywords || keywords.length === 0) return text;
+      
+      let result = text;
+      keywords.forEach(keyword => {
+        if (keyword) {
+          // 转义正则特殊字符
+          const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(escapedKeyword, 'gi');
+          result = result.replace(regex, match => '<em>' + match + '</em>');
+        }
+      });
+      return result;
+    }
+
+    /**
+     * 生成文章摘要
+     * @param {string} content - 文章完整内容
+     * @param {string} keyword - 搜索关键词
+     * @param {boolean} onlyTitleMatch - 是否只在标题中命中
+     * @returns {string} - 摘要文本
+     */
+    function generateSummary(content, keyword, onlyTitleMatch) {
+      if (!content) return '';
+      
+      // 只在标题命中,返回前200字
+      if (onlyTitleMatch) {
+        const preview = content.substring(0, 200);
+        return content.length > 200 ? preview + '...' : preview;
+      }
+      
+      // 内容中命中,返回匹配位置的上下文
+      const lowerContent = content.toLowerCase();
+      const lowerKeyword = keyword.toLowerCase();
+      const matchIndex = lowerContent.indexOf(lowerKeyword);
+      
+      if (matchIndex === -1) return '';
+      
+      const contextStart = Math.max(0, matchIndex - 50);
+      const contextLength = 200;
+      const context = content.substring(contextStart, contextStart + contextLength);
+      
+      const prefix = contextStart > 0 ? '...' : '';
+      const suffix = contextStart + contextLength < content.length ? '...' : '';
+      
+      return prefix + context + suffix;
+    }
+
+    /**
+     * 匹配文章并生成搜索结果
+     * @param {string[]} keywords - 搜索关键词数组
+     * @returns {Array} - 匹配的文章列表
+     */
+    function matchArticles(keywords) {
+      const results = [];
+      
+      contents.forEach(article => {
+        const title = article.title;
+        const content = article.content || '';
+        const lowerTitle = title.toLowerCase();
+        const lowerContent = content.toLowerCase();
+        
+        let titleMatched = false;
+        let contentMatched = false;
+        let titlePositions = [];
+        let summaryKeyword = '';
+        
+        // 检查每个关键词
+        keywords.forEach(keyword => {
+          const lowerKeyword = keyword.toLowerCase();
+          
+          // 检查标题
+          if (lowerTitle.includes(lowerKeyword)) {
+            titleMatched = true;
+            const matchIndex = lowerTitle.indexOf(lowerKeyword);
+            titlePositions.push({
+              start: matchIndex,
+              count: keyword.length
+            });
+          }
+          
+          // 检查内容
+          if (lowerContent.includes(lowerKeyword) && !contentMatched) {
+            contentMatched = true;
+            summaryKeyword = keyword; // 记录第一个命中的关键词用于生成摘要
+          }
+        });
+        
+        // 如果命中
+        if (titleMatched || contentMatched) {
+          // 生成摘要
+          const displaySummary = generateSummary(content, summaryKeyword, titleMatched && !contentMatched);
+          
+          results.push({
+            title: title,
+            link: article.link,
+            positions: titlePositions,
+            displaySummary: displaySummary
+          });
+        }
+      });
+      
+      return results;
+    }
+
+    /**
+     * 渲染搜索结果到页面
+     * @param {number} pageIndex - 页码
+     */
+    function appendResults(pageIndex) {
+      const start = pageIndex || 0;
+      const end = Math.min(start + pageSize, finds.length);
+      let htmlResult = '';
+      
+      // 渲染每条结果
+      for (let i = start; i < end; i++) {
+        const item = finds[i];
+        
+        // 高亮标题中的关键词
+        let highlightedTitle = item.title;
+        let offset = 0;
+        item.positions.forEach(position => {
+          const before = highlightedTitle.substring(0, position.start + offset);
+          const keyword = highlightedTitle.substring(position.start + offset, position.start + offset + position.count);
+          const after = highlightedTitle.substring(position.start + offset + position.count);
+          highlightedTitle = before + '<em>' + keyword + '</em>' + after;
+          offset += 9; // <em></em> 的长度
+        });
+        
+        // 高亮摘要中的关键词
+        const highlightedSummary = highlightKeywords(item.displaySummary, currentSegments);
+        const summaryHtml = highlightedSummary ? `<div class="search-summary">${highlightedSummary}</div>` : '';
+        
+        htmlResult += `<div class="item"><a class="result-title" href="${item.link}">${highlightedTitle}</a>${summaryHtml}</div>`;
+      }
+      
+      result.innerHTML = htmlResult;
+      renderPagination(start);
+    }
+
+    /**
+     * 渲染分页控件
+     * @param {number} currentPage - 当前页码
+     */
+    function renderPagination(currentPage) {
+      const totalPages = Math.ceil(finds.length / pageSize);
+      let paginationHtml = '';
+      
+      // 上一页按钮
+      if (currentPage > 0) {
+        paginationHtml += `<span class="fa fa-angle-left" data-i="${currentPage - 1}"></span>`;
+      }
+      
+      // 页码按钮
+      for (let i = 0; i < totalPages; i++) {
+        const isActive = i === currentPage ? 'current' : '';
+        paginationHtml += `<span class="${isActive}" data-i="${i}">${i + 1}</span>`;
+      }
+      
+      // 下一页按钮
+      if (currentPage + 1 < totalPages) {
+        paginationHtml += `<span class="fa fa-angle-right" data-i="${currentPage + 1}"></span>`;
+      }
+      
+      pageUl.innerHTML = paginationHtml;
+    }
+
+    /**
+     * 执行搜索(带防抖)
+     * @param {number} delay - 防抖延迟时间
+     */
+    function search(delay) {
+      let timer = null;
+      
+      return function() {
+        clearTimeout(timer);
+        
+        timer = setTimeout(() => {
+          // 检查索引是否加载完成
+          if (!searchIndexLoaded) {
+            console.log('搜索索引尚未加载完成,请稍候...');
+            return;
+          }
+          
+          // 获取搜索关键词(保留空格,作为完整短语匹配)
+          const query = searchBox.value.trim();
+          
+          // 如果搜索框为空,清空搜索结果
+          if (query.length === 0) {
+            finds = [];
+            currentSegments = [];
+            result.innerHTML = '';
+            pageUl.innerHTML = '';
+            statCount.textContent = '在本站内容中搜索';
+            return;
+          }
+          
+          const startTime = Date.now();
+          
+          // 执行搜索(使用完整查询词)
+          currentSegments = [query];
+          finds = matchArticles([query]);
+          
+          // 渲染结果
+          appendResults(0);
+          
+          // 更新统计信息
+          statCount.innerHTML = `<span id="stat_count_num">${finds.length}</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">${Date.now() - startTime}</span><span class="language" data-lan="stat-time">毫秒</span>`;
+          // 添加分隔线
+          if (!document.querySelector('.stat-box hr')) {
+            const hr = document.createElement('hr');
+            statCount.parentNode.appendChild(hr);
+          }
+        }, delay);
+      };
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+<script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script src="/media/js/bg/snow.js"></script>
+
+</html>
