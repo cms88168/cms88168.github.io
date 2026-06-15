@@ -1,0 +1,2924 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="keywords" content="Java;博客;编程;C语言;program">
+<meta name="description" content="尺墨素笺，且寄余闲">
+<meta name="theme-color" content="#845ef7">
+<title>KMP算法与Z函数：字符串匹配的两大利器 | 尺墨素笺</title>
+<link rel="shortcut icon" href="/favicon.ico?v=1781537309061">
+<link rel="stylesheet" href="/media/css/pisces.css">
+<link rel="stylesheet" href="/media/fonts/font-awesome.css">
+<link
+  href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|Rosario:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&subset=latin,latin-ext"
+  rel="stylesheet" type="text/css">
+
+<link href="/media/hljs/styles/vs.css"
+  rel="stylesheet">
+
+<link rel="stylesheet" href="/styles/main.css">
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+<!-- Clarity tracking code for https://cmsj.in/ -->
+<script>
+    (function(c,l,a,r,i,t,y){
+        c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+        t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i+"?ref=bwt";
+        y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);
+    })(window, document, "clarity", "script", "ws2tu3tm1e");
+</script>
+<script src="/media/js/jquery.js"></script>
+<script src="/media/hljs/highlight.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/velocity-animate@1.5.0/velocity.ui.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css"
+  integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+
+
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js"
+  integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js"
+  integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"
+  onload="renderMathInElement(document.body);"></script>
+
+
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-143266332-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag() { dataLayer.push(arguments); }
+  gtag('js', new Date());
+
+  gtag('config', 'UA-143266332-1');
+</script>
+
+
+<script>
+  var _hmt = _hmt || [];
+  (function () {
+    var hm = document.createElement("script");
+    hm.src = "https://hm.baidu.com/hm.js?1e63eab65a29a1826f89bf3f3796a2c6";
+    var s = document.getElementsByTagName("script")[0];
+    s.parentNode.insertBefore(hm, s);
+  })();
+</script>
+
+
+
+  <meta name="description" content="KMP算法与Z函数：字符串匹配的两大利器" />
+  <meta name="keywords" content="字符串,算法" />
+</head>
+
+<body>
+  <div class="head-top-line"></div>
+  <div class="header-box">
+    
+<div class="pisces">
+  <header class="header  ">
+    <div class="blog-header box-shadow-wrapper bg-color " id="header">
+      <div class="nav-toggle" id="nav_toggle">
+        <div class="toggle-box">
+          <div class="line line-top"></div>
+          <div class="line line-center"></div>
+          <div class="line line-bottom"></div>
+        </div>
+      </div>
+      <div class="site-meta">       
+        <div class="site-title">
+          
+            <a href="/" class="brand">
+              <span>尺墨素笺</span>
+            </a>  
+          
+        </div>
+        
+          <p class="subtitle">尺墨素笺，且寄余闲</p>
+        
+      </div>
+      <nav class="site-nav" id="site_nav">
+        <ul id="nav_ul">
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/" target="_self">
+                    <i class="fa fa-home"></i> 首页
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/archives/" target="_self">
+                    <i class="fa fa-archive"></i> 归档
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/tags/" target="_self">
+                    <i class="fa fa-tags"></i> 标签
+                  </a>
+                
+              
+            </li>
+          
+            
+            
+              
+            
+            <li class="nav-item ">
+              
+              
+                
+                  <a href="/post/about/" target="_blank">
+                    <i class="fa fa-user"></i> 关于
+                  </a>
+                
+              
+            </li>
+          
+          
+            
+              <li class="nav-item ">
+                <a href="/friends/" target="_blank">
+                  
+                    <i class="fa fa-address-book"></i> 友情链接
+                  
+                </a>
+              </li>
+            
+          
+          
+            <li id="fa_search" class="nav-item">
+              <a href="javascript:void(0);">
+                <i class="fa fa-search"></i> <span class="language" data-lan="search">搜索</span> <span class="search-shortcut" id="search_shortcut">Ctrl K</span>
+              </a>
+            </li>
+          
+        </ul>
+      </nav>
+    </div>
+  </header>
+</div>
+
+<script type="text/javascript"> 
+ 
+  let showNav = true;
+
+  let navToggle = document.querySelector('#nav_toggle'),
+  siteNav = document.querySelector('#site_nav');
+  
+  function navClick() {
+    let sideBar = document.querySelector('.sidebar');
+    let navUl = document.querySelector('#nav_ul');
+    navToggle.classList.toggle('nav-toggle-active');
+    siteNav.classList.toggle('nav-menu-active');
+    if (siteNav.classList.contains('nav-menu-active')) {
+      siteNav.style = "height: " + (navUl.children.length * 42) +"px !important";
+    } else {
+      siteNav.style = "";
+    }
+  }
+
+  navToggle.addEventListener('click',navClick);  
+</script>
+  </div>
+  <div class="main-continer">
+    
+    <div
+      class="section-layout pisces ">
+      <div class="section-layout-wrapper">
+        
+
+<div class="sidebar">
+  
+    <div class="sidebar-box box-shadow-wrapper bg-color right-motion" id="sidebar">
+      
+        <div class="post-list-sidebar">
+          <div class="sidebar-title">
+            <span id="tocSideBar" class="sidebar-title-item sidebar-title-active language" data-lan="index">文章目录</span>
+            <span id="metaSideBar" class="sidebar-title-item language" data-lan="preview">站点概览</span>
+          </div>
+        </div>
+      
+      <div class="sidebar-body pisces" id="sidebar_body">
+        
+          
+            <div class="post-side-meta" id="post_side_meta">
+              
+<div class="sidebar-wrapper box-shadow-wrapper bg-color">
+  <div class="sidebar-item">
+    <img class="site-author-image right-motion" src="/images/avatar.png"/>
+    <p class="site-author-name">Jackie</p>
+    
+    <div class="site-description right-motion">
+      
+        <p id="binft">一介码农\n再细微的改变也值得被记录</p>
+      
+    </div>
+    
+  </div>
+  <div class="sidebar-item side-item-stat right-motion">
+    <div class="sidebar-item-box">
+      <a href="/archives/">
+        
+        <span class="site-item-stat-count">220</span>
+        <span class="site-item-stat-name language" data-lan="article">文章</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">59</span>
+        <span class="site-item-stat-name language" data-lan="category">分类</span>
+      </a>
+    </div>
+    <div class="sidebar-item-box">
+      <a href="/tags/">
+        <span class="site-item-stat-count">59</span>
+        <span class="site-item-stat-name language" data-lan="tag">标签</span>
+      </a>
+    </div>
+  </div>
+  
+    
+      <div class="sidebar-item">
+        <span class="site-item-rss">
+            <i class="fa fa-rss"></i>
+            <a href="https://www.cmsj.in/atom.xml" target="_blank">RSS</a>
+        </span>
+      </div>
+    
+  
+  
+    <div class="sidebar-item sidebar-item-social">
+      <div class="social-item">
+        
+          
+            <a href="https://github.com/cms88168">
+              <i class="fa fa-github-alt" title="Github"></i>
+            </a>
+          
+        
+        
+      </div>
+    </div>
+  
+
+
+
+  <div style="width: 100%; position: relative;">
+    <canvas id="canvasDiyBlock" style="width:100%;">当前浏览器不支持canvas，请更换浏览器后再试</canvas>
+    <script src="/media/js/magic/clock.js"></script>
+  </div>
+
+</div>
+            </div>
+            <div class="post-toc sidebar-body-active" id="post_toc" style="opacity: 1;">
+              <div class="toc-box right-motion">
+  <div class="toc-wrapper auto-number auto"
+    id="toc_wrapper">
+    <ul class="markdownIt-TOC">
+<li>
+<ul>
+<li><a href="#%E9%97%AE%E9%A2%98%E5%AE%9A%E4%B9%89">问题定义</a></li>
+<li><a href="#kmp%E7%AE%97%E6%B3%95">KMP算法</a>
+<ul>
+<li><a href="#%E6%9A%B4%E5%8A%9B%E5%8C%B9%E9%85%8D%E7%9A%84%E9%97%AE%E9%A2%98">暴力匹配的问题</a></li>
+<li><a href="#%E6%A0%B8%E5%BF%83%E6%A6%82%E5%BF%B5%E5%89%8D%E7%BC%80%E5%87%BD%E6%95%B0next%E6%95%B0%E7%BB%84">核心概念：前缀函数（next数组）</a></li>
+<li><a href="#%E5%89%8D%E7%BC%80%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97">前缀函数的计算</a></li>
+<li><a href="#kmp%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B">KMP匹配过程</a></li>
+<li><a href="#%E5%8C%B9%E9%85%8D%E8%BF%87%E7%A8%8B%E5%9B%BE%E8%A7%A3">匹配过程图解</a></li>
+</ul>
+</li>
+<li><a href="#z%E5%87%BD%E6%95%B0z-algorithm">Z函数（Z-Algorithm）</a>
+<ul>
+<li><a href="#z%E5%87%BD%E6%95%B0%E7%9A%84%E5%AE%9A%E4%B9%89">Z函数的定义</a></li>
+<li><a href="#z%E5%87%BD%E6%95%B0%E7%9A%84%E8%AE%A1%E7%AE%97">Z函数的计算</a></li>
+<li><a href="#%E7%94%A8z%E5%87%BD%E6%95%B0%E5%81%9A%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8C%B9%E9%85%8D">用Z函数做字符串匹配</a></li>
+</ul>
+</li>
+<li><a href="#kmp-vs-z%E5%87%BD%E6%95%B0%E5%AF%B9%E6%AF%94">KMP vs Z函数：对比</a></li>
+<li><a href="#%E5%AE%9E%E6%88%98%E7%BB%8F%E5%85%B8%E4%BE%8B%E9%A2%98">实战：经典例题</a>
+<ul>
+<li><a href="#%E4%BE%8B%E9%A2%981%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%91%A8%E6%9C%9F">例题1：字符串周期</a></li>
+<li><a href="#%E4%BE%8B%E9%A2%982%E7%BB%9F%E8%AE%A1%E5%AD%90%E4%B8%B2%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0">例题2：统计子串出现次数</a></li>
+<li><a href="#%E4%BE%8B%E9%A2%983%E6%9C%80%E9%95%BF%E5%9B%9E%E6%96%87%E5%89%8D%E7%BC%80">例题3：最长回文前缀</a></li>
+</ul>
+</li>
+<li><a href="#%E6%80%BB%E7%BB%93">总结</a></li>
+</ul>
+</li>
+</ul>
+
+  </div>
+</div>
+
+<script>
+
+  let lastTop = 0, lList = [], hList = [], postBody, lastIndex = -1;
+  let active = 'active-show', activeClass = 'active-current';
+  let tocWrapper = document.querySelector('#toc_wrapper');
+  let tocContent = tocWrapper.children[0];
+  let autoNumber = tocWrapper && tocWrapper.classList.contains('auto-number');
+
+  function addTocNumber(elem, deep) {
+    if (!elem) {
+      return;
+    }
+    let prop = elem.__proto__;
+
+    if (prop === HTMLUListElement.prototype) {
+      for (let i = 0; i < elem.children.length; i++) {
+        addTocNumber(elem.children[i], deep + (i + 1) + '.');
+      }
+    } else if (prop === HTMLLIElement.prototype) {
+      // 保存li元素
+      if (elem.children[0] && elem.children[0].__proto__ === HTMLAnchorElement.prototype) {
+        lList.push(elem);
+      }
+      for (let i = 0; i < elem.children.length; i++) {
+        let cur = elem.children[i];
+        if (cur.__proto__ === HTMLAnchorElement.prototype) {
+          if (autoNumber) {
+            cur.text = deep + ' ' + cur.text;
+          }
+        } else if (cur.__proto__ === HTMLUListElement.prototype) {
+          addTocNumber(cur, deep);
+        }
+      }
+    }
+  }
+
+  function removeParentActiveClass() {
+    let parents = tocContent.querySelectorAll('.' + active)
+    parents.forEach(function (elem) {
+      elem.classList.remove(active);
+    });
+  }
+
+  function addActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.add(activeClass);
+    }
+  }
+
+  function removeActiveClass(index) {
+    if (index >= 0 && index < hList.length) {
+      lList[index].classList.remove(activeClass);
+    }
+  }
+
+  function addActiveLiElemment(elem, parent) {
+    if (!elem || elem === parent) {
+      return;
+    } else {
+      if (elem.__proto__ === HTMLLIElement.prototype) {
+        elem.classList.add(active);
+      }
+      addActiveLiElemment(elem.parentElement, parent);
+    }
+  }
+
+  function showToc() {
+    if (tocWrapper) {
+      postBody = document.querySelector('#post_body');
+      for (let i = 0; i < postBody.children.length; i++) {
+        if (postBody.children[i].__proto__ === HTMLHeadingElement.prototype) {
+          hList.push(postBody.children[i]);
+        }
+      }
+      if (tocWrapper.classList.contains('compress')) {
+        tocContent.classList.add('closed');
+      } else if (tocWrapper.classList.contains('no_compress')) {
+        tocContent.classList.add('expanded');
+      } else {
+        if (hList.length > 10) {
+          active = 'active-hidden'
+          tocContent.classList.add('closed');
+        } else {
+          tocContent.classList.add('expanded');
+        }
+      }
+    }
+  }
+
+  (function () {
+    // 处理不是从#一级标题开始目录
+    if (tocContent.children.length === 1 && tocContent.children[0].__proto__ === HTMLLIElement.prototype) {
+      let con = tocContent.children[0].children[0];
+      tocContent.innerHTML = con.innerHTML;
+    }
+    let markdownItTOC = document.querySelector('.markdownIt-TOC');
+    let innerHeight = window.innerHeight;
+    markdownItTOC.style = `max-height: ${innerHeight - 80 > 0 ? innerHeight - 80 : innerHeight}px`
+    addTocNumber(tocContent, '');
+  })();
+
+  document.addEventListener('scroll', function (e) {
+    if (lList.length <= 0) {
+      return;
+    }
+    let scrollTop = document.scrollingElement.scrollTop + 10;
+    let dir;
+
+    if (lastTop - scrollTop > 0) {
+      dir = 'up';
+    } else {
+      dir = 'down';
+    }
+
+    lastTop = scrollTop;
+    if (scrollTop <= 0) {
+      if (lastIndex >= 0 && lastIndex < hList.length) {
+        lList[lastIndex].classList.remove(activeClass);
+      }
+      return;
+    }
+
+    let current = 0, hasFind = false;
+    for (let i = 0; i < hList.length; i++) {
+      if (hList[i].offsetTop > scrollTop) {
+        current = i;
+        hasFind = true;
+        break;
+      }
+    }
+    if (!hasFind && scrollTop > lList[lList.length - 1].offsetTop) {
+      current = hList.length - 1;
+    } else {
+      current--;
+    }
+    if (dir === 'down') {
+      if (current > lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex)
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    } else {
+      if (current < lastIndex) {
+        addActiveClass(current);
+        removeActiveClass(lastIndex);
+        lastIndex = current;
+        removeParentActiveClass();
+        lList[current] && addActiveLiElemment(lList[current].parentElement, tocContent);
+      }
+    }
+  });
+
+
+  window.addEventListener('load', function () {
+    showToc();
+    document.querySelector('#sidebar').style = 'display: block;';
+    tocWrapper.classList.add('toc-active');
+    setTimeout(function () {
+      if ("createEvent" in document) {
+        let evt = document.createEvent("HTMLEvents");
+        evt.initEvent("scroll", false, true);
+        document.dispatchEvent(evt);
+      }
+      else {
+        document.fireEvent("scroll");
+      }
+    }, 500)
+  })
+
+</script>
+            </div>
+          
+        
+      </div>
+    </div>
+  
+</div>
+<script>
+  const SIDEBAR_TITLE_ACTIVE = 'sidebar-title-active';
+  const SIDEBAR_BODY_ACTIVE = 'sidebar-body-active';
+  const SLIDE_UP_IN = 'slide-up-in';
+
+  let sidebar = document.querySelector('#sidebar'),
+  tocSideBar = document.querySelector('#tocSideBar'),
+  metaSideBar = document.querySelector('#metaSideBar'),
+  postToc = document.querySelector('#post_toc'),
+  postSiteMeta = document.querySelector('#post_side_meta'),
+  sidebarTitle = document.querySelector('.sidebar-title'),
+  sidebarBody = document.querySelector('#sidebar_body');
+
+  tocSideBar && tocSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  metaSideBar && metaSideBar.addEventListener('click', (e) => {
+    toggleSidebar(e);
+  });
+
+  function toggleSidebar(e) {
+    let currentTitle = document.querySelector("."+SIDEBAR_TITLE_ACTIVE);
+    if (currentTitle == e.srcElement) {
+      return ;
+    }
+    let current, showElement, hideElement;
+    if (e.srcElement == metaSideBar) {
+      showElement = postSiteMeta;
+      hideElement = postToc;
+    } else if (e.srcElement == tocSideBar){
+      showElement = postToc;
+      hideElement = postSiteMeta;
+    }
+    currentTitle.classList.remove(SIDEBAR_TITLE_ACTIVE);
+    e.srcElement.classList.add(SIDEBAR_TITLE_ACTIVE);
+
+    jQuery.Velocity(hideElement, 'stop');
+    jQuery.Velocity(hideElement, 'transition.slideUpOut', {
+      display: 'none',
+      duration: 200,
+      complete: function () {
+        jQuery.Velocity(showElement, 'transition.slideDownIn', {
+          duration: 200
+        });
+      }
+    })
+    hideElement.classList.remove(SIDEBAR_BODY_ACTIVE);
+    showElement.classList.add(SIDEBAR_BODY_ACTIVE);
+  }
+
+  postToc && postToc.addEventListener('transitionend', function() {
+    this.classList.remove(SLIDE_UP_IN);
+  });
+
+  if (sidebarBody) {
+    if (sidebarBody.classList.contains('pisces') || sidebarBody.classList.contains('gemini')) {
+      let hasFix = false;
+      let scrollEl = document.querySelector('.main-continer');
+      let limitTop = document.querySelector('#nav_ul').children.length * 42 + 162;
+      window.addEventListener('scroll', function(e) {
+        if (document.scrollingElement.scrollTop >= limitTop) {
+          if (!hasFix) {
+            sidebar.classList.add('sidebar-fixed');
+            hasFix = true;
+          }
+        } else {
+          if (hasFix) {
+            sidebar.classList.remove('sidebar-fixed');
+            hasFix = false;
+          }
+        }
+      });
+    }
+  }
+  
+</script>
+        <div class="section-box box-shadow-wrapper">
+          <div class="section bg-color post post-page">
+            <section class="post-header">
+  <h1 class="post-title">
+    <a class="post-title-link" href="https://www.cmsj.in/post/kmp-suan-fa-yu-z-han-shu-xiang-jie/">
+      KMP算法与Z函数：字符串匹配的两大利器
+    </a>
+  </h1>
+  <div class="post-meta">
+    
+    <span class="meta-item pc-show">
+      <i class="fa fa-calendar-o"></i>
+      <span class="language" data-lan="publish">发布于</span>
+      <span class="publish-time" data-t="2026-06-10 10:30:00">2026-06-10</span>
+      <span class="post-meta-divider pc-show">|</span>
+    </span>
+    
+    <span class="meta-item">
+      <i class="fa fa-folder-o"></i>
+      <span class="pc-show language" data-lan="category-in">分类于</span>
+      
+      
+      <a href="https://www.cmsj.in/tag/zi-fu-chuan/">
+        <span>字符串</span>
+      </a>、
+      
+      
+      
+      <a href="https://www.cmsj.in/tag/Algorithm/">
+        <span>算法</span>
+      </a>
+      
+      
+    </span>
+    <span class="post-meta-divider">|</span>
+    
+    <span class="meta-item">
+      <i class="fa fa-clock-o"></i>
+      <span>16<span class="language" data-lan="minute">分钟</span></span>
+    </span>
+    <span class="meta-item">
+      <span class="post-meta-divider">|</span>
+      <i class="fa fa-file-word-o"></i>
+      <span>3247<span class="pc-show language" data-lan="words">字数</span></span>
+    </span>
+    
+  </div>
+</section>
+            <div class="post-body next-md-body" id="post_body">
+              <p>字符串匹配是算法中最经典的问题之一。KMP算法和Z函数是两种高效的字符串匹配方法，它们的核心思想都是<strong>利用已匹配的信息避免重复比较</strong>，把暴力匹配的O(n*m)优化到O(n+m)。</p>
+<!-- more -->
+<h2 id="问题定义">问题定义</h2>
+<p>给定一个文本串<code>text</code>和一个模式串<code>pattern</code>，找出pattern在text中出现的所有位置。</p>
+<p>例如：<code>text = &quot;ABABCABABC&quot;</code>, <code>pattern = &quot;ABABC&quot;</code>，答案是位置0和5。</p>
+<h2 id="kmp算法">KMP算法</h2>
+<h3 id="暴力匹配的问题">暴力匹配的问题</h3>
+<p>暴力匹配每次失配后，模式串向右移动一位，从头开始比较：</p>
+<pre><code>text:    A B A B C A B A B C
+pattern: A B A B D    ← 在D处失配
+                ↓ 回退到开头，右移一位
+pattern:   A B A B D  ← 重新开始比较
+</code></pre>
+<p>问题是：<strong>我们已经知道前面匹配过的字符是什么</strong>，为什么要重新比较？KMP的核心思想就是利用这些信息，让模式串尽可能少回退。</p>
+<h3 id="核心概念前缀函数next数组">核心概念：前缀函数（next数组）</h3>
+<p>KMP的关键是预处理模式串，计算一个<strong>前缀函数</strong><code>π</code>（也叫next数组）。</p>
+<p><code>π[i]</code>的定义：模式串<code>pattern[0..i]</code>的<strong>最长的相等的真前缀与真后缀的长度</strong>的长度。</p>
+<blockquote>
+<p>&quot;真前缀&quot;指不等于整个串本身的前缀。</p>
+</blockquote>
+<p>以<code>pattern = &quot;ABABC&quot;</code>为例：</p>
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>子串</th>
+<th>最长相等前后缀</th>
+<th>π[i]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>A</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>AB</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ABA</td>
+<td>A</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>ABAB</td>
+<td>AB</td>
+<td>2</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ABABC</td>
+<td>无</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>图解<code>π[3] = 2</code>的含义：</p>
+<pre><code>ABAB
+├┤    前缀 &quot;AB&quot;
+  ├┤  后缀 &quot;AB&quot;
+</code></pre>
+<p>前缀&quot;AB&quot;和后缀&quot;AB&quot;相同，长度为2。</p>
+<h3 id="前缀函数的计算">前缀函数的计算</h3>
+<p>计算过程可以用一个自动机的思路来理解：</p>
+<pre><code class="language-mermaid">graph LR
+    A[&quot;i=0, π=0&quot;] --&gt; B{&quot;i&gt;0 且&lt;br/&gt;pattern[i]≠pattern[j]?&quot;}
+    B --&gt;|是| C[&quot;j = π[j-1]&lt;br/&gt;回退&quot;]
+    C --&gt; B
+    B --&gt;|否| D{&quot;pattern[i]==pattern[j]?&quot;}
+    D --&gt;|是| E[&quot;j++&quot;]
+    D --&gt;|否| F[&quot;j不变&quot;]
+    E --&gt; G[&quot;π[i] = j&quot;]
+    F --&gt; G
+    G --&gt; H[&quot;i++ → 处理下一个&quot;]
+    H --&gt; B
+</code></pre>
+<p>Python实现：</p>
+<pre><code class="language-python">def compute_prefix(pattern: str) -&gt; list[int]:
+    &quot;&quot;&quot;计算模式串的前缀函数 π&quot;&quot;&quot;
+    n = len(pattern)
+    pi = [0] * n
+    j = 0  # 当前已匹配的前缀长度
+    
+    for i in range(1, n):
+        # 如果当前字符不匹配，回退 j
+        while j &gt; 0 and pattern[i] != pattern[j]:
+            j = pi[j - 1]
+        # 如果匹配，前缀长度+1
+        if pattern[i] == pattern[j]:
+            j += 1
+        pi[i] = j
+    
+    return pi
+</code></pre>
+<p>以<code>pattern = &quot;ABABC&quot;</code>为例，手动走一遍：</p>
+<pre><code>i=1: pattern[1]='B' ≠ pattern[0]='A', j=0 → π[1]=0
+i=2: pattern[2]='A' == pattern[0]='A', j=1 → π[2]=1
+i=3: pattern[3]='B' == pattern[1]='B', j=2 → π[3]=2
+i=4: pattern[4]='C' ≠ pattern[2]='A', j=π[1]=0
+     pattern[4]='C' ≠ pattern[0]='A', j=0 → π[4]=0
+
+π = [0, 0, 1, 2, 0]
+</code></pre>
+<h3 id="kmp匹配过程">KMP匹配过程</h3>
+<p>有了前缀函数，匹配时遇到失配就不再回退到开头，而是跳到<code>π[j-1]</code>的位置：</p>
+<pre><code class="language-mermaid">graph TD
+    A[&quot;开始匹配&quot;] --&gt; B{&quot;text[i] == pattern[j]?&quot;}
+    B --&gt;|是| C[&quot;i++, j++&quot;]
+    C --&gt; D{&quot;j == len(pattern)?&quot;}
+    D --&gt;|是| E[&quot;找到一个匹配!&lt;br/&gt;记录位置 i-j&quot;]
+    E --&gt; F[&quot;j = π[j-1]&quot;]
+    F --&gt; B
+    D --&gt;|否| B
+    B --&gt;|否| G{&quot;j &gt; 0?&quot;}
+    G --&gt;|是| H[&quot;j = π[j-1]&lt;br/&gt;利用前缀函数回退&quot;]
+    H --&gt; B
+    G --&gt;|否| I[&quot;i++&lt;br/&gt;模式串未匹配任何字符&quot;]
+    I --&gt; B
+</code></pre>
+<p>Python实现：</p>
+<pre><code class="language-python">def kmp_search(text: str, pattern: str) -&gt; list[int]:
+    &quot;&quot;&quot;KMP字符串匹配，返回所有匹配起始位置&quot;&quot;&quot;
+    if not pattern:
+        return []
+    
+    pi = compute_prefix(pattern)
+    results = []
+    j = 0  # pattern中已匹配的字符数
+    
+    for i in range(len(text)):
+        # 失配时利用前缀函数回退
+        while j &gt; 0 and text[i] != pattern[j]:
+            j = pi[j - 1]
+        # 匹配则前进
+        if text[i] == pattern[j]:
+            j += 1
+        # 完全匹配
+        if j == len(pattern):
+            results.append(i - j + 1)
+            j = pi[j - 1]
+    
+    return results
+</code></pre>
+<h3 id="匹配过程图解">匹配过程图解</h3>
+<p>以<code>text = &quot;ABABCABABC&quot;</code>, <code>pattern = &quot;ABABC&quot;</code>为例：</p>
+<pre><code>第一轮匹配 (i=0~4)：
+text:    [A B A B C] A B A B C
+pattern: [A B A B C]
+         j=5 → 记录匹配位置 0
+         后续 j = π[4] = 0
+
+第二轮匹配 (i=5~9)：
+text:    A B A B C [A B A B C]
+pattern:           [A B A B C]
+         j=5 → 记录匹配位置 5
+
+最终匹配位置：[0, 5]
+</code></pre>
+<p>时间复杂度：O(n + m)，其中n是文本长度，m是模式长度。每个字符最多被比较常数次。</p>
+<h2 id="z函数z-algorithm">Z函数（Z-Algorithm）</h2>
+<h3 id="z函数的定义">Z函数的定义</h3>
+<p>对于字符串<code>s</code>，<code>Z[i]</code>表示<strong>从位置i开始</strong>的子串与<strong>整个字符串s</strong>的<strong>最长公共前缀</strong>的长度。规定<code>Z[0] = 0</code>。</p>
+<p>以<code>s = &quot;ABACABA&quot;</code>为例：</p>
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>后缀</th>
+<th>与s的最长公共前缀</th>
+<th>Z[i]</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>ABACABA</td>
+<td>(整个串，定义Z[0]=0)</td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td>BACABA</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>2</td>
+<td>ACABA</td>
+<td>A</td>
+<td>1</td>
+</tr>
+<tr>
+<td>3</td>
+<td>CABA</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>4</td>
+<td>ABA</td>
+<td>ABA</td>
+<td>3</td>
+</tr>
+<tr>
+<td>5</td>
+<td>BA</td>
+<td>无</td>
+<td>0</td>
+</tr>
+<tr>
+<td>6</td>
+<td>A</td>
+<td>A</td>
+<td>1</td>
+</tr>
+</tbody>
+</table>
+<p>图解<code>Z[4] = 3</code>：</p>
+<pre><code>s:      A B A C A B A
+        │ │ │          ← 前缀 &quot;ABA&quot;
+                │ │ │  ← s[4..6] = &quot;ABA&quot;
+</code></pre>
+<p>从位置4开始的&quot;ABA&quot;与开头的&quot;ABA&quot;完全匹配，长度为3。</p>
+<h3 id="z函数的计算">Z函数的计算</h3>
+<p>Z函数的计算维护一个<strong>Z-Box</strong><code>[L, R]</code>，表示目前已知的最右边的匹配区间：</p>
+<pre><code class="language-mermaid">graph TD
+    A[&quot;初始化 l=0, r=0, Z[0]=0&quot;] --&gt; B[&quot;遍历 i = 1 to n-1&quot;]
+    B --&gt; C{&quot;i ≤ r ?&quot;}
+    C --&gt;|是| D[&quot;z[i] = z[i-l]&quot;]
+    C --&gt;|否| E[&quot;z[i] = 0&quot;]
+    D --&gt; F{&quot;z[i] &lt; r-i+1 ?&quot;}
+    F --&gt;|是| G[&quot;z[i]已确定&lt;br/&gt;无需扩展&quot;]
+    F --&gt;|否| H[&quot;z[i] = max(0, r-i+1)&quot;]
+    E --&gt; I[&quot;从0开始扩展&quot;]
+    H --&gt; J[&quot;继续暴力扩展&quot;]
+    I --&gt; J
+    J --&gt; K[&quot;while: s[z[i]] == s[i+z[i]]&quot;]
+    K --&gt; L[&quot;i+z[i]-1 &gt; r ?&lt;br/&gt;更新 l=i, r=i+z[i]-1&quot;]
+    G --&gt; L
+    L --&gt; M[&quot;i++ → 下一个&quot;]
+    M --&gt; C
+</code></pre>
+<p>核心思想：<strong>如果位置i在Z-Box<code>[l, r]</code>内，那么<code>s[i..r]</code>与<code>s[i-l..r-l]</code>相同</strong>。此时借用<code>z[i-l]</code>：若<code>z[i-l] &lt; r-i+1</code>，说明匹配不会超出Z-Box，<code>z[i]</code>直接确定；否则从位置<code>r</code>之后继续暴力扩展。</p>
+<p>Python实现：</p>
+<pre><code class="language-python">def compute_z(s: str) -&gt; list[int]:
+    &quot;&quot;&quot;计算字符串的Z函数&quot;&quot;&quot;
+    n = len(s)
+    z = [0] * n
+    l, r = 0, 0  # Z-Box的闭区间 [l, r]
+    
+    for i in range(1, n):
+        if i &lt;= r and z[i - l] &lt; r - i + 1:
+            # 借用值严格小于Z-Box剩余长度，z[i]可直接确定
+            z[i] = z[i - l]
+        else:
+            # 超出Z-Box或i不在Box内，从max(0, r-i+1)开始暴力扩展
+            z[i] = max(0, r - i + 1)
+            while i + z[i] &lt; n and s[z[i]] == s[i + z[i]]:
+                z[i] += 1
+        # 更新Z-Box
+        if i + z[i] - 1 &gt; r:
+            l, r = i, i + z[i] - 1
+    
+    return z
+</code></pre>
+<p>以<code>s = &quot;ABACABA&quot;</code>为例，手动走一遍：</p>
+<pre><code>i=1: i&gt;r(0), 从0开始扩展: s[0]='A'≠s[1]='B' → z[1]=0
+i=2: i&gt;r(0), 从0开始扩展: s[0]='A'==s[2]='A', s[1]='B'≠s[3]='C' → z[2]=1
+     更新 l=2, r=2
+i=3: i&gt;r(2), 从0开始扩展: s[0]='A'≠s[3]='C' → z[3]=0
+i=4: i&gt;r(2), 从0开始扩展: s[0..2]=&quot;ABA&quot;==s[4..6]=&quot;ABA&quot; → z[4]=3
+     更新 l=4, r=6
+i=5: i≤r(6), z[5-l]=z[1]=0 &lt; r-i+1=2, z[5]=z[1]=0（直接确定，不进入循环）
+i=6: i≤r(6), z[6-l]=z[2]=1, r-i+1=1, z[6-l]=r-i+1，不满足&lt;条件
+     进入else: z[6]=max(0,1)=1, 扩展: s[1]='B'≠s[7]越界 → z[6]=1
+
+z = [0, 0, 1, 0, 3, 0, 1]
+</code></pre>
+<h3 id="用z函数做字符串匹配">用Z函数做字符串匹配</h3>
+<p>将模式串和文本串用特殊字符<code>#</code>连接：<code>s = pattern + &quot;#&quot; + text</code>，然后计算Z函数。</p>
+<p><strong>如果某个位置的Z值等于pattern的长度，说明找到了一个匹配。</strong></p>
+<pre><code class="language-python">def z_search(text: str, pattern: str) -&gt; list[int]:
+    &quot;&quot;&quot;用Z函数做字符串匹配&quot;&quot;&quot;
+    s = pattern + &quot;#&quot; + text
+    z = compute_z(s)
+    m = len(pattern)
+    results = []
+    
+    for i in range(len(s)):
+        if z[i] == m:
+            results.append(i - m - 1)  # 减去pattern和#的长度
+    
+    return results
+</code></pre>
+<p>图解匹配过程，<code>text = &quot;ABABCABABC&quot;</code>, <code>pattern = &quot;ABABC&quot;</code>：</p>
+<pre><code>s = &quot;ABABC#ABABCABABC&quot;
+     ↑pattern
+           ↑text
+</code></pre>
+<p>计算出的Z数组：</p>
+<table>
+<thead>
+<tr>
+<th>i</th>
+<th>s[i]</th>
+<th>Z[i]</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td>A</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>1</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>2</td>
+<td>A</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>3</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>4</td>
+<td>C</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>5</td>
+<td>#</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>6</td>
+<td>A</td>
+<td><strong>5</strong></td>
+<td>→ 匹配位置 = 6-5-1 = <strong>0</strong></td>
+</tr>
+<tr>
+<td>7</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>8</td>
+<td>A</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>9</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>10</td>
+<td>C</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>11</td>
+<td>A</td>
+<td><strong>5</strong></td>
+<td>→ 匹配位置 = 11-5-1 = <strong>5</strong></td>
+</tr>
+<tr>
+<td>12</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>13</td>
+<td>A</td>
+<td>2</td>
+<td></td>
+</tr>
+<tr>
+<td>14</td>
+<td>B</td>
+<td>0</td>
+<td></td>
+</tr>
+<tr>
+<td>15</td>
+<td>C</td>
+<td>0</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>Z值等于<code>len(pattern)=5</code>的位置（i=6和i=11）就是两个匹配起点。</p>
+<p>时间复杂度同样是O(n + m)。</p>
+<h2 id="kmp-vs-z函数对比">KMP vs Z函数：对比</h2>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>KMP</th>
+<th>Z函数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>预处理</td>
+<td>模式串的next数组</td>
+<td>拼接串的Z数组</td>
+</tr>
+<tr>
+<td>空间复杂度</td>
+<td>O(m)</td>
+<td>O(n+m)</td>
+</tr>
+<tr>
+<td>匹配方式</td>
+<td>直接在text上滑动</td>
+<td>构造拼接串一次计算</td>
+</tr>
+<tr>
+<td>代码简洁度</td>
+<td>需要理解回退逻辑</td>
+<td>思路更直观</td>
+</tr>
+<tr>
+<td>额外能力</td>
+<td>专注字符串匹配</td>
+<td>还能解决周期串、最长回文前缀等</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="language-mermaid">graph LR
+    subgraph &quot;KMP&quot;
+        A1[&quot;预处理pattern&quot;] --&gt; A2[&quot;计算next数组&quot;]
+        A2 --&gt; A3[&quot;在text上滑动匹配&quot;]
+    end
+    subgraph &quot;Z函数&quot;
+        B1[&quot;构造 pattern#text&quot;] --&gt; B2[&quot;计算Z数组&quot;]
+        B2 --&gt; B3[&quot;找Z值等于m的位置&quot;]
+    end
+</code></pre>
+<h2 id="实战经典例题">实战：经典例题</h2>
+<h3 id="例题1字符串周期">例题1：字符串周期</h3>
+<p><strong>问题</strong>：判断字符串是否有周期。如<code>&quot;abcabcabc&quot;</code>的周期为3。</p>
+<p><strong>解法</strong>：计算Z函数，如果<code>i + Z[i] == n</code>且<code>n % i == 0</code>，则<code>i</code>是一个周期。</p>
+<pre><code class="language-python">def find_period(s: str) -&gt; int:
+    &quot;&quot;&quot;找字符串的最小周期&quot;&quot;&quot;
+    z = compute_z(s)
+    n = len(s)
+    for i in range(1, n):
+        if n % i == 0 and z[i] + i == n:
+            return i
+    return n  # 无周期，周期为自身长度
+</code></pre>
+<p><code>&quot;abcabcabc&quot;</code>：Z = [0, 0, 0, 6, 0, 0, 3, 0, 0]，i=3时Z[3]+3=9=n且9%3=0，周期为3。</p>
+<h3 id="例题2统计子串出现次数">例题2：统计子串出现次数</h3>
+<p><strong>问题</strong>：统计pattern在text中出现的次数（即KMP/Z函数的基本应用）。</p>
+<p>上面<code>kmp_search</code>和<code>z_search</code>返回的列表长度就是答案。</p>
+<h3 id="例题3最长回文前缀">例题3：最长回文前缀</h3>
+<p><strong>问题</strong>：找字符串的最长回文前缀。</p>
+<p><strong>解法</strong>：构造<code>s + &quot;#&quot; + reverse(s)</code>，计算Z函数。遍历rev部分中每个起始位置<code>i</code>，若<code>Z[i] == len(combined)-i</code>（即rev的后缀完全匹配s的前缀），则对应的s前缀是回文。</p>
+<pre><code class="language-python">def longest_palindrome_prefix(s: str) -&gt; str:
+    &quot;&quot;&quot;找最长回文前缀&quot;&quot;&quot;
+    rev = s[::-1]
+    combined = s + &quot;#&quot; + rev
+    z = compute_z(combined)
+    n = len(s)
+    
+    best = 1  # 单个字符一定是回文
+    # 遍历 combined 中 rev 的部分（索引 n+1 到 2n）
+    for i in range(n + 1, len(combined)):
+        # Z[i] == len(combined) - i 表示从 i 到 combined 末尾的整个后缀都能匹配 s 的前缀
+        # 设匹配长度 k = Z[i]，则 rev 的后 k 个字符 == s 的前 k 个字符
+        # rev 的后 k 个字符 = s 的前 k 个字符的反转
+        # 所以 s[0..k-1] == reverse(s[0..k-1])，即 s 的前 k 个字符是回文
+        if z[i] == len(combined) - i:
+            best = max(best, z[i])
+    
+    return s[:best]
+</code></pre>
+<p>以<code>s = &quot;aacecaaa&quot;</code>为例：</p>
+<ul>
+<li><code>rev = &quot;aaacecaa&quot;</code>，<code>combined = &quot;aacecaaa#aaacecaa&quot;</code>（长度17）</li>
+<li>计算Z函数后，<code>Z[10] = 7</code>且<code>len(combined) - 10 = 7</code>，满足条件</li>
+<li>返回<code>s[:7] = &quot;aacecaa&quot;</code>，正是最长回文前缀（<code>aacecaa</code>是回文，但完整的<code>aacecaaa</code>不是）</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>KMP和Z函数都是利用<strong>已匹配的信息来跳过冗余比较</strong>，将字符串匹配从O(n*m)优化到O(n+m)。</p>
+<ul>
+<li><strong>KMP</strong>：直接、空间效率好（O(m)），适合纯匹配场景</li>
+<li><strong>Z函数</strong>：思路更直观，功能更广（周期检测、回文前缀等），但需要O(n+m)空间</li>
+</ul>
+<p>建议两个都掌握。KMP的next数组思想在很多字符串问题中都有变体应用，Z函数则在竞赛中更常用，因为它的定义更自然，一道题的思路往往更容易想到Z函数。</p>
+<pre><code class="language-python"># 完整代码汇总，方便复制使用
+def compute_prefix(pattern: str) -&gt; list[int]:
+    n = len(pattern)
+    pi = [0] * n
+    j = 0
+    for i in range(1, n):
+        while j &gt; 0 and pattern[i] != pattern[j]:
+            j = pi[j - 1]
+        if pattern[i] == pattern[j]:
+            j += 1
+        pi[i] = j
+    return pi
+
+def kmp_search(text: str, pattern: str) -&gt; list[int]:
+    if not pattern:
+        return []
+    pi = compute_prefix(pattern)
+    results = []
+    j = 0
+    for i in range(len(text)):
+        while j &gt; 0 and text[i] != pattern[j]:
+            j = pi[j - 1]
+        if text[i] == pattern[j]:
+            j += 1
+        if j == len(pattern):
+            results.append(i - j + 1)
+            j = pi[j - 1]
+    return results
+
+def compute_z(s: str) -&gt; list[int]:
+    n = len(s)
+    z = [0] * n
+    l, r = 0, 0
+    for i in range(1, n):
+        if i &lt;= r and z[i - l] &lt; r - i + 1:
+            z[i] = z[i - l]
+        else:
+            z[i] = max(0, r - i + 1)
+            while i + z[i] &lt; n and s[z[i]] == s[i + z[i]]:
+                z[i] += 1
+        if i + z[i] - 1 &gt; r:
+            l, r = i, i + z[i] - 1
+    return z
+
+def z_search(text: str, pattern: str) -&gt; list[int]:
+    s = pattern + &quot;#&quot; + text
+    z = compute_z(s)
+    m = len(pattern)
+    return [i - m - 1 for i in range(len(s)) if z[i] == m]
+
+def longest_palindrome_prefix(s: str) -&gt; str:
+    rev = s[::-1]
+    combined = s + &quot;#&quot; + rev
+    z = compute_z(combined)
+    best = 1
+    for i in range(len(s) + 1, len(combined)):
+        if z[i] == len(combined) - i:
+            best = max(best, z[i])
+    return s[:best]
+</code></pre>
+
+            </div>
+            
+            
+              <div class="post-footer">
+  <ul class="post-copyright">
+    <li class="post-copyright-author">
+      <strong class="language" data-lan="author">本文作者：</strong>
+      Jackie
+    </li>
+    <li class="post-copyright-link">
+      <strong class="language" data-lan="link">本文链接：</strong>
+      <a href="https://www.cmsj.in/post/kmp-suan-fa-yu-z-han-shu-xiang-jie/" title="KMP算法与Z函数：字符串匹配的两大利器">https://www.cmsj.in/post/kmp-suan-fa-yu-z-han-shu-xiang-jie/</a>
+    </li>
+    <li class="post-copyright-license">
+      <strong class="language" data-lan="copyright">版权声明： </strong>
+      本博客所有文章除特别声明外，均采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" rel="noopener" target="_blank"><i class="fa fa-fw fa-creative-commons"></i> BY-NC-SA</a> 许可协议。转载请注明出处！
+    </li>
+  </ul>
+  <div class="tags">
+    
+      <a href="https://www.cmsj.in/tag/zi-fu-chuan/"># 字符串</a>
+    
+      <a href="https://www.cmsj.in/tag/Algorithm/"># 算法</a>
+    
+  </div>
+  <div class="nav">
+    <div class="nav-prev">
+      
+    </div>
+    <div class="nav-next">
+      
+        <a class="nav-pc-next" title="大跌日的碎碎念：港美股不让买了，但我发现了Vibe-Trading" href="https://www.cmsj.in/post/da-die-ri-de-sui-sui-nian-gang-mei-gu-bu-rang-mai-le-dan-wo-fa-xian-le-vibe-trading/">大跌日的碎碎念：港美股不让买了，但我发现了Vibe-Trading</a>
+        <a class="nav-mobile-next" title="大跌日的碎碎念：港美股不让买了，但我发现了Vibe-Trading" href="https://www.cmsj.in/post/da-die-ri-de-sui-sui-nian-gang-mei-gu-bu-rang-mai-le-dan-wo-fa-xian-le-vibe-trading/">下一篇</a>
+        <i class="fa fa-chevron-right"></i>
+      
+    </div>
+  </div>
+</div>
+            
+            
+  <div id="utterances_thread" style="padding: 10px 0px 0px 0px"></div>
+
+<script src="https://utteranc.es/client.js"
+        repo="cms88168/cms88168.github.io"
+        issue-term="title"
+        
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script>
+
+<style>
+  .utterances {
+    max-width: 100% !important;
+  }
+  
+  .utterances-frame {
+    width: 100% !important;
+  }
+</style>
+
+
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="footer-box">
+  <footer class="footer">
+    <span id="busuanzi_container_site_pv">浏览数 <span id="busuanzi_value_site_pv"></span> 次</span>
+    <span class="post-meta-divider">|</span>
+    <span id="busuanzi_container_site_uv">访客数 <span id="busuanzi_value_site_uv"></span> 人</span>
+    <div class="copyright">
+      Copyright ©<a href="/sitemap.xml" target="_blank">尺墨素笺，且寄余闲</a>
+    </div>
+  </footer>
+  
+  
+  <div class="pisces back-to-top" id="back_to_top">
+    <i class="fa fa-arrow-up"></i>
+    
+    <span class="scrollpercent">
+      <span id="back_to_top_text">0</span>%
+    </span>
+    
+  </div>
+  
+  
+  
+  <div class="bg-img">
+    <img src="/images/home-bg.jpg" />
+  </div>
+  
+  
+  
+  
+<link rel="stylesheet" href="/media/live2d/css/live2d.css" />
+<div class="box-scale">
+  <div id="landlord" style="left: 5px;bottom: px;"
+    data-key="">
+    <canvas id="live2d" width="500" height="560" class="live2d"></canvas>
+    
+
+      <div class="message" style="opacity:0"></div>
+      <div class="live_talk_input_body">
+        <div class="live_talk_input_name_body">
+          <input name="name" type="text" class="live_talk_name white_input" id="AIuserName" autocomplete="off"
+            placeholder="你的名字" />
+        </div>
+        <div class="live_talk_input_text_body">
+          <input name="talk" type="text" class="live_talk_talk white_input" id="AIuserText" autocomplete="off"
+            placeholder="要和我聊什么呀？" />
+          <button type="button" class="live_talk_send_btn" id="talk_send">发送</button>
+        </div>
+      </div>
+      <input name="live_talk" id="live_talk" value="1" type="hidden" />
+      <div class="live_ico_box">
+        <div class="live_ico_item type_info" id="showInfoBtn"></div>
+        <div class="live_ico_item type_talk" id="showTalkBtn"></div>
+        
+        <div class="live_ico_item type_youdu" id="youduButton"></div>
+        <div class="live_ico_item type_quit" id="hideButton"></div>
+        <input name="live_statu_val" id="live_statu_val" value="0" type="hidden" />
+        <audio src="" style="display:none;" id="live2d_bgm" data-bgm="0" preload="none"></audio>
+        <input id="duType" value="douqilai" type="hidden">
+        
+      </div>
+    
+  </div>
+</div>
+<div id="open_live2d">召唤看板娘</div>
+<script>
+  var message_Path = 'https://cdn.jsdelivr.net/gh/hsxyhao/live2d.github.io@master/';
+  let landlord = document.querySelector('#landlord');
+  var apiKey = landlord.dataset.key;
+</script>
+<script type="text/javascript" src="/media/live2d/js/live2d.js"></script>
+<script>
+	var home_Path = document.location.protocol + '//' + window.document.location.hostname + ":" + window.document.location.port + '/';
+	var userAgent = window.navigator.userAgent.toLowerCase();
+	var norunAI = ["android", "iphone", "ipod", "ipad", "windows phone", "mqqbrowser", "msie", "trident/7.0"];
+	var norunFlag = false;
+
+	for (var i = 0; i < norunAI.length; i++) {
+		if (userAgent.indexOf(norunAI[i]) > -1) {
+			norunFlag = true;
+			break;
+		}
+	}
+
+	if (!window.WebGLRenderingContext) {
+		norunFlag = true;
+	}
+
+	if (!norunFlag) {
+		var hitFlag = false;
+		var AIFadeFlag = false;
+		var liveTlakTimer = null;
+		var sleepTimer_ = null;
+		var AITalkFlag = false;
+		var talkNum = 0;
+		(function () {
+			function renderTip(template, context) {
+				var tokenReg = /(\\)?\{([^\{\}\\]+)(\\)?\}/g;
+				return template.replace(tokenReg, function (word, slash1, token, slash2) {
+					if (slash1 || slash2) {
+						return word.replace('\\', '');
+					}
+					var variables = token.replace(/\s/g, '').split('.');
+					var currentObject = context;
+					var i, length, variable;
+					for (i = 0, length = variables.length; i < length; ++i) {
+						variable = variables[i];
+						currentObject = currentObject[variable];
+						if (currentObject === undefined || currentObject === null) return '';
+					}
+					return currentObject;
+				});
+			}
+
+			String.prototype.renderTip = function (context) {
+				return renderTip(this, context);
+			};
+
+			var re = /x/;
+			re.toString = function () {
+				showMessage('哈哈，你打开了控制台，是想要看看我的秘密吗？', 5000);
+				return '';
+			};
+
+			$(document).on('copy', function () {
+				showMessage('你都复制了些什么呀，转载要记得加上出处哦~~', 5000);
+			});
+
+			function initTips() {
+				$.ajax({
+					cache: true,
+					url: message_Path + 'message.json',
+					dataType: "json",
+					success: function (result) {
+						$.each(result.mouseover, function (index, tips) {
+							$(tips.selector).mouseover(function () {
+								var text = tips.text;
+								if (Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1) - 1];
+								text = text.renderTip({ text: $(this).text() });
+								showMessage(text, 3000);
+								talkValTimer();
+								clearInterval(liveTlakTimer);
+								liveTlakTimer = null;
+							});
+							$(tips.selector).mouseout(function () {
+								showHitokoto();
+								if (liveTlakTimer == null) {
+									liveTlakTimer = window.setInterval(function () {
+										showHitokoto();
+									}, 15000);
+								};
+							});
+						});
+						$.each(result.click, function (index, tips) {
+							$(tips.selector).click(function () {
+								if (hitFlag) {
+									return false
+								}
+								hitFlag = true;
+								setTimeout(function () {
+									hitFlag = false;
+								}, 8000);
+								var text = tips.text;
+								if (Array.isArray(tips.text)) text = tips.text[Math.floor(Math.random() * tips.text.length + 1) - 1];
+								text = text.renderTip({ text: $(this).text() });
+								showMessage(text, 3000);
+							});
+							clearInterval(liveTlakTimer);
+							liveTlakTimer = null;
+							if (liveTlakTimer == null) {
+								liveTlakTimer = window.setInterval(function () {
+									showHitokoto();
+								}, 15000);
+							};
+						});
+					}
+				});
+			}
+			initTips();
+
+			var text;
+			if (document.referrer !== '') {
+				var referrer = document.createElement('a');
+				referrer.href = document.referrer;
+				text = '嗨！来自 <span style="color:#0099cc;">' + referrer.hostname + '</span> 的朋友！';
+				var domain = referrer.hostname.split('.')[1];
+				if (domain == 'baidu') {
+					text = '嗨！ 来自 百度搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				} else if (domain == 'so') {
+					text = '嗨！ 来自 360搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				} else if (domain == 'google') {
+					text = '嗨！ 来自 谷歌搜索 的朋友！<br>欢迎访问<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				}
+			} else {
+				if (window.location.href == home_Path) { //主页URL判断，需要斜杠结尾
+					var now = (new Date()).getHours();
+					if (now > 23 || now <= 5) {
+						text = '你是夜猫子呀？这么晚还不睡觉，明天起的来嘛？';
+					} else if (now > 5 && now <= 7) {
+						text = '早上好！一日之计在于晨，美好的一天就要开始了！';
+					} else if (now > 7 && now <= 11) {
+						text = '上午好！工作顺利嘛，不要久坐，多起来走动走动哦！';
+					} else if (now > 11 && now <= 14) {
+						text = '中午了，工作了一个上午，现在是午餐时间！';
+					} else if (now > 14 && now <= 17) {
+						text = '午后很容易犯困呢，今天的运动目标完成了吗？';
+					} else if (now > 17 && now <= 19) {
+						text = '傍晚了！窗外夕阳的景色很美丽呢，最美不过夕阳红~~';
+					} else if (now > 19 && now <= 21) {
+						text = '晚上好，今天过得怎么样？';
+					} else if (now > 21 && now <= 23) {
+						text = '已经这么晚了呀，早点休息吧，晚安~~';
+					} else {
+						text = '嗨~ 快来逗我玩吧！';
+					}
+				} else {
+					text = '欢迎阅读<span style="color:#0099cc;">「 ' + document.title.split(' - ')[0] + ' 」</span>';
+				}
+			}
+			showMessage(text, 12000);
+		})();
+
+		liveTlakTimer = setInterval(function () {
+			showHitokoto();
+		}, 15000);
+
+		function showHitokoto() {
+			if (sessionStorage.getItem("Sleepy") !== "1") {
+				if (!AITalkFlag) {
+					$.getJSON('https://v1.hitokoto.cn/', function (result) {
+						talkValTimer();
+						showMessage(result.hitokoto, 0);
+					});
+				}
+			} else {
+				hideMessage(0);
+				if (sleepTimer_ == null) {
+					sleepTimer_ = setInterval(function () {
+						checkSleep();
+					}, 200);
+				}
+			}
+		}
+
+		function checkSleep() {
+			var sleepStatu = sessionStorage.getItem("Sleepy");
+			if (sleepStatu !== '1') {
+				talkValTimer();
+				showMessage('你回来啦~', 0);
+				clearInterval(sleepTimer_);
+				sleepTimer_ = null;
+			}
+		}
+
+		function showMessage(text, timeout) {
+			if (Array.isArray(text)) text = text[Math.floor(Math.random() * text.length + 1) - 1];
+			$('.message').stop();
+			$('.message').html(text);
+			$('.message').fadeTo(200, 1);
+			//if (timeout === null) timeout = 5000;
+			//hideMessage(timeout);
+		}
+		function talkValTimer() {
+			$('#live_talk').val('1');
+		}
+
+		function hideMessage(timeout) {
+			//$('.message').stop().css('opacity',1);
+			if (timeout === null) timeout = 5000;
+			$('.message').delay(timeout).fadeTo(200, 0);
+		}
+
+		function initLive2d() {
+			$('#hideButton').on('click', function () {
+				if (AIFadeFlag) {
+					return false;
+				} else {
+					AIFadeFlag = true;
+					localStorage.setItem("live2dhidden", "0");
+					$('#landlord').fadeOut(200);
+					$('#open_live2d').delay(200).fadeIn(200);
+					setTimeout(function () {
+						AIFadeFlag = false;
+					}, 300);
+				}
+			});
+			$('#open_live2d').on('click', function () {
+				if (AIFadeFlag) {
+					return false;
+				} else {
+					AIFadeFlag = true;
+					localStorage.setItem("live2dhidden", "1");
+					$('#open_live2d').fadeOut(200);
+					$('#landlord').delay(200).fadeIn(200);
+					setTimeout(function () {
+						AIFadeFlag = false;
+					}, 300);
+				}
+			});
+			$('#youduButton').on('click', function () {
+				if ($('#youduButton').hasClass('doudong')) {
+					var typeIs = $('#youduButton').attr('data-type');
+					$('#youduButton').removeClass('doudong');
+					$('body').removeClass(typeIs);
+					$('#youduButton').attr('data-type', '');
+				} else {
+					var duType = $('#duType').val();
+					var duArr = duType.split(",");
+					var dataType = duArr[Math.floor(Math.random() * duArr.length)];
+
+					$('#youduButton').addClass('doudong');
+					$('#youduButton').attr('data-type', dataType);
+					$('body').addClass(dataType);
+				}
+			});
+			if (apiKey) {
+				$('#showInfoBtn').on('click', function () {
+					var live_statu = $('#live_statu_val').val();
+					if (live_statu == "0") {
+						return
+					} else {
+						$('#live_statu_val').val("0");
+						$('.live_talk_input_body').fadeOut(500);
+						AITalkFlag = false;
+						showHitokoto();
+						$('#showTalkBtn').show();
+						$('#showInfoBtn').hide();
+					}
+				});
+				$('#showTalkBtn').on('click', function () {
+					var live_statu = $('#live_statu_val').val();
+					if (live_statu == "1") {
+						return
+					} else {
+						$('#live_statu_val').val("1");
+						$('.live_talk_input_body').fadeIn(500);
+						AITalkFlag = true;
+						$('#showTalkBtn').hide();
+						$('#showInfoBtn').show();
+
+					}
+				});
+				$('#talk_send').on('click', function () {
+					var info_ = $('#AIuserText').val();
+					var userid_ = $('#AIuserName').val();
+					if (info_ == "") {
+						showMessage('写点什么吧！', 0);
+						return;
+					}
+					if (userid_ == "") {
+						showMessage('聊之前请告诉我你的名字吧！', 0);
+						return;
+					}
+					showMessage('思考中~', 0);
+					let protocol = window.location.protocol.indexOf("s") > 0 ? "https" : "http";
+					$.ajax({
+						type: "get",
+						url: `${protocol}://www.tuling123.com/openapi/api?key=${apiKey}&info=${info_}`,
+						dataType: "json",
+						success: function (res) {
+							talkValTimer();
+							showMessage(res.text, 0);
+							$('#AIuserText').val("");
+							sessionStorage.setItem("live2duser", userid_);
+						},
+						error: function (e) {
+							talkValTimer();
+							showMessage('似乎有什么错误，请和站长联系！', 0);
+						}
+					});
+				});
+			} else {
+				$('#showInfoBtn').hide();
+				$('#showTalkBtn').hide();
+			}
+			//获取音乐信息初始化
+			var bgmListInfo = $('input[name=live2dBGM]');
+			if (bgmListInfo.length == 0) {
+				$('#musicButton').hide();
+			} else {
+				var bgmPlayNow = parseInt($('#live2d_bgm').attr('data-bgm'));
+				var bgmPlayTime = 0;
+				var live2dBGM_Num = sessionStorage.getItem("live2dBGM_Num");
+				var live2dBGM_PlayTime = sessionStorage.getItem("live2dBGM_PlayTime");
+				if (live2dBGM_Num) {
+					if (live2dBGM_Num <= $('input[name=live2dBGM]').length - 1) {
+						bgmPlayNow = parseInt(live2dBGM_Num);
+					}
+				}
+				if (live2dBGM_PlayTime) {
+					bgmPlayTime = parseInt(live2dBGM_PlayTime);
+				}
+				var live2dBGMSrc = bgmListInfo.eq(bgmPlayNow).val();
+				$('#live2d_bgm').attr('data-bgm', bgmPlayNow);
+				$('#live2d_bgm').attr('src', live2dBGMSrc);
+				$('#live2d_bgm')[0].currentTime = bgmPlayTime;
+				$('#live2d_bgm')[0].volume = 0.5;
+				var live2dBGM_IsPlay = sessionStorage.getItem("live2dBGM_IsPlay");
+				var live2dBGM_WindowClose = sessionStorage.getItem("live2dBGM_WindowClose");
+				if (live2dBGM_IsPlay == '0' && live2dBGM_WindowClose == '0') {
+					$('#live2d_bgm')[0].play();
+					$('#musicButton').addClass('play');
+				}
+				sessionStorage.setItem("live2dBGM_WindowClose", '1');
+				$('#musicButton').on('click', function () {
+					if ($('#musicButton').hasClass('play')) {
+						$('#live2d_bgm')[0].pause();
+						$('#musicButton').removeClass('play');
+						sessionStorage.setItem("live2dBGM_IsPlay", '1');
+					} else {
+						$('#live2d_bgm')[0].play();
+						$('#musicButton').addClass('play');
+						sessionStorage.setItem("live2dBGM_IsPlay", '0');
+					}
+				});
+				window.onbeforeunload = function () {
+					sessionStorage.setItem("live2dBGM_WindowClose", '0');
+					if ($('#musicButton').hasClass('play')) {
+						sessionStorage.setItem("live2dBGM_IsPlay", '0');
+					}
+				}
+				document.getElementById('live2d_bgm').addEventListener("timeupdate", function () {
+					var live2dBgmPlayTimeNow = document.getElementById('live2d_bgm').currentTime;
+					sessionStorage.setItem("live2dBGM_PlayTime", live2dBgmPlayTimeNow);
+				});
+				document.getElementById('live2d_bgm').addEventListener("ended", function () {
+					var listNow = parseInt($('#live2d_bgm').attr('data-bgm'));
+					listNow++;
+					if (listNow > $('input[name=live2dBGM]').length - 1) {
+						listNow = 0;
+					}
+					var listNewSrc = $('input[name=live2dBGM]').eq(listNow).val();
+					sessionStorage.setItem("live2dBGM_Num", listNow);
+					$('#live2d_bgm').attr('src', listNewSrc);
+					$('#live2d_bgm')[0].play();
+					$('#live2d_bgm').attr('data-bgm', listNow);
+				});
+				document.getElementById('live2d_bgm').addEventListener("error", function () {
+					$('#live2d_bgm')[0].pause();
+					$('#musicButton').removeClass('play');
+					showMessage('音乐似乎加载不出来了呢！', 0);
+				});
+			}
+			//获取用户名
+			var live2dUser = sessionStorage.getItem("live2duser");
+			if (live2dUser !== null) {
+				$('#AIuserName').val(live2dUser);
+			}
+			//获取位置
+			var landL = sessionStorage.getItem("historywidth");
+			var landB = sessionStorage.getItem("historyheight");
+			if (landL == null || landB == null) {
+				landL = '5px'
+				landB = '0px'
+			}
+			$('#landlord').css('left', landL);
+			$('#landlord').css('bottom', landB);
+			//移动
+			function getEvent() {
+				return window.event || arguments.callee.caller.arguments[0];
+			}
+			var smcc = document.getElementById("landlord");
+			var moveX = 0;
+			var moveY = 0;
+			var moveBottom = 0;
+			var moveLeft = 0;
+			var moveable = false;
+			
+			function startDrag(e) {
+				var ent = e || getEvent();
+				moveable = true;
+				moveX = ent.clientX;
+				moveY = ent.clientY;
+				moveBottom = parseInt(smcc.style.bottom) || 0;
+				moveLeft = parseInt(smcc.style.left) || 0;
+				if (navigator.userAgent.indexOf("Firefox") > 0) {
+					window.getSelection().removeAllRanges();
+				}
+				e.preventDefault();
+			}
+			
+			function doDrag(e) {
+				if (moveable) {
+					var ent = e || getEvent();
+					var x = moveLeft + ent.clientX - moveX;
+					var y = moveBottom + moveY - ent.clientY;
+					smcc.style.left = x + "px";
+					smcc.style.bottom = y + "px";
+					e.preventDefault();
+				}
+			}
+			
+			function stopDrag() {
+				if (moveable) {
+					var historywidth = smcc.style.left;
+					var historyheight = smcc.style.bottom;
+					historywidth = historywidth.replace('px', '');
+					historyheight = historyheight.replace('px', '');
+					sessionStorage.setItem("historywidth", historywidth);
+					sessionStorage.setItem("historyheight", historyheight);
+					moveable = false;
+					moveX = 0;
+					moveY = 0;
+					moveBottom = 0;
+					moveLeft = 0;
+				}
+			}
+			
+			smcc.addEventListener('mousedown', startDrag, true);
+			var live2dCanvas = document.getElementById('live2d');
+			if(live2dCanvas) {
+				live2dCanvas.addEventListener('mousedown', startDrag, true);
+			}
+			document.addEventListener('mousemove', doDrag, true);
+			document.addEventListener('mouseup', stopDrag, true);
+		}
+		$(document).ready(function () {
+			var AIimgSrc = [];
+			let chooseLive2d = 'tororo'
+			if (chooseLive2d === 'histoire') {
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_00.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_01.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_02.png");
+				AIimgSrc.push(message_Path + "model/histoire/histoire.1024/texture_03.png");
+			} else if (chooseLive2d === 'rem') {
+				AIimgSrc.push(message_Path + "model/rem/remu2048/texture_00.png");
+			} else if (chooseLive2d === 'aoba') {
+				AIimgSrc.push(message_Path + "model/aoba/textures/texture_00.png");
+			} else if (chooseLive2d === 'hijiki') {
+				AIimgSrc.push(message_Path + "model/hijiki/moc/hijiki.2048/texture_00.png");
+			} else if (chooseLive2d === 'tororo') {
+				AIimgSrc.push(message_Path + "model/tororo/moc/tororo.2048/texture_00.png");
+			}
+			var images = [];
+			var imgLength = AIimgSrc.length;
+			var loadingNum = 0;
+			for (var i = 0; i < imgLength; i++) {
+				images[i] = new Image();
+				images[i].src = AIimgSrc[i];
+				images[i].onload = function () {
+					loadingNum++;
+					if (loadingNum === imgLength) {
+						var live2dhidden = localStorage.getItem("live2dhidden");
+						if (live2dhidden === "0") {
+							setTimeout(function () {
+								$('#open_live2d').fadeIn(200);
+							}, 1300);
+						} else {
+							setTimeout(function () {
+								$('#landlord').fadeIn(200);
+							}, 1300);
+						}
+						let model = '';
+						if (chooseLive2d === 'histoire') {
+							model = message_Path + "model/histoire/model.json";
+						} else if (chooseLive2d === 'rem') {
+							model = message_Path + "model/rem/model.json";
+						} else if (chooseLive2d === 'aoba') {
+							model = message_Path + "model/aoba/model.json";
+						} else if (chooseLive2d === 'hijiki') {
+							model = message_Path + "model/hijiki/hijiki.model.json";
+						} else if (chooseLive2d === 'tororo') {
+							model = message_Path + "model/tororo/tororo.model.json";
+						}
+						setTimeout(function () {
+							loadlive2d("live2d", model);
+						}, 1000);
+						initLive2d();
+						images = null;
+					}
+				}
+			}
+		});
+	}
+</script>
+  
+  
+</div>
+<script>
+
+  let sideBarOpen = 'sidebar-open';
+  let body = document.body;
+  let back2Top = document.querySelector('#back_to_top'),
+    back2TopText = document.querySelector('#back_to_top_text'),
+    drawerBox = document.querySelector('#drawer_box'),
+    rightSideBar = document.querySelector('.sidebar'),
+    viewport = document.querySelector('body');
+
+  function scrollAnimation(currentY, targetY) {
+
+    let needScrollTop = targetY - currentY
+    let _currentY = currentY
+    setTimeout(() => {
+      const dist = Math.ceil(needScrollTop / 10)
+      _currentY += dist
+      window.scrollTo(_currentY, currentY)
+      if (needScrollTop > 10 || needScrollTop < -10) {
+        scrollAnimation(_currentY, targetY)
+      } else {
+        window.scrollTo(_currentY, targetY)
+      }
+    }, 1)
+  }
+
+  back2Top.addEventListener("click", function (e) {
+    scrollAnimation(document.scrollingElement.scrollTop, 0);
+    e.stopPropagation();
+    return false;
+  });
+
+  window.addEventListener('scroll', function (e) {
+    let percent = document.scrollingElement.scrollTop / (document.scrollingElement.scrollHeight - document.scrollingElement.clientHeight) * 100;
+    if (percent > 1 && !back2Top.classList.contains('back-top-active')) {
+      back2Top.classList.add('back-top-active');
+    }
+    if (percent == 0) {
+      back2Top.classList.remove('back-top-active');
+    }
+    if (back2TopText) {
+      back2TopText.textContent = Math.floor(percent);
+    }
+  });
+
+
+  let hasCacu = false;
+  window.addEventListener('resize', function (e) {
+    calcuHeight();
+  });
+
+  function calcuHeight() {
+    // 动态调整站点概览高度
+    if (!hasCacu && back2Top.classList.contains('pisces') || back2Top.classList.contains('gemini')) {
+      let sideBar = document.querySelector('.sidebar');
+      let navUl = document.querySelector('#site_nav');
+      sideBar.style = 'margin-top:' + (navUl.offsetHeight + navUl.offsetTop + 15) + 'px;';
+      hasCacu = true;
+    }
+  }
+  calcuHeight();
+
+  let open = false, MOTION_TIME = 300, RIGHT_MOVE_DIS = '320px';
+
+  if (drawerBox) {
+    let rightMotions = document.querySelectorAll('.right-motion');
+    let right = drawerBox.classList.contains('right');
+
+    let transitionDir = right ? "transition.slideRightIn" : "transition.slideLeftIn";
+
+    let openProp, closeProp;
+    if (right) {
+      openProp = {
+        paddingRight: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingRight: '0px'
+      };
+    } else {
+      openProp = {
+        paddingLeft: RIGHT_MOVE_DIS
+      };
+      closeProp = {
+        paddingLeft: '0px'
+      };
+    }
+
+    drawerBox.onclick = function () {
+      open = !open;
+      jQuery.Velocity(rightSideBar, 'stop');
+      jQuery.Velocity(viewport, 'stop');
+      jQuery.Velocity(rightMotions, 'stop');
+      if (open) {
+        jQuery.Velocity(rightSideBar, {
+          width: RIGHT_MOVE_DIS
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, transitionDir, {});
+          }
+        })
+        jQuery.Velocity(viewport, openProp, {
+          duration: MOTION_TIME
+        });
+      } else {
+        jQuery.Velocity(rightSideBar, {
+          width: '0px'
+        }, {
+          duration: MOTION_TIME,
+          begin: function () {
+            jQuery.Velocity(rightMotions, {
+              opacity: 0
+            });
+          }
+        })
+        jQuery.Velocity(viewport, closeProp, {
+          duration: MOTION_TIME
+        });
+      }
+      for (let i = 0; i < drawerBox.children.length; i++) {
+        drawerBox.children[i].classList.toggle('muse-line');
+      }
+      drawerBox.classList.toggle(sideBarOpen);
+    }
+  }
+
+  // 链接跳转
+  let newWindow = 'true'
+  if (newWindow === 'true') {
+    let links = document.querySelectorAll('.post-body a')
+    links.forEach(item => {
+      if (!item.classList.contains('btn')) {
+        item.setAttribute("target", "_blank");
+      }
+    })
+  }
+
+  let faSearch = document.querySelector('#fa_search');
+  faSearch && faSearch.addEventListener('click', function () {
+    document.querySelector('#search_mask').style = ''
+    setTimeout(function() { document.querySelector('#search').focus() }, 100)
+  })
+
+  // 代码高亮
+  hljs.initHighlightingOnLoad();
+  
+  // 离开当前页title变化
+  var leaveTitle = "喝完茶记得回来:)";
+  var normal_title = document.title;
+  if (leaveTitle) {
+    document.addEventListener('visibilitychange', function () {
+      if (document.visibilityState == 'hidden') {
+        normal_title = document.title;
+        document.title = leaveTitle;
+      } else {
+        document.title = normal_title;
+      }
+    });
+  }
+
+</script>
+
+<link rel="stylesheet" href="/media/css/jquery.fancybox.css" />
+<script src="/media/js/jquery.fancybox.js"></script>
+
+<script>
+  let images = document.querySelectorAll('.section img');
+  images.forEach(image => {
+    var parent = image.parentElement;
+    var next = image.nextElementSibling;
+    parent.removeChild(image);
+    var aelem = document.createElement('a');
+    aelem.href = image.src;
+    aelem.dataset['fancybox'] = 'images';
+    aelem.dataset['rel'] = 'fancybox-button';
+    aelem.classList.add('fancybox');
+    aelem.appendChild(image);
+    parent.insertBefore(aelem, next);
+  })
+</script>
+
+<script src="//instant.page/5.1.0" type="module" integrity="sha384-by67kQnR+pyfy8yWP4kPO12fHKRLHZPfEsiSXR8u2IKcTdxD805MGUXBzVPnkLHw"></script>
+
+
+    <div class="reward-mask" style="display: none;">
+  <div class="reward-relative">
+    <span class="close" aria-hidden="true">x</span>
+    <div class="reward-body">
+      <h2>感谢您的支持，我会继续努力的!</h2>
+      <div class="reward-img-box">
+        <div style="position: relative; width: 140px; height: 140px;">
+          
+          
+          
+        </div>
+      </div>
+      <p class="reward-word">扫码打赏，你说多少就多少</p>
+      <p class="reward-tip">打开微信扫一扫，即可进行扫码打赏哦</p>
+    </div>
+    <div class="bottom">
+      
+      
+    </div>
+  </div>
+</div>
+<style>
+  .reward-mask {
+    position: fixed;
+    z-index: 99999;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: #00000054;
+  }
+
+  .reward-relative {
+    position: relative;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 5px;
+    background-color: #fff;
+    top: 50%;
+    margin-top: -205px;
+  }
+
+  .reward-relative .close {
+    position: absolute;
+    right: 10px;
+    font-weight: normal;
+    font-size: 16px;
+    color: #929292;
+  }
+
+  .reward-body {
+    padding: 40px 20px 20px;
+  }
+
+  .bottom {
+    display: flex;
+  }
+
+  .reward-btn {
+    text-align: center;
+  }
+
+  .reward-btn-text {
+    display: inline-block;
+    cursor: pointer;
+    width: 60px;
+    height: 60px;
+    line-height: 60px;
+    border-radius: 50%;
+    background-color: #ff9734;
+    color: #FFF;
+    margin-top: 20px;
+  }
+
+  .pay-text {
+    margin-top: 10px;
+    padding: 10px;
+    flex: 1;
+    transition: all .2s linear;
+  }
+
+  .pay-text:hover {
+    background-color: #a5a5a536;
+  }
+
+  .reward-body h2 {
+    padding-top: 10px;
+    text-align: center;
+    color: #a3a3a3;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0 0 20px;
+  }
+
+  .reward-body h2:after,
+  .reward-body h2:before {
+    font-family: Arial, Helvetica, sans-serif;
+    background: 0 0;
+    width: 0;
+    height: 0;
+    font-style: normal;
+    color: #eee;
+    font-size: 80px;
+    position: absolute;
+    top: 20px;
+  }
+
+  .reward-body h2:before {
+    content: '\201c';
+    left: 50px;
+  }
+
+  .reward-body h2:after {
+    content: '\201d';
+    right: 80px;
+  }
+
+  .reward-img-box {
+    display: inline-block;
+    padding: 10px;
+    border: 6px solid #ea5f00;
+    margin: 0 auto;
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .reward-img {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .reward-relative {
+      height: 100%;
+      top: 0px;
+      margin-top: 0;
+      width: auto;
+    }
+
+    .reward-relative .bottom {
+      flex-direction: column;
+    }
+
+    .reward-relative .pay-text {
+      width: 80%;
+      margin: 5px auto;
+      border: 1px solid silver;
+      padding: 6px;
+      border-radius: 4px;
+    }
+
+    .reward-body h2:after {
+      right: 40px;
+    }
+
+    .reward-body h2:after,
+    .reward-body h2:before {
+      font-size: 60px;
+    }
+
+    .reward-body h2:before {
+      left: 20px;
+    }
+  }
+</style>
+<script>
+  !function () {
+    var mask = document.querySelector('.reward-mask');
+    let close = document.querySelector('.reward-relative .close');
+    let rewardBtn = document.querySelector('.reward-btn');
+
+    let zfb = document.querySelector('#zfb'),
+      wx = document.querySelector('#wx'),
+      zfbBtn = document.querySelector('#zfbBtn'),
+      wxBtn = document.querySelector('#wxBtn');
+
+    if (zfbBtn && wxBtn) {
+      zfbBtn.addEventListener('click', () => {
+        jQuery.Velocity(zfb, 'transition.slideLeftIn', {
+          duration: 400
+        });
+        jQuery.Velocity(wx, 'transition.slideRightOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+
+      wxBtn.addEventListener('click', () => {
+        jQuery.Velocity(wx, 'transition.slideRightIn', {
+          duration: 400
+        });
+        jQuery.Velocity(zfb, 'transition.slideLeftOut', {
+          display: 'none',
+          duration: 400
+        });
+      });
+    }
+
+    rewardBtn.addEventListener('click', (e) => {
+      jQuery.Velocity(mask, 'transition.slideDownIn', {
+        duration: 400
+      })
+    });
+
+    close.addEventListener('click', (e) => {
+      e.preventDefault();
+      jQuery.Velocity(mask, 'transition.slideUpOut', {
+        duration: 400
+      })
+    })
+  }()
+</script>
+
+  </div>
+</body>
+
+<div class="search-mask" id="search_mask" style="display: none;">
+  <div class="search-box">
+    <div class="search-title">
+      <i class="fa fa-search"></i>
+      <div class="input-box">
+        <input id="search" type="text" class="language" data-lan="search" placeholder="摘要搜索">
+      </div>
+      <i id="close" class="fa fa-times-circle"></i>
+    </div>
+    <div class="stat-box">
+      <span id="stat_count">在本站内容中搜索</span>
+    </div>
+    <div class="result" id="result">
+      <!-- 搜索结果将动态插入这里 -->
+    </div>
+    <div class="page">
+      <div id="page_ul"></div>
+    </div>
+  </div>
+</div>
+<script>
+  !function () {
+    let searchMask = document.querySelector('#search_mask');
+    let result = document.querySelector('#result');
+    let items = document.querySelectorAll('.item');
+    let searchBox = document.querySelector('#search');
+    let statCount = document.querySelector('#stat_count');
+    let statTimes = document.querySelector('#stat_times');
+    let pageUl = document.querySelector('#page_ul');
+    let close = document.querySelector('#close');
+    
+    close.addEventListener('click', function() {
+      searchMask.style = 'display: none;'
+    })
+
+    
+  // 根据操作系统显示对应的搜索快捷键提示
+  let searchShortcut = document.querySelector('#search_shortcut');
+  if (searchShortcut) {
+    let isMac = /Mac|iPod|iPhone|iPad/.test(navigator.platform);
+    searchShortcut.textContent = isMac ? '⌘ K' : 'Ctrl K';
+  }
+
+  // Ctrl+K / Command+K 打开搜索
+  document.addEventListener('keydown', function (e) {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+      e.preventDefault();
+      document.querySelector('#search_mask').style = '';
+      setTimeout(function() { document.querySelector('#search').focus() }, 100);
+    }
+  });
+
+    // ESC 关闭搜索
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && searchMask.style.display !== 'none') {
+        searchMask.style = 'display: none;';
+      }
+    });
+
+    let finds = [];
+    let contents = [];
+    let pageSize = 10;
+    let searchIndexLoaded = false;
+    let currentSegments = []; // 保存当前的搜索关键词
+        
+    // 从JSON文件加载搜索索引(带缓存,通过版本号文件检查更新)
+    function loadSearchIndex() {
+      const CACHE_VERSION_KEY = 'search_index_version';
+      const CACHE_DATA_KEY = 'search_index_data';
+      const cachedVersion = localStorage.getItem(CACHE_VERSION_KEY);
+          
+      // 先检查版本号文件(很小,加载快)
+      fetch('/search-version.json')
+        .then(response => response.json())
+        .then(versionInfo => {
+          const currentVersion = versionInfo.version; // 文章数量作为版本号
+              
+          // 检查缓存版本是否匹配
+          if (cachedVersion && parseInt(cachedVersion) === currentVersion) {
+            const cachedData = localStorage.getItem(CACHE_DATA_KEY);
+            if (cachedData) {
+              try {
+                contents = JSON.parse(cachedData);
+                searchIndexLoaded = true;
+                console.log('使用缓存的搜索索引(v' + currentVersion + '),共 ' + contents.length + ' 篇文章');
+                return;
+              } catch (e) {
+                console.error('缓存数据解析失败,重新加载:', e);
+              }
+            }
+          }
+              
+          // 版本不匹配或缓存不存在,下载完整搜索索引
+          console.log('正在加载搜索索引...');
+          return fetch('/search.json')
+            .then(res => res.json())
+            .then(data => {
+              contents = data;
+              searchIndexLoaded = true;
+                  
+              // 更新缓存
+              try {
+                localStorage.setItem(CACHE_DATA_KEY, JSON.stringify(data));
+                localStorage.setItem(CACHE_VERSION_KEY, currentVersion.toString());
+                if (cachedVersion && parseInt(cachedVersion) !== currentVersion) {
+                  console.log('检测到文章数变化(' + cachedVersion + ' -> ' + currentVersion + '),已更新缓存');
+                } else {
+                  console.log('搜索索引加载并缓存成功(v' + currentVersion + '),共 ' + data.length + ' 篇文章');
+                }
+              } catch (e) {
+                console.warn('搜索索引缓存失败(可能超出存储限制):', e);
+              }
+            });
+        })
+        .catch(err => {
+          console.error('版本检查失败:', err);
+          // 版本检查失败,尝试使用缓存
+          const cachedData = localStorage.getItem(CACHE_DATA_KEY);
+          if (cachedData) {
+            try {
+              contents = JSON.parse(cachedData);
+              searchIndexLoaded = true;
+              console.log('版本检查失败,使用缓存数据');
+            } catch (e) {
+              console.error('缓存数据解析失败:', e);
+            }
+          }
+        });
+    }
+        
+    loadSearchIndex();
+    
+    // 提供清除缓存的方法(在控制台输入 clearSearchCache())
+    window.clearSearchCache = function() {
+      localStorage.removeItem('search_index_version');
+      localStorage.removeItem('search_index_data');
+      console.log('搜索索引缓存已清除,刷新页面后重新加载');
+    };
+
+    function insertStr(soure, start, count) {
+      let newStr = soure.substr(start, count);
+      return soure.slice(0, start) + '<em>' + newStr + '</em>' + soure.slice(start + count);
+    }
+
+    pageUl.addEventListener('click', function(event) {
+      let target = event.target;
+      if (target.tagName === 'SPAN' && target.dataset.i) {
+        appendResults(parseInt(target.dataset.i, 10));
+      }
+    })
+
+    /**
+     * 高亮字符串中的关键词
+     * @param {string} text - 原始文本
+     * @param {string[]} keywords - 关键词数组
+     * @returns {string} - 高亮后的HTML
+     */
+    function highlightKeywords(text, keywords) {
+      if (!text || !keywords || keywords.length === 0) return text;
+      
+      let result = text;
+      keywords.forEach(keyword => {
+        if (keyword) {
+          // 转义正则特殊字符
+          const escapedKeyword = keyword.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+          const regex = new RegExp(escapedKeyword, 'gi');
+          result = result.replace(regex, match => '<em>' + match + '</em>');
+        }
+      });
+      return result;
+    }
+
+    /**
+     * 生成文章摘要
+     * @param {string} content - 文章完整内容
+     * @param {string} keyword - 搜索关键词
+     * @param {boolean} onlyTitleMatch - 是否只在标题中命中
+     * @returns {string} - 摘要文本
+     */
+    function generateSummary(content, keyword, onlyTitleMatch) {
+      if (!content) return '';
+      
+      // 只在标题命中,返回前200字
+      if (onlyTitleMatch) {
+        const preview = content.substring(0, 200);
+        return content.length > 200 ? preview + '...' : preview;
+      }
+      
+      // 内容中命中,返回匹配位置的上下文
+      const lowerContent = content.toLowerCase();
+      const lowerKeyword = keyword.toLowerCase();
+      const matchIndex = lowerContent.indexOf(lowerKeyword);
+      
+      if (matchIndex === -1) return '';
+      
+      const contextStart = Math.max(0, matchIndex - 50);
+      const contextLength = 200;
+      const context = content.substring(contextStart, contextStart + contextLength);
+      
+      const prefix = contextStart > 0 ? '...' : '';
+      const suffix = contextStart + contextLength < content.length ? '...' : '';
+      
+      return prefix + context + suffix;
+    }
+
+    /**
+     * 匹配文章并生成搜索结果
+     * @param {string[]} keywords - 搜索关键词数组
+     * @returns {Array} - 匹配的文章列表
+     */
+    function matchArticles(keywords) {
+      const results = [];
+      
+      contents.forEach(article => {
+        const title = article.title;
+        const content = article.content || '';
+        const lowerTitle = title.toLowerCase();
+        const lowerContent = content.toLowerCase();
+        
+        let titleMatched = false;
+        let contentMatched = false;
+        let titlePositions = [];
+        let summaryKeyword = '';
+        
+        // 检查每个关键词
+        keywords.forEach(keyword => {
+          const lowerKeyword = keyword.toLowerCase();
+          
+          // 检查标题
+          if (lowerTitle.includes(lowerKeyword)) {
+            titleMatched = true;
+            const matchIndex = lowerTitle.indexOf(lowerKeyword);
+            titlePositions.push({
+              start: matchIndex,
+              count: keyword.length
+            });
+          }
+          
+          // 检查内容
+          if (lowerContent.includes(lowerKeyword) && !contentMatched) {
+            contentMatched = true;
+            summaryKeyword = keyword; // 记录第一个命中的关键词用于生成摘要
+          }
+        });
+        
+        // 如果命中
+        if (titleMatched || contentMatched) {
+          // 生成摘要
+          const displaySummary = generateSummary(content, summaryKeyword, titleMatched && !contentMatched);
+          
+          results.push({
+            title: title,
+            link: article.link,
+            positions: titlePositions,
+            displaySummary: displaySummary
+          });
+        }
+      });
+      
+      return results;
+    }
+
+    /**
+     * 渲染搜索结果到页面
+     * @param {number} pageIndex - 页码
+     */
+    function appendResults(pageIndex) {
+      const currentPage = pageIndex || 0;
+      const start = currentPage * pageSize;
+      const end = Math.min(start + pageSize, finds.length);
+      let htmlResult = '';
+      
+      // 渲染每条结果
+      for (let i = start; i < end; i++) {
+        const item = finds[i];
+        
+        // 高亮标题中的关键词
+        let highlightedTitle = item.title;
+        let offset = 0;
+        item.positions.forEach(position => {
+          const before = highlightedTitle.substring(0, position.start + offset);
+          const keyword = highlightedTitle.substring(position.start + offset, position.start + offset + position.count);
+          const after = highlightedTitle.substring(position.start + offset + position.count);
+          highlightedTitle = before + '<em>' + keyword + '</em>' + after;
+          offset += 9; // <em></em> 的长度
+        });
+        
+        // 高亮摘要中的关键词
+        const highlightedSummary = highlightKeywords(item.displaySummary, currentSegments);
+        const summaryHtml = highlightedSummary ? `<div class="search-summary">${highlightedSummary}</div>` : '';
+        
+        htmlResult += `<div class="item"><a class="result-title" href="${item.link}">${highlightedTitle}</a>${summaryHtml}</div>`;
+      }
+      
+      result.innerHTML = htmlResult;
+      renderPagination(currentPage);
+    }
+
+    /**
+     * 渲染分页控件
+     * @param {number} currentPage - 当前页码
+     */
+    function renderPagination(currentPage) {
+      const totalPages = Math.ceil(finds.length / pageSize);
+      let paginationHtml = '';
+      
+      // 上一页按钮
+      if (currentPage > 0) {
+        paginationHtml += `<span class="fa fa-angle-left" data-i="${currentPage - 1}"></span>`;
+      }
+      
+      const siblingCount = 1; // 当前页两侧各显示的页数
+      const boundaryCount = 1; // 首尾边界各显示的页数
+      
+      // 首页边界
+      const startPages = [];
+      for (let i = 0; i < Math.min(boundaryCount, totalPages); i++) {
+        startPages.push(i);
+      }
+      
+      // 末页边界
+      const endPages = [];
+      for (let i = Math.max(totalPages - boundaryCount, boundaryCount); i < totalPages; i++) {
+        endPages.push(i);
+      }
+      
+      // 当前页相邻页码范围
+      const siblingsStart = Math.max(currentPage - siblingCount, boundaryCount);
+      const siblingsEnd = Math.min(currentPage + siblingCount, totalPages - boundaryCount - 1);
+      
+      const showStartEllipsis = siblingsStart > boundaryCount;
+      const showEndEllipsis = siblingsEnd < totalPages - boundaryCount - 1;
+      
+      // 渲染首页边界
+      startPages.forEach(pageIndex => {
+        const isActive = pageIndex === currentPage ? 'current' : '';
+        paginationHtml += `<span class="${isActive}" data-i="${pageIndex}">${pageIndex + 1}</span>`;
+      });
+      
+      // 渲染前省略号
+      if (showStartEllipsis) {
+        paginationHtml += `<span class="ellipsis">...</span>`;
+      }
+      
+      // 渲染当前页及相邻页
+      for (let pageIndex = siblingsStart; pageIndex <= siblingsEnd; pageIndex++) {
+        const isActive = pageIndex === currentPage ? 'current' : '';
+        paginationHtml += `<span class="${isActive}" data-i="${pageIndex}">${pageIndex + 1}</span>`;
+      }
+      
+      // 渲染后省略号
+      if (showEndEllipsis) {
+        paginationHtml += `<span class="ellipsis">...</span>`;
+      }
+      
+      // 渲染末页边界
+      endPages.forEach(pageIndex => {
+        const isActive = pageIndex === currentPage ? 'current' : '';
+        paginationHtml += `<span class="${isActive}" data-i="${pageIndex}">${pageIndex + 1}</span>`;
+      });
+      
+      // 下一页按钮
+      if (currentPage + 1 < totalPages) {
+        paginationHtml += `<span class="fa fa-angle-right" data-i="${currentPage + 1}"></span>`;
+      }
+      
+      pageUl.innerHTML = paginationHtml;
+    }
+
+    /**
+     * 执行搜索(带防抖)
+     * @param {number} delay - 防抖延迟时间
+     */
+    function search(delay) {
+      let timer = null;
+      
+      return function() {
+        clearTimeout(timer);
+        
+        timer = setTimeout(() => {
+          // 检查索引是否加载完成
+          if (!searchIndexLoaded) {
+            console.log('搜索索引尚未加载完成,请稍候...');
+            return;
+          }
+          
+          // 获取搜索关键词(保留空格,作为完整短语匹配)
+          const query = searchBox.value.trim();
+          
+          // 如果搜索框为空,清空搜索结果
+          if (query.length === 0) {
+            finds = [];
+            currentSegments = [];
+            result.innerHTML = '';
+            pageUl.innerHTML = '';
+            statCount.textContent = '在本站内容中搜索';
+            return;
+          }
+          
+          const startTime = Date.now();
+          
+          // 执行搜索(使用完整查询词)
+          currentSegments = [query];
+          finds = matchArticles([query]);
+          
+          // 渲染结果
+          appendResults(0);
+          
+          // 更新统计信息
+          statCount.innerHTML = `<span id="stat_count_num">${finds.length}</span><span class="language" data-lan="stat">条相关条目，使用了</span><span id="stat_times">${Date.now() - startTime}</span><span class="language" data-lan="stat-time">毫秒</span>`;
+          // 添加分隔线
+          if (!document.querySelector('.stat-box hr')) {
+            const hr = document.createElement('hr');
+            statCount.parentNode.appendChild(hr);
+          }
+        }, delay);
+      };
+    }
+    searchBox.addEventListener('input', search(200));
+  }()
+</script>
+
+<input hidden id="copy" />
+<script>
+  !function () {
+    let times = document.querySelectorAll('.publish-time');
+    for (let i = 0; i < times.length; i++) {
+      let date = times[i].dataset.t;
+      let time = Math.floor((new Date().getTime() - new Date(date).getTime()) / 1000);
+      if (time < 60) {
+        str = time + '秒之前';
+      } else if (time < 3600) {
+        str = Math.floor(time / 60) + '分钟之前';
+      } else if (time >= 3600 && time < 86400) {
+        str = Math.floor(time / 3600) + '小时之前';
+      } else if (time >= 86400 && time < 259200) {
+        str = Math.floor(time / 86400) + '天之前';
+      } else {
+        str = times[i].textContent;
+      }
+      times[i].textContent = str;
+    }
+  }();
+</script>
+
+<script>
+  let language = '';
+  if (language !== '') {
+    let map = new Map();
+    if (language === 'en') {
+      map.set('search', 'Search');
+      map.set('category', 'Categories');
+      map.set('article', 'Articles');
+      map.set('tag', 'Tags');
+      map.set('top', 'Top');
+      map.set('publish', 'published');
+      map.set('minute', ' minutes');
+      map.set('read-more', 'Read More');
+      map.set('view', 'View');
+      map.set('words', ' words');
+      map.set('category-in', 'category in');
+      map.set('preview', 'Meta');
+      map.set('index', 'Toc');
+      map.set('no-archives', "You haven't created yet");
+      map.set('archives', " articles in total");
+      map.set('cloud-tags', " tags in total");
+      map.set('copyright', "Copyright: ");
+      map.set('author', "Author: ");
+      map.set('link', "Link: ");
+      map.set('leave-message', "Leave a message");
+      map.set('format', "Links Format");
+      map.set('site-name', "Name: ");
+      map.set('site-link', "Link: ");
+      map.set('site-desc', "Desc: ");
+      map.set('stat', " related results, taking ");
+      map.set('stat-time', " ms");
+      map.set('site-img', "Image: ");
+    }
+
+    if (map.size > 0) {
+      let lanElems = document.querySelectorAll('.language');
+      lanElems.forEach(elem => {
+        let lan = elem.dataset.lan, text = map.get(lan);
+        if (elem.__proto__ === HTMLInputElement.prototype) {
+          elem.placeholder = text
+        } else {
+          if (elem.dataset.count) {
+            text = elem.dataset.count + text;
+          }
+          elem.textContent = text;
+        }
+      })
+    }
+  }
+  //拿来主义(真香)^_^，Clipboard 实现摘自掘金 https://juejin.im/post/5aefeb6e6fb9a07aa43c20af
+  window.Clipboard = (function (window, document, navigator) {
+    var textArea,
+      copy;
+
+    // 判断是不是ios端
+    function isOS() {
+      return navigator.userAgent.match(/ipad|iphone/i);
+    }
+    //创建文本元素
+    function createTextArea(text) {
+      textArea = document.createElement('textArea');
+      textArea.value = text;
+      textArea.style.width = 0;
+      textArea.style.height = 0;
+      textArea.clientHeight = 0;
+      textArea.clientWidth = 0;
+      document.body.appendChild(textArea);
+    }
+    //选择内容
+    function selectText() {
+      var range,
+        selection;
+
+      if (isOS()) {
+        range = document.createRange();
+        range.selectNodeContents(textArea);
+        selection = window.getSelection();
+        selection.removeAllRanges();
+        selection.addRange(range);
+        textArea.setSelectionRange(0, 999999);
+      } else {
+        textArea.select();
+      }
+    }
+
+    //复制到剪贴板
+    function copyToClipboard() {
+      try {
+        document.execCommand("Copy")
+      } catch (err) {
+        alert("复制错误！请手动复制！")
+      }
+      document.body.removeChild(textArea);
+    }
+
+    copy = function (text) {
+      createTextArea(text);
+      selectText();
+      copyToClipboard();
+    };
+
+    return {
+      copy: copy
+    };
+  })(window, document, navigator);
+
+  function copyCode(e) {
+    if (e.srcElement.tagName === 'SPAN' && e.srcElement.classList.contains('copy-code')) {
+      let code = e.currentTarget.querySelector('code');
+      var text = code.innerText;
+      if (e.srcElement.textContent === '复制成功') {
+        return;
+      }
+      e.srcElement.textContent = '复制成功';
+      (function (elem) {
+        setTimeout(() => {
+          if (elem.textContent === '复制成功') {
+            elem.textContent = '复制代码'
+          }
+        }, 1000);
+      })(e.srcElement)
+      Clipboard.copy(text);
+    }
+  }
+
+  let pres = document.querySelectorAll('pre');
+  pres.forEach(pre => {
+    let code = pre.querySelector('code');
+    let copyElem = document.createElement('span');
+    copyElem.classList.add('copy-code');
+    copyElem.textContent = '复制代码';
+    pre.appendChild(copyElem);
+    pre.onclick = copyCode
+  })
+
+</script>
+<script src="/media/js/motion.js"></script>
+
+
+<script src="https://cdn.jsdelivr.net/gh/cferdinandi/smooth-scroll/dist/smooth-scroll.polyfills.min.js"></script>
+<script>
+  var scroll = new SmoothScroll('a[href*="#"]', {
+    speed: 200
+  });
+</script>
+
+
+<script src="/media/js/mouse/peace.js"></script>
+
+
+<script src="/media/js/cool.js"></script>
+
+
+
+  <div class="snow-container"></div>
+  <script src="/media/js/bg/snow.js"></script>
+
+
+
+<!-- Mermaid 流程图渲染 -->
+<style>
+  .mermaid-diagram svg {
+    max-width: 100%;
+    height: auto;
+  }
+  .mermaid-diagram .node rect,
+  .mermaid-diagram .node circle,
+  .mermaid-diagram .node polygon {
+    cursor: default;
+  }
+</style>
+<script type="module">
+  const mermaidCodes = document.querySelectorAll('code.language-mermaid');
+  if (mermaidCodes.length > 0) {
+    const { default: mermaid } = await import('https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs');
+    mermaid.initialize({
+      startOnLoad: false,
+      theme: 'default',
+      securityLevel: 'loose',
+      flowchart: {
+        htmlLabels: true,
+        curve: 'basis',
+        diagramPadding: 8
+      },
+      sequence: {
+        mirrorActors: false,
+        showSequenceNumbers: true
+      }
+    });
+    const align = 'center';
+    for (let i = 0; i < mermaidCodes.length; i++) {
+      const codeEl = mermaidCodes[i];
+      const pre = codeEl.parentElement;
+      const graphDef = codeEl.textContent.trim();
+      const wrapper = document.createElement('div');
+      wrapper.className = 'mermaid-diagram';
+      wrapper.style.cssText = `text-align:${align};margin:16px 0;overflow-x:auto;`;
+      pre.replaceWith(wrapper);
+      try {
+        const { svg } = await mermaid.render('mermaid-' + i, graphDef);
+        wrapper.innerHTML = svg;
+      } catch (e) {
+        wrapper.innerHTML = '<pre style="color:red;">Mermaid render error: ' + e.message + '</pre>';
+      }
+    }
+  }
+</script>
+
+
+</html>
